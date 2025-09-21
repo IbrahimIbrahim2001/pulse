@@ -63,6 +63,7 @@ export function SignupForm({
         } catch (error) {
             console.log(error)
         }
+        form.reset()
     }
 
     return (

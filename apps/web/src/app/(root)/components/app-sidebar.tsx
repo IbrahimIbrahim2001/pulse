@@ -14,6 +14,7 @@ import { Archive, Settings, Star, User2 } from "lucide-react"
 import Link from "next/link"
 import CheckIsNotMobile from "./check-is-not-mobile"
 import SidebarHeaderItems from "./sidebar-header-items"
+import ProfileBadge from "./profile-badge"
 
 const FooterItems = [
     {
@@ -31,14 +32,9 @@ const FooterItems = [
         url: "/setting",
         icon: Settings,
     },
-    {
-        title: "User-Name",
-        url: "/profile",
-        icon: User2,
-    }
 ]
 
-export function AppSidebar() {
+export default async function AppSidebar() {
     return (
         <CheckIsNotMobile>
             <Sidebar collapsible="icon" variant="sidebar">
@@ -67,6 +63,7 @@ export function AppSidebar() {
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                         ))}
+                        <ProfileBadge />
                     </SidebarMenu>
                 </SidebarFooter>
             </Sidebar>

@@ -6,8 +6,46 @@ import { auth } from "./lib/auth";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import { engine, io, websocket } from "./lib/socket";
 
 const app = new Hono();
+
+io.on("connection", (socket) => {
+	console.log("User connected:", socket.id);
+
+	// Listen for messages from client
+	socket.on("send", (messageData) => {
+		console.log("Message received:", messageData);
+
+		// Create a proper message object
+		const message = {
+			id: Date.now().toString(),
+			content: messageData.content,
+			senderId: messageData.senderId,
+			roomId: messageData.roomId,
+			createdAt: new Date().toISOString(),
+			updatedAt: new Date().toISOString(),
+			type: "Text"
+		};
+
+		// Send only to the specific room
+		io.to(messageData.roomId).emit("message", message);
+	});
+
+	socket.on("join-room", (roomId) => {
+		socket.join(roomId);
+		console.log(`Socket ${socket.id} joined room ${roomId}`);
+	});
+
+	socket.on("leave-room", (roomId) => {
+		socket.leave(roomId);
+		console.log(`Socket ${socket.id} left room ${roomId}`);
+	});
+
+	socket.on("disconnect", () => {
+		console.log("User disconnected:", socket.id);
+	});
+});
 
 app.use(logger());
 app.use(
@@ -32,8 +70,23 @@ app.use(
 	}),
 );
 
+
+
 app.get("/", (c) => {
 	return c.text("OK");
 });
 
-export default app;
+export default {
+	port: 3000,
+	idleTimeout: 30,
+	fetch(req: Request, server: any) {
+		const url = new URL(req.url);
+		if (url.pathname === "/socket.io/") {
+			return engine.handleRequest(req, server);
+		} else {
+			return app.fetch(req, server);
+		}
+	},
+
+	websocket
+}

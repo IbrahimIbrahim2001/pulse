@@ -1,0 +1,128 @@
+// Chat Rooms/Channels
+model Room {
+  id          String   @id @map("_id")
+  name        String
+
+  type        RoomType @default(DIRECT)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  messages    Message[]
+  members     RoomMember[]
+  // typingUsers TypingIndicator[]
+
+  @@map("rooms")
+}
+
+enum RoomType {
+  DIRECT
+  GROUP
+  CHANNEL
+}
+
+// Room membership
+model RoomMember {
+  id     String @id @map("_id")
+  userId String
+  roomId String
+  role   MemberRole @default(MEMBER)
+  joinedAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roomId])
+  @@map("room_members")
+}
+
+enum MemberRole {
+  ADMIN
+  MODERATOR
+  MEMBER
+}
+
+// Messages
+model Message {
+  id        String      @id @map("_id")
+  content   String
+  type      MessageType @default(TEXT)
+  senderId  String
+  roomId    String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  // Optional fields for different message types
+  fileUrl   String?
+  fileName  String?
+  fileSize  Int?
+  replyToId String?
+
+  // Relations
+  sender  User     @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  room    Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  replyTo Message? @relation("MessageReply", fields: [replyToId], references: [id])
+  replies Message[] @relation("MessageReply")
+
+  @@map("messages")
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+  SYSTEM
+}
+
+// Notifications
+model Notification {
+  id        String           @id @map("_id")
+  userId    String
+  title     String
+  message   String
+  type      NotificationType
+  isRead    Boolean          @default(false)
+  data      Json?            // Additional data as JSON
+  createdAt DateTime         @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+enum NotificationType {
+  MESSAGE
+  MENTION
+  SYSTEM
+  FRIEND_REQUEST
+  ROOM_INVITE
+}
+
+// Typing indicators
+// model TypingIndicator {
+//   id        String    @id @map("_id")
+//   userId    String
+//   roomId    String
+//   createdAt DateTime @default(now())
+
+//   // Relations
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+//   @@unique([userId, roomId])
+//   @@map("typing_indicators")
+// }
+
+// Real-time events log (optional, for debugging/analytics)
+// model RealtimeEvent {
+//   id        String    @id @default(cuid())
+//   eventType String
+//   userId    String?
+//   roomId    String?
+//   data      Json?
+//   createdAt DateTime  @default(now())
+
+//   @@map("realtime_events")
+// }

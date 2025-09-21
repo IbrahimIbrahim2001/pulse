@@ -61,5 +61,35 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Room
+ * 
+ */
+export type Room = Prisma.RoomModel
+/**
+ * Model RoomMember
+ * 
+ */
+export type RoomMember = Prisma.RoomMemberModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
 
+export type RoomType = $Enums.RoomType
+export const RoomType = $Enums.RoomType
 
+export type MemberRole = $Enums.MemberRole
+export const MemberRole = $Enums.MemberRole
+
+export type MessageType = $Enums.MessageType
+export const MessageType = $Enums.MessageType
+
+export type NotificationType = $Enums.NotificationType
+export const NotificationType = $Enums.NotificationType

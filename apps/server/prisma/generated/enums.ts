@@ -7,7 +7,40 @@
 *
 * 🟢 You can import this file directly.
 */
+export const RoomType = {
+  DIRECT: 'DIRECT',
+  GROUP: 'GROUP',
+  CHANNEL: 'CHANNEL'
+} as const
+
+export type RoomType = (typeof RoomType)[keyof typeof RoomType]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const MemberRole = {
+  ADMIN: 'ADMIN',
+  MODERATOR: 'MODERATOR',
+  MEMBER: 'MEMBER'
+} as const
+
+export type MemberRole = (typeof MemberRole)[keyof typeof MemberRole]
+
+
+export const MessageType = {
+  TEXT: 'TEXT',
+  IMAGE: 'IMAGE',
+  FILE: 'FILE',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type MessageType = (typeof MessageType)[keyof typeof MessageType]
+
+
+export const NotificationType = {
+  MESSAGE: 'MESSAGE',
+  MENTION: 'MENTION',
+  SYSTEM: 'SYSTEM',
+  FRIEND_REQUEST: 'FRIEND_REQUEST',
+  ROOM_INVITE: 'ROOM_INVITE'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]

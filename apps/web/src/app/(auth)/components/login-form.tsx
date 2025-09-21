@@ -62,6 +62,7 @@ export function LoginForm({
     } catch (error) {
       toast.error("Error log in");
     }
+    form.reset()
   }
 
   return (
