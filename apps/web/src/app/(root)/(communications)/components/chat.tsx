@@ -5,7 +5,8 @@ import type { ChatType } from "../../types/chat";
 import ChatAvatar from "./chat-avatar";
 import { getRecipientName } from "../chats/utils/get-recipient-name";
 export default function Chat({ chat }: { chat: ChatType }) {
-    const recipientName = getRecipientName(chat.members);
+    const groupName = chat.type === "GROUP" ? chat.name : undefined
+    const recipientName = getRecipientName(chat.members, groupName);
     return (
         <Link
             href={{

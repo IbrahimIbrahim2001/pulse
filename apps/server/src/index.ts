@@ -70,8 +70,6 @@ app.use(
 	}),
 );
 
-
-
 app.get("/", (c) => {
 	return c.text("OK");
 });
@@ -87,6 +85,5 @@ export default {
 			return app.fetch(req, server);
 		}
 	},
-
 	websocket
 }

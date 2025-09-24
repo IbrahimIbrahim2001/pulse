@@ -1,9 +1,20 @@
+"use client";
+import { trpc } from "@/utils/trpc";
 import ListHeader from "../../components/list-header"
 import type { ChatType } from "../../types/chat";
-import { getChatData } from "../chats/api/getAllChats";
 import Chat from "./chat";
-export default async function ChatList() {
-    const chats = await getChatData();
+import { useQuery } from "@tanstack/react-query";
+interface ChatListProps {
+    initialChats: ChatType[];
+}
+export default function ChatList({ initialChats }: ChatListProps) {
+    const { data: chats = initialChats } = useQuery({
+        ...trpc.chat.getAllChats.queryOptions(),
+        initialData: initialChats as any,
+        refetchOnMount: true,
+        refetchOnReconnect: true,
+        refetchOnWindowFocus: true,
+    });
     return (
         <>
             <div className="w-full border-e overflow-y-auto hide-scrollbar mb-16 md:mb-0">

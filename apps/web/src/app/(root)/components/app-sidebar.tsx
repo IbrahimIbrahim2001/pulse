@@ -19,17 +19,17 @@ import ProfileBadge from "./profile-badge"
 const FooterItems = [
     {
         title: "Starred messages",
-        url: "/starred-messages",
+        url: "starred-messages",
         icon: Star,
     },
     {
         title: "Archived Chats",
-        url: "/archiver-chats",
+        url: "archived-chats",
         icon: Archive,
     },
     {
-        title: "Setting",
-        url: "/setting",
+        title: "Settings",
+        url: "settings",
         icon: Settings,
     },
 ]
@@ -55,7 +55,7 @@ export default async function AppSidebar() {
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton asChild>
                                     <Link href={{
-                                        pathname: item.title,
+                                        pathname: `../${item.url}`,
                                     }}>
                                         <item.icon />
                                         <span>{item.title}</span>

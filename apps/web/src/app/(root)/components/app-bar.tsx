@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreVertical, Search } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
+import Link from "next/link";
 
 export default function AppBar() {
   return (
@@ -26,7 +27,11 @@ export default function AppBar() {
             <DropdownMenuItem>New group</DropdownMenuItem>
             <DropdownMenuItem>Starred</DropdownMenuItem>
             <DropdownMenuItem>Archived</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={{ pathname: "../settings" }}>
+                Settings
+              </Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

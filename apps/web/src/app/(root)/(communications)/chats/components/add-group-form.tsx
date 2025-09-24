@@ -22,18 +22,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { useMutateNewChat } from "../new-chat/hooks/useMutateNewChat";
+import { useMutateNewGroup } from "../new-group/hooks/useMutateNewGroup";
+import GroupMemberSelector from "./group-members-selector";
 
 const formSchema = z.object({
-    email: z.email(),
+    name: z.string().min(2),
+    members: z.string().array().min(1, "Please select at least one member")
 })
 
-export default function AddChatForm() {
-    const mutation = useMutateNewChat();
+export default function AddGroupForm() {
+    const mutation = useMutateNewGroup();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: ""
+            name: "",
+            members: []
         },
     })
 
@@ -45,24 +48,25 @@ export default function AddChatForm() {
     const isLoading = mutation.isPending;
 
     return (
-        <Card className="min-w-sm max-w-full md:w-[400px]">
+        <Card className="min-w-sm max-w-full md:w-[400px] h-fit">
             <CardHeader>
-                <CardTitle>Add new chat</CardTitle>
-                <CardDescription>meet new friends</CardDescription>
+                <CardTitle>Add new group</CardTitle>
+                <CardDescription>connect with your friends</CardDescription>
             </CardHeader>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <CardContent>
+                    <CardContent className="space-y-4">
+                        <GroupMemberSelector control={form.control} name="members" />
                         <div className="grid w-full items-center gap-4">
                             <div className="flex flex-col space-y-1.5">
                                 <FormField
                                     control={form.control}
-                                    name="email"
+                                    name="name"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>User Email</FormLabel>
+                                            <FormLabel>Group name</FormLabel>
                                             <FormControl>
-                                                <Input placeholder="m@example.com" {...field} type="email" />
+                                                <Input placeholder="pulse21" {...field} type="text" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
