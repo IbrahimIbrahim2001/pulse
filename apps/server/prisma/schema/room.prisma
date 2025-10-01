@@ -50,9 +50,9 @@ model Message {
   type      MessageType @default(TEXT)
   senderId  String
   roomId    String
+  status    MessageStatusType @default(SENT)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
-
   // Optional fields for different message types
   fileUrl   String?
   fileName  String?
@@ -73,6 +73,12 @@ enum MessageType {
   IMAGE
   FILE
   SYSTEM
+}
+
+enum MessageStatusType {
+  SENT
+  DELIVERED
+  SEEN
 }
 
 // Notifications

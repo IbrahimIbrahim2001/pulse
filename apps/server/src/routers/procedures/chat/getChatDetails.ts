@@ -22,13 +22,15 @@ export const getChatDetails = () => {
                                 name: true,
                                 email: true,
                                 image: true,
+                                lastSeenAt: true,
+                                isOnline: true,
                             }
                         }
                     }
                 },
                 messages: {
                     orderBy: {
-                        createdAt: 'desc'
+                        createdAt: 'asc'
                     }
                 },
             }

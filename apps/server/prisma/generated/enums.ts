@@ -35,6 +35,15 @@ export const MessageType = {
 export type MessageType = (typeof MessageType)[keyof typeof MessageType]
 
 
+export const MessageStatusType = {
+  SENT: 'SENT',
+  DELIVERED: 'DELIVERED',
+  SEEN: 'SEEN'
+} as const
+
+export type MessageStatusType = (typeof MessageStatusType)[keyof typeof MessageStatusType]
+
+
 export const NotificationType = {
   MESSAGE: 'MESSAGE',
   MENTION: 'MENTION',

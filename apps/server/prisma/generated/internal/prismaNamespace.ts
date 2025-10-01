@@ -1140,6 +1140,7 @@ export const MessageScalarFieldEnum = {
   type: 'type',
   senderId: 'senderId',
   roomId: 'roomId',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   fileUrl: 'fileUrl',
@@ -1286,6 +1287,20 @@ export type EnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'MessageType[]'
  */
 export type ListEnumMessageTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MessageStatusType'
+ */
+export type EnumMessageStatusTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageStatusType'>
+    
+
+
+/**
+ * Reference to a field of type 'MessageStatusType[]'
+ */
+export type ListEnumMessageStatusTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageStatusType[]'>
     
 
 

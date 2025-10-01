@@ -4,9 +4,15 @@ import ChatMemberName from "./chat-member-name";
 import type { ChatType } from "../../types/chat";
 import ChatAvatar from "./chat-avatar";
 import { getRecipientName } from "../chats/utils/get-recipient-name";
+import { Badge } from "@/components/ui/badge";
+import { formatLastMessageTime } from "../utils/format-last-message-time";
+
 export default function Chat({ chat }: { chat: ChatType }) {
     const groupName = chat.type === "GROUP" ? chat.name : undefined
     const recipientName = getRecipientName(chat.members, groupName);
+    const lastMsg = chat.messages[chat?.messages.length - 1]?.content;
+    const lastMsgDate = chat.messages[chat?.messages.length - 1]?.createdAt;
+    const formattedTime = lastMsgDate ? formatLastMessageTime(lastMsgDate) : "";
     return (
         <Link
             href={{
@@ -18,10 +24,15 @@ export default function Chat({ chat }: { chat: ChatType }) {
                 <ChatAvatar recipientName={recipientName} size="h-12 w-12" />
                 <div className="flex flex-col justify-center ml-4 flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                        <ChatMemberName recipientName={recipientName} />
-                        <span className="text-xs text-muted-foreground ml-2 flex-shrink-0">2m</span>
+                        <div>
+                            <ChatMemberName recipientName={recipientName} />
+                            <p className="text-sm text-muted-foreground truncate">{lastMsg}</p>
+                        </div>
+                        <div className="flex flex-col items-end space-y-1">
+                            <span className="text-xs text-muted-foreground ml-2 flex-shrink-0">{formattedTime}</span>
+                            <Badge variant="secondary" className="rounded-full size-4 flex items-center justify-center text-muted-foreground/80 font-semibold">2</Badge>
+                        </div>
                     </div>
-                    <p className="text-sm text-muted-foreground truncate mt-1">hi sweet</p>
                 </div>
             </div>
         </Link>

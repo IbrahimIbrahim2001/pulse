@@ -1,5 +1,8 @@
 type MessageType = "TEXT" | "IMAGE" | "FILE" | "SYSTEM";
 
+
+type MessageStatusType = "DELIVERED" | "SENT" | "SEEN";
+
 // Message Type
 export interface Message {
     id: string;
@@ -9,6 +12,7 @@ export interface Message {
     content: string;
     senderId: string;
     roomId: string;
+    status?: MessageStatusType;
     fileUrl: string | null;
     fileName: string | null;
     fileSize: number | null;
@@ -19,7 +23,10 @@ type User = {
     id: string,
     name: string,
     email: string,
-    // image: 
+    // image:
+    lastSeenAt?: string | null,
+    isOnline?: boolean,
+
 }
 
 interface ChatMember {
@@ -31,7 +38,7 @@ interface ChatMember {
 export interface ChatType {
     id: string,
     name: string,
-    type: "DIRECT" | "GROUP" | "CHANNEL",
+    type: RoomType,
     members: ChatMember[]
     messages: Message[]
 }

@@ -91,5 +91,8 @@ export const MemberRole = $Enums.MemberRole
 export type MessageType = $Enums.MessageType
 export const MessageType = $Enums.MessageType
 
+export type MessageStatusType = $Enums.MessageStatusType
+export const MessageStatusType = $Enums.MessageStatusType
+
 export type NotificationType = $Enums.NotificationType
 export const NotificationType = $Enums.NotificationType

@@ -1,10 +1,12 @@
 "use client";
 import type { ChatType } from "@/app/(root)/types/chat";
+import { useEffect } from "react";
 import type { Socket } from "socket.io-client";
+import { useMessageStatus } from "../hooks/use-message-status";
 import { useSendMessage } from "../hooks/use-send-message";
 import { formatTime } from "../utils/format-time";
-import { getStatusIcon } from "../utils/get-status-icon";
 import { getSenderName } from "../utils/get-sender-name";
+import { MessageStatus } from "../utils/get-status-icon";
 interface MessagesProps {
     sender_id: string | undefined,
     roomId: string,
@@ -13,8 +15,29 @@ interface MessagesProps {
 }
 const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
     const { messages, messagesEndRef } = useSendMessage(chat, roomId, socket);
+    const { markAsSeen } = useMessageStatus(socket, roomId, sender_id);
+
+    // Simple auto-mark as seen when messages change
+    const markVisibleMessagesAsSeen = () => {
+        if (!sender_id || messages.length === 0) return;
+
+        // Mark all messages from others as seen
+        const othersMessages = messages.filter(msg =>
+            msg.senderId !== sender_id &&
+            msg.status !== 'SEEN'
+        );
+
+        if (othersMessages.length > 0) {
+            markAsSeen(othersMessages.map(msg => msg.id));
+        }
+    };
+
+    // Call this when component mounts or messages update
+    useEffect(() => {
+        markVisibleMessagesAsSeen();
+    }, [messages, sender_id]);
     return (
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 hide-scrollbar">
             {messages.length === 0 ? (
                 <div className="flex items-center justify-center h-[calc(100%-32px)]">
                     <p className="text-muted-foreground">No messages yet. Start a conversation!</p>
@@ -30,9 +53,9 @@ const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
                         >
                             {(message.senderId !== sender_id && chat?.type === "GROUP") && <p className="text-primary text-xs mb-1 font-extrabold">{getSenderName(chat.members, message.senderId)}</p>}
                             <p className="text-sm leading-relaxed">{message.content}</p>
-                            <div className="flex items-center justify-end mt-1 text-xs opacity-80">
+                            <div className="flex items-center justify-end mt-1 text-xs gap-x-1 opacity-80">
                                 {formatTime(message.createdAt)}
-                                {message.senderId === sender_id && getStatusIcon("delivered")}
+                                <MessageStatus message={message} sender_id={sender_id} />
                             </div>
                         </div>
                     </div>

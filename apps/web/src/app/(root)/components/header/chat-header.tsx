@@ -1,16 +1,17 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ListFilter, SquarePen } from "lucide-react";
-import { CircleFadingPlus, UserPlus, Users } from "lucide-react"
-import Link from "next/link"
 import {
     DropdownMenu,
-    DropdownMenuItem,
     DropdownMenuContent,
+    DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { CircleFadingPlus, ListFilter, SquarePen, UserPlus, Users } from "lucide-react";
+import Link from "next/link";
 
-export default function ListHeader() {
+export default function ChatsHeader() {
     return (
         <>
             <div className="flex items-center justify-between">
@@ -49,7 +50,6 @@ export default function ListHeader() {
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
-
                     <Button variant="ghost" size="icon">
                         <ListFilter />
                     </Button>
