@@ -6,13 +6,33 @@ import ChatAvatar from "./chat-avatar";
 import { getRecipientName } from "../chats/utils/get-recipient-name";
 import { Badge } from "@/components/ui/badge";
 import { formatLastMessageTime } from "../utils/format-last-message-time";
+import { useMutation } from "@tanstack/react-query";
+import { trpc } from "@/utils/trpc";
+import { authClient } from "@/lib/auth-client";
 
 export default function Chat({ chat }: { chat: ChatType }) {
+    const mutate = useMutation(trpc.messages.updateMessageStatus.mutationOptions());
+    const currentUserId = authClient.useSession().data?.session.userId;
     const groupName = chat.type === "GROUP" ? chat.name : undefined
     const recipientName = getRecipientName(chat.members, groupName);
     const lastMsg = chat.messages[chat?.messages.length - 1]?.content;
     const lastMsgDate = chat.messages[chat?.messages.length - 1]?.createdAt;
     const formattedTime = lastMsgDate ? formatLastMessageTime(lastMsgDate) : "";
+    const unreadReceivedMessages = chat.messages.filter(msg =>
+        msg.senderId !== currentUserId && msg.status === "SENT"
+    );
+
+    const unreadMessagesCount = unreadReceivedMessages.length;
+
+    const HandleMessageStatus = () => {
+        if (unreadMessagesCount > 0) {
+            mutate.mutateAsync({
+                message_ids: unreadReceivedMessages.map(msg => msg.id),
+                status: "DELIVERED"
+            })
+        }
+    }
+
     return (
         <Link
             href={{
@@ -30,7 +50,7 @@ export default function Chat({ chat }: { chat: ChatType }) {
                         </div>
                         <div className="flex flex-col items-end space-y-1">
                             <span className="text-xs text-muted-foreground ml-2 flex-shrink-0">{formattedTime}</span>
-                            <Badge variant="secondary" className="rounded-full size-4 flex items-center justify-center text-muted-foreground/80 font-semibold">2</Badge>
+                            {unreadMessagesCount > 0 ? <Badge variant="secondary" className="rounded-full size-4 flex items-center justify-center text-muted-foreground/80 font-semibold">{unreadMessagesCount}</Badge> : null}
                         </div>
                     </div>
                 </div>
