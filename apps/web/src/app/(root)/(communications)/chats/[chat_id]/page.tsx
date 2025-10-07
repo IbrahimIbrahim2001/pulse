@@ -17,7 +17,6 @@ export default function ConversationPage() {
             room_id: roomId,
         }),
     );
-    console.log(chat);
     const socket = useMemo(socketClient, []);
     const session = authClient.useSession();
     const sender_id = session.data?.user.id;

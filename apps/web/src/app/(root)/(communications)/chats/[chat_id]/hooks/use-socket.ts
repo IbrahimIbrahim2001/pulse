@@ -23,8 +23,8 @@ export const useSocket = () => {
             });
 
             // Handle user status changes
-            socketInstance.on('user_status_changed', (data) => {
-                console.log('User status changed:', data);
+            socketInstance.on('user_status_changed', (_data) => {
+                console.log('User status changed:');
             });
 
             setSocket(socketInstance);
