@@ -67,26 +67,22 @@ export function setupSocketHandlers(io: Server) {
         socket.on("send", async (messageData) => {
             console.log("Message received for broadcasting:", messageData);
             try {
-                // Just broadcast the message to the room (assuming it's already saved via tRPC)
                 io.to(messageData.roomId).emit("message", {
                     ...messageData,
-                    id: messageData.id || Date.now().toString(), // Make sure it has an ID
+                    id: messageData.id || Date.now().toString(),
                     createdAt: new Date().toISOString(),
                     updatedAt: new Date().toISOString(),
-                    type: "Text"
+                    type: messageData.type || "TEXT",
                 });
-
                 // Still update room's updatedAt and user's lastSeenAt
                 await prisma.room.update({
                     where: { id: messageData.roomId },
                     data: { updatedAt: new Date() }
                 });
-
                 await prisma.user.update({
                     where: { id: messageData.senderId },
                     data: { lastSeenAt: new Date() }
                 });
-
                 // Notify room members about the update
                 io.to(messageData.roomId).emit("room_updated", {
                     roomId: messageData.roomId,
@@ -200,14 +196,14 @@ export function setupSocketHandlers(io: Server) {
         });
 
         // Message reactions (optional feature)
-        socket.on("message_reaction", (data: {
-            messageId: string;
-            roomId: string;
-            userId: string;
-            reaction: string;
-        }) => {
-            socket.to(data.roomId).emit("message_reacted", data);
-        });
+        // socket.on("message_reaction", (data: {
+        //     messageId: string;
+        //     roomId: string;
+        //     userId: string;
+        //     reaction: string;
+        // }) => {
+        //     socket.to(data.roomId).emit("message_reacted", data);
+        // });
 
         // Handle disconnect
         socket.on("disconnect", async () => {

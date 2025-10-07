@@ -16,23 +16,16 @@ interface MessagesProps {
 const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
     const { messages, messagesEndRef } = useSendMessage(chat, roomId, socket);
     const { markAsSeen } = useMessageStatus(socket, roomId, sender_id);
-
-    // Simple auto-mark as seen when messages change
     const markVisibleMessagesAsSeen = () => {
         if (!sender_id || messages.length === 0) return;
-
-        // Mark all messages from others as seen
         const othersMessages = messages.filter(msg =>
             msg.senderId !== sender_id &&
             msg.status !== 'SEEN'
         );
-
         if (othersMessages.length > 0) {
             markAsSeen(othersMessages.map(msg => msg.id));
         }
     };
-
-    // Call this when component mounts or messages update
     useEffect(() => {
         markVisibleMessagesAsSeen();
     }, [messages, sender_id]);
@@ -45,19 +38,24 @@ const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
             ) : (
                 messages.map((message) => (
                     <div key={message.id} className={`flex ${message.senderId === sender_id ? "justify-end" : "justify-start"}`}>
-                        <div
-                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.senderId === sender_id
-                                ? "bg-primary/90 dark:bg-primary/75 text-primary-foreground"
-                                : "bg-card text-card-foreground border border-border"
-                                }`}
-                        >
-                            {(message.senderId !== sender_id && chat?.type === "GROUP") && <p className="text-primary text-xs mb-1 font-extrabold">{getSenderName(chat.members, message.senderId)}</p>}
-                            <p className="text-sm leading-relaxed">{message.content}</p>
-                            <div className="flex items-center justify-end mt-1 text-xs gap-x-1 opacity-80">
-                                {formatTime(message.createdAt)}
-                                <MessageStatus message={message} sender_id={sender_id} />
-                            </div>
-                        </div>
+                        {message.type === "SYSTEM" ? <p className="w-full text-center text-xs text-muted-foreground mb-1">{message.content}</p>
+                            :
+                            <>
+                                <div
+                                    className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.senderId === sender_id
+                                        ? "bg-primary/90 dark:bg-primary/75 text-primary-foreground"
+                                        : "bg-card text-card-foreground border border-border"
+                                        }`}
+                                >
+                                    {(message.senderId !== sender_id && chat?.type === "GROUP") && <p className="text-primary text-xs mb-1 font-extrabold">{getSenderName(chat.members, message.senderId)}</p>}
+                                    <p className="text-sm leading-relaxed">{message.content}</p>
+                                    <div className="flex items-center justify-end mt-1 text-xs gap-x-1 opacity-80">
+                                        {formatTime(message.createdAt)}
+                                        <MessageStatus message={message} sender_id={sender_id} />
+                                    </div>
+                                </div>
+                            </>
+                        }
                     </div>
                 ))
             )}

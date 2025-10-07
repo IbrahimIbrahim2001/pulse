@@ -3,11 +3,13 @@
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { authClient } from '@/lib/auth-client';
+import { socketClient } from '@/lib/socketClient';
 import { trpc } from '@/utils/trpc';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { Check, MinusCircle, PlusCircle } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -23,6 +25,8 @@ const formSchema = z.object({
 
 export default function AddNewGroupMember({ groupName }: AddNewGroupMemberProps) {
     const mutate = useMutation(trpc.chat.addGroupMember.mutationOptions());
+    const socket = useMemo(socketClient, []);
+    const user = authClient.useSession().data?.user;
     const [isActive, setIsActive] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -41,6 +45,12 @@ export default function AddNewGroupMember({ groupName }: AddNewGroupMemberProps)
             });
             form.reset();
             setIsActive(false);
+            socket.emit("send", {
+                roomId: res.data.roomId,
+                content: `${res.data.user.name} has been added to the group by ${user?.name}.`,
+                senderId: user?.id,
+                type: "SYSTEM"
+            })
         } catch (error: any) {
             if (error?.data?.code === 'NOT_FOUND') {
                 if (error.message.includes('User not found')) {
