@@ -1,5 +1,5 @@
 "use client";
-import type { ChatType } from "@/app/(root)/types/chat";
+import type { ChatType, Message } from "@/app/(root)/types/chat";
 import { useEffect } from "react";
 import type { Socket } from "socket.io-client";
 import { useMessageStatus } from "../hooks/use-message-status";
@@ -38,24 +38,10 @@ const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
             ) : (
                 messages.map((message) => (
                     <div key={message.id} className={`flex ${message.senderId === sender_id ? "justify-end" : "justify-start"}`}>
-                        {message.type === "SYSTEM" ? <p className="w-full text-center text-xs text-muted-foreground mb-1">{message.content}</p>
-                            :
-                            <>
-                                <div
-                                    className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.senderId === sender_id
-                                        ? "bg-primary/90 dark:bg-primary/75 text-primary-foreground"
-                                        : "bg-card text-card-foreground border border-border"
-                                        }`}
-                                >
-                                    {(message.senderId !== sender_id && chat?.type === "GROUP") && <p className="text-primary text-xs mb-1 font-extrabold">{getSenderName(chat.members, message.senderId)}</p>}
-                                    <p className="text-sm leading-relaxed">{message.content}</p>
-                                    <div className="flex items-center justify-end mt-1 text-xs gap-x-1 opacity-80">
-                                        {formatTime(message.createdAt)}
-                                        <MessageStatus message={message} sender_id={sender_id} />
-                                    </div>
-                                </div>
-                            </>
-                        }
+                        {message.type === "SYSTEM" && <SystemMessages message={message} />}
+                        {message.type === "TEXT" && <TextMessages message={message} sender_id={sender_id} chat={chat} />}
+                        {message.type === "IMAGE" && <ImageMessages message={message} sender_id={sender_id} />}
+                        {message.type === "FILE" && null}
                     </div>
                 ))
             )}
@@ -65,3 +51,36 @@ const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
 }
 
 export default Messages;
+
+const TextMessages = ({ message, sender_id, chat }: { message: Message, sender_id: MessagesProps["sender_id"], chat: MessagesProps["chat"] }) => {
+    return (
+        <div
+            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.senderId === sender_id
+                ? "bg-primary/90 dark:bg-primary/75 text-primary-foreground"
+                : "bg-card text-card-foreground border border-border"
+                }`}
+        >
+            {(message.senderId !== sender_id && chat?.type === "GROUP") && <p className="text-primary text-xs mb-1 font-extrabold">{getSenderName(chat.members, message.senderId)}</p>}
+            <p className="text-sm leading-relaxed">{message.content}</p>
+            <div className="flex items-center justify-end mt-1 text-xs gap-x-1 opacity-80">
+                {formatTime(message.createdAt)}
+                <MessageStatus message={message} sender_id={sender_id} />
+            </div>
+        </div>
+    )
+}
+const ImageMessages = ({ message, sender_id }: { message: Message, sender_id: MessagesProps["sender_id"] }) => {
+    return (
+        <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.senderId === sender_id}
+                            ? "bg-primary/90 dark:bg-primary/75 text-primary-foreground"
+                            : "bg-card text-card-foreground border border-border"
+                            }`}>
+            <img src={message.content} alt="Image" className="max-w-full rounded-lg" />
+        </div>
+    )
+}
+const SystemMessages = ({ message }: { message: Message }) => {
+    return (
+        <p className="w-full text-center text-xs text-muted-foreground mb-1">{message.content}</p>
+    )
+}

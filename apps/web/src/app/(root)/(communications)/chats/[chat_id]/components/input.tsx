@@ -22,6 +22,7 @@ export default function MessageInput({ sender_id, roomId, socket }: MessageInput
             roomId: roomId,
             content: newMessage.trim(),
             senderId: sender_id,
+            type: "TEXT" as const
         };
 
         socket.emit("send", messageData);
