@@ -1,7 +1,10 @@
-import { router } from "@/lib/trpc";
+import { protectedProcedure, router } from "@/lib/trpc";
 import { saveMessage } from "./procedures/messages/saveMessage";
 import { updateMessageStatus } from "./procedures/messages/updateMessageStatus";
+import { uploadImage } from "./procedures/messages/uploadImage";
+
 export const messagesRouter = router({
     saveMessage: saveMessage(),
-    updateMessageStatus: updateMessageStatus()
+    updateMessageStatus: updateMessageStatus(),
+    uploadImage: uploadImage()
 })

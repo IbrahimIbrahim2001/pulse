@@ -9,6 +9,8 @@ import Messages from "./components/messages";
 import { socketClient } from "@/lib/socketClient";
 import { useMemo } from "react";
 
+//protect this
+
 export default function ConversationPage() {
     const { chat_id } = useParams();
     const roomId = chat_id ? chat_id.toString() : "";

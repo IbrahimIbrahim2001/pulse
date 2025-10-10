@@ -13,7 +13,8 @@ export const useMutateNewChat = () => {
                 id: `optimistic-${Date.now()}`,
                 name: "New Chat",
                 type: "DIRECT",
-                members: []
+                members: [],
+                messages: []
             };
             queryClient.setQueryData([queryKey], (old: ChatType[] | undefined) => {
                 return old ? [...old, optimisticChat] : [optimisticChat];

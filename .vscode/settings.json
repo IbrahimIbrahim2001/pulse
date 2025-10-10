@@ -3,6 +3,7 @@
         "geist",
         "partykit",
         "partyserver",
-        "partysocket"
+        "partysocket",
+        "rmiz"
     ]
 }

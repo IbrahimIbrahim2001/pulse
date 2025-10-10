@@ -9,6 +9,9 @@ import { formatLastMessageTime } from "../utils/format-last-message-time";
 import { useMutation } from "@tanstack/react-query";
 import { trpc } from "@/utils/trpc";
 import { authClient } from "@/lib/auth-client";
+import { useEffect } from "react";
+
+//protect this chat_id
 
 export default function Chat({ chat }: { chat: ChatType }) {
     const mutate = useMutation(trpc.messages.updateMessageStatus.mutationOptions());
@@ -33,6 +36,10 @@ export default function Chat({ chat }: { chat: ChatType }) {
         }
     }
 
+    useEffect(() => {
+        HandleMessageStatus();
+    }, [unreadMessagesCount]);
+
     return (
         <Link
             href={{
@@ -46,7 +53,7 @@ export default function Chat({ chat }: { chat: ChatType }) {
                     <div className="flex items-center justify-between">
                         <div>
                             <ChatMemberName recipientName={recipientName} />
-                            <p className="text-sm text-muted-foreground truncate">{lastMsg}</p>
+                            <p className={`text-sm text-muted-foreground truncate ${unreadMessagesCount > 0 ? "font-semibold text-foreground/80 dark:text-white/80" : ""}`}>{lastMsg}</p>
                         </div>
                         <div className="flex flex-col items-end space-y-1">
                             <span className="text-xs text-muted-foreground ml-2 flex-shrink-0">{formattedTime}</span>
