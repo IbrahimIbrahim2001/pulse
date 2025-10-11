@@ -5,13 +5,17 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { CircleFadingPlus, ListFilter, SquarePen, UserPlus, Users } from "lucide-react";
+import { CircleFadingPlus, ListFilter, MessageCircle, MessageSquareDot, SquarePen, UserPlus, Users } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 
 export default function ChatsHeader() {
+
     return (
         <>
             <div className="flex items-center justify-between">
@@ -50,9 +54,7 @@ export default function ChatsHeader() {
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <Button variant="ghost" size="icon">
-                        <ListFilter />
-                    </Button>
+                    <FilterDropDownMenu />
                 </div>
             </div>
             <Input
@@ -61,5 +63,54 @@ export default function ChatsHeader() {
                 className="mt-3 md:mt-4"
             />
         </>
+    )
+}
+
+
+function FilterDropDownMenu() {
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+    const createQueryString = useCallback(
+        (name: string, value: string) => {
+            const params = new URLSearchParams(searchParams.toString())
+            params.set(name, value)
+            return params.toString()
+        },
+        [searchParams]
+    )
+    const handleFilterClick = (filterType: string) => {
+        const queryString = createQueryString('filter', filterType)
+        router.push(`${pathname}?${queryString}` as any)
+    }
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                    <ListFilter />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-48">
+                <DropdownMenuLabel className="px-4 text-muted-foreground">filter chats by</DropdownMenuLabel>
+                <DropdownMenuItem onClick={() => handleFilterClick('unread')}>
+                    <div className="w-8 h-8 flex items-center justify-center">
+                        <MessageSquareDot />
+                    </div>
+                    <span>Unread</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleFilterClick('groups')}>
+                    <div className="w-8 h-8 flex items-center justify-center">
+                        <Users />
+                    </div>
+                    <span>Groups</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleFilterClick('all')}>
+                    <div className="w-8 h-8 flex items-center justify-center">
+                        <MessageCircle />
+                    </div>
+                    <span>All Chats</span>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     )
 }

@@ -41,4 +41,5 @@ export interface ChatType {
     type: RoomType,
     members: ChatMember[]
     messages: Message[]
+    createdAt: string;
 }
