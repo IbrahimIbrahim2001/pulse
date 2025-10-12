@@ -9,6 +9,7 @@ import { getRecipientName } from "../../utils/get-recipient-name";
 import { useMultipleUserStatus } from "../hooks/use-multiple-user-status";
 import { useUserStatus } from "../hooks/use-user-status";
 import AddNewGroupMember from "./add-new-group-member";
+import { formatLastSeen } from "../utils/format-last-seen";
 
 interface HeaderProps {
     members: ChatType["members"] | undefined,
@@ -18,9 +19,7 @@ export default function Header({ members, groupName }: HeaderProps) {
     const session = authClient.useSession();
     const currentUserId = session.data?.user.id;
     const recipientName = getRecipientName(members, groupName);
-    const handleClick = () => {
-        redirect("../chats");
-    }
+
     const otherMember = members?.find(member => member.user.id !== currentUserId);
     const { isOnline: isRecipientOnline, lastSeenAt } = useUserStatus(otherMember?.user.id || '');
 
@@ -46,6 +45,10 @@ export default function Header({ members, groupName }: HeaderProps) {
         }
     };
 
+    const handleClick = () => {
+        redirect("../chats");
+    }
+
     return (
         <div className="flex items-center justify-between p-4 bg-card border-b border-border">
             <ArrowLeft className="size-5 sm:block md:hidden mr-2" onClick={handleClick} />
@@ -69,17 +72,4 @@ export default function Header({ members, groupName }: HeaderProps) {
             </div>
         </div >
     )
-}
-
-
-function formatLastSeen(lastSeenAt: Date | null): string {
-    if (!lastSeenAt) return 'recently';
-
-    const now = new Date();
-    const diffInMinutes = Math.floor((now.getTime() - lastSeenAt.getTime()) / 60000);
-
-    if (diffInMinutes < 1) return 'just now';
-    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
-    if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
-    return `${Math.floor(diffInMinutes / 1440)}d ago`;
 }

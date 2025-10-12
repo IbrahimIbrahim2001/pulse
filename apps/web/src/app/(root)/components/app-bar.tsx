@@ -12,10 +12,6 @@ export default function AppBar() {
       </h1>
       <ModeToggle />
       <div className="flex md:hidden items-center gap-2">
-        <Button variant="ghost" size="sm" className="h-9 w-9 p-0">
-          <Search className="h-4 w-4" />
-          <span className="sr-only">Search</span>
-        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm" className="h-9 w-9 p-0">

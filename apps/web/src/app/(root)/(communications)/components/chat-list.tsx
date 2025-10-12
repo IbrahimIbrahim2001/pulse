@@ -1,13 +1,15 @@
 "use client";
 import { trpc } from "@/utils/trpc";
-import ListHeader from "../../components/header/list-header"
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import ListHeader from "../../components/header/list-header";
 import type { ChatType } from "../../types/chat";
 import Chat from "./chat";
-import { useQuery } from "@tanstack/react-query";
 import ListLoading from "./chat-list-loading";
-import { useMemo } from "react";
-import { useParams, useSearchParams } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+import { Badge } from "@/components/ui/badge";
+import { filterChats } from "../chats/utils/filter-chats";
+import { useFilterChats } from "../chats/hooks/use-filter-chats";
+import { Input } from "@/components/ui/input";
 export default function ChatList() {
     const searchParams = useSearchParams();
     const filter = searchParams.get("filter");
@@ -22,12 +24,26 @@ export default function ChatList() {
 
     if (isLoading) return <ListLoading />
     if (isError || error) return (<>Error</>)
+    if (filteredAndSortedChats?.length === 0) return (
+        <div className="w-full md:h-[calc(100vh-64px)] border-e overflow-y-auto hide-scrollbar mb-16 md:mb-0">
+            <div className="hidden md:block md:p-4 sticky top-0 left-0 bg-background z-50">
+                <ListHeader />
+            </div>
+            <FilterBadges />
+            <div className="flex flex-col items-center justify-center  mt-20">
+                <Badge variant="secondary" className="rounded-md">No chats found</Badge>
+            </div>
+        </div>
+    )
+
     return (
         <>
             <div className="w-full md:h-[calc(100vh-64px)] border-e overflow-y-auto hide-scrollbar mb-16 md:mb-0">
-                <div className="hidden md:block md:p-4 sticky top-0 left-0 bg-background z-50">
+                <div className="hidden md:block md:p-4 md:pb-0 sticky top-0 left-0 bg-background z-50">
                     <ListHeader />
                 </div>
+                <FilterBadges />
+                <SearchChats />
                 <div className="md:pb-20">
                     {filteredAndSortedChats?.map((chat: ChatType) => (
                         <Chat key={chat.id} chat={chat} />
@@ -37,28 +53,27 @@ export default function ChatList() {
         </>
     )
 }
-const filterChats = (chats: ChatType[] | undefined, filter: string | null) => {
-    const user_id = authClient.useSession().data?.user.id;
+
+
+function FilterBadges() {
+    const { handleFilterClick } = useFilterChats();
     return (
-        useMemo(() => {
-            if (!chats) return [];
-            let filteredChats = chats;
-            if (filter === 'groups') {
-                filteredChats = chats.filter(chat => chat.type === "GROUP" || chat.type === "CHANNEL");
-            } else if (filter === 'unread') {
-                filteredChats = chats.filter(chat => {
-                    const lastMessage = chat.messages[chat.messages.length - 1];
-                    return lastMessage && !(lastMessage.status === "SEEN") && user_id !== lastMessage.senderId;
-                });
-            } else if (filter === "all") {
-                filteredChats = chats;
-            }
-            const myChats = filteredChats.sort((a, b) => {
-                const lastMessageA = a.messages[a.messages.length - 1]?.createdAt || a.createdAt;
-                const lastMessageB = b.messages[b.messages.length - 1]?.createdAt || b.createdAt;
-                return new Date(lastMessageB).getTime() - new Date(lastMessageA).getTime();
-            });
-            return myChats;
-        }, [chats, filter])
+        <div className="md:hidden px-4 py-2 flex gap-x-2 items-center max-w-screen overflow-scroll hide-scrollbar">
+            <Badge variant="secondary" className="rounded-md" onClick={() => handleFilterClick('all chats')}>All</Badge>
+            <Badge variant="secondary" className="rounded-md" onClick={() => handleFilterClick('unread')}>Unread</Badge>
+            <Badge variant="secondary" className="rounded-md" onClick={() => handleFilterClick('groups')}>Groups</Badge>
+        </div>
+    )
+}
+
+function SearchChats() {
+    return (
+        <div className="px-4">
+            <Input
+                type="text"
+                placeholder="Search"
+                className="mt-3 md:mt-4"
+            />
+        </div>
     )
 }
