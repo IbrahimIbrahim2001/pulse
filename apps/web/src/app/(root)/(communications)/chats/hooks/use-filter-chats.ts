@@ -18,7 +18,14 @@ export function useFilterChats() {
         const queryString = createQueryString('filter', filterType)
         router.push(`${pathname}?${queryString}` as any)
     }
+
+    const handleSearch = (searchTerm: string) => {
+        const queryString = createQueryString('search', searchTerm)
+        router.push(`${pathname}?${queryString}` as any)
+    }
+
     return {
-        handleFilterClick
+        handleFilterClick,
+        handleSearch
     }
 }

@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 export default function ChatList() {
     const searchParams = useSearchParams();
     const filter = searchParams.get("filter");
+    const search = searchParams.get("search");
 
     const { data: chats, isLoading, isError, error } = useQuery({
         ...trpc.chat.getAllChats.queryOptions(),
@@ -20,7 +21,7 @@ export default function ChatList() {
         refetchOnReconnect: true,
         refetchOnWindowFocus: true,
     });
-    const filteredAndSortedChats = filterChats(chats, filter);
+    const filteredAndSortedChats = filterChats(chats, filter, search);
 
     if (isLoading) return <ListLoading />
     if (isError || error) return (<>Error</>)
@@ -30,6 +31,7 @@ export default function ChatList() {
                 <ListHeader />
             </div>
             <FilterBadges />
+            <SearchChats />
             <div className="flex flex-col items-center justify-center  mt-20">
                 <Badge variant="secondary" className="rounded-md">No chats found</Badge>
             </div>
@@ -67,9 +69,11 @@ function FilterBadges() {
 }
 
 function SearchChats() {
+    const { handleSearch } = useFilterChats();
     return (
         <div className="px-4">
             <Input
+                onChange={(e) => handleSearch(e.target.value)}
                 type="text"
                 placeholder="Search"
                 className="mt-3 md:mt-4"
