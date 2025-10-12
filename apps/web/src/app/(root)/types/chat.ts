@@ -2,6 +2,7 @@ type MessageType = "TEXT" | "IMAGE" | "FILE" | "SYSTEM";
 
 
 type MessageStatusType = "DELIVERED" | "SENT" | "SEEN";
+type RoleType = "ADMIN" | "MODERATOR" | "MEMBER";
 
 // Message Type
 export interface Message {
@@ -31,7 +32,8 @@ type User = {
 
 interface ChatMember {
     id: string,
-    user: User
+    user: User,
+    role: RoleType
 }
 
 // Chat Type

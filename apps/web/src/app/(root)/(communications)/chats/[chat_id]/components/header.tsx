@@ -2,7 +2,7 @@
 import type { ChatType } from "@/app/(root)/types/chat";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
-import { ArrowLeft, MoreVertical, Phone } from "lucide-react";
+import { ArrowLeft, Dot, MoreVertical, Phone } from "lucide-react";
 import { redirect } from "next/navigation";
 import ChatAvatar from "../../../components/chat-avatar";
 import { getRecipientName } from "../../utils/get-recipient-name";
@@ -10,6 +10,8 @@ import { useMultipleUserStatus } from "../hooks/use-multiple-user-status";
 import { useUserStatus } from "../hooks/use-user-status";
 import AddNewGroupMember from "./add-new-group-member";
 import { formatLastSeen } from "../utils/format-last-seen";
+import { ResponsiveModal, ResponsiveModalContent, ResponsiveModalHeader, ResponsiveModalTitle, ResponsiveModalDescription, ResponsiveModalTrigger } from "@/components/ui/responsive-modal";
+import { Badge } from "@/components/ui/badge";
 
 interface HeaderProps {
     members: ChatType["members"] | undefined,
@@ -56,7 +58,7 @@ export default function Header({ members, groupName }: HeaderProps) {
                 <ChatAvatar recipientName={recipientName} size="h-10 w-10" />
                 <div className="flex-1">
                     <h2 className="font-semibold text-card-foreground truncate">{recipientName}</h2>
-                    <p className="text-sm text-muted-foreground truncate">{getStatusText()}</p>
+                    {!groupName ? <p className="text-sm text-muted-foreground truncate">{getStatusText()}</p> : <GroupMembersModal groupName={groupName} members={members} getStatusText={getStatusText} />}
                 </div>
             </div>
             <div className="flex items-center gap-2">
@@ -71,5 +73,50 @@ export default function Header({ members, groupName }: HeaderProps) {
                 </Button>
             </div>
         </div >
+    )
+}
+
+
+function GroupMembersModal({ groupName, members, getStatusText }: { groupName: string, members: ChatType["members"] | undefined, getStatusText: () => string }) {
+    const session = authClient.useSession();
+    const currentUserId = session.data?.user.id;
+    return (
+        <>
+            <ResponsiveModal>
+                <ResponsiveModalTrigger>
+                    <p className="text-sm text-muted-foreground truncate">{getStatusText()}</p>
+                </ResponsiveModalTrigger>
+                <ResponsiveModalContent>
+                    <ResponsiveModalHeader>
+                        <ResponsiveModalTitle>{groupName}'s members</ResponsiveModalTitle>
+                        <ResponsiveModalDescription className="flex flex-col gap-2 mt-2">
+                            {members?.map(member => {
+                                const isCurrentUser = member.user.id === currentUserId;
+                                const isAdmin = member.role === "ADMIN";
+                                const isOnline = member.user.isOnline;
+                                return (
+                                    <div key={member.user.id} className={`flex items-center gap-2 ${isCurrentUser ? 'font-semibold' : ''}`}>
+                                        <div className="flex items-center gap-2 flex-1">
+                                            <div className="relative">
+                                                <ChatAvatar recipientName={member.user.name} size="h-8 w-8" />
+                                                {isOnline && !isCurrentUser && (
+                                                    <>
+                                                        <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-green-500 border-2 border-background z-10" />
+                                                        <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-green-500 border-2 border-background animate-ping" />
+                                                    </>
+                                                )}
+                                            </div>
+                                            <p className="text-sm text-muted-foreground truncate">{member.user.name}</p>
+                                            {isCurrentUser && <span className="text-xs text-muted-foreground">(You)</span>}
+                                        </div>
+                                        {isAdmin && <Badge className="bg-primary/80 dark:bg-primary/50 text-white/90 flex items-center justify-center">Group Admin</Badge>}
+                                    </div>
+                                );
+                            })}
+                        </ResponsiveModalDescription>
+                    </ResponsiveModalHeader>
+                </ResponsiveModalContent>
+            </ResponsiveModal >
+        </>
     )
 }
