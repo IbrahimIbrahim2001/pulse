@@ -2,8 +2,8 @@
 import type { ChatType } from "@/app/(root)/types/chat";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
-import { ArrowLeft, Dot, MoreVertical, Phone } from "lucide-react";
-import { redirect } from "next/navigation";
+import { ArrowLeft, DeleteIcon, Dot, MoreVertical, Phone, TrashIcon } from "lucide-react";
+import { redirect, useParams } from "next/navigation";
 import ChatAvatar from "../../../components/chat-avatar";
 import { getRecipientName } from "../../utils/get-recipient-name";
 import { useMultipleUserStatus } from "../hooks/use-multiple-user-status";
@@ -12,6 +12,11 @@ import AddNewGroupMember from "./add-new-group-member";
 import { formatLastSeen } from "../utils/format-last-seen";
 import { ResponsiveModal, ResponsiveModalContent, ResponsiveModalHeader, ResponsiveModalTitle, ResponsiveModalDescription, ResponsiveModalTrigger } from "@/components/ui/responsive-modal";
 import { Badge } from "@/components/ui/badge";
+import { queryClient, trpc } from "@/utils/trpc";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { useMemo, useState } from "react";
+import { socketClient } from "@/lib/socketClient";
 
 interface HeaderProps {
     members: ChatType["members"] | undefined,
@@ -78,11 +83,81 @@ export default function Header({ members, groupName }: HeaderProps) {
 
 
 function GroupMembersModal({ groupName, members, getStatusText }: { groupName: string, members: ChatType["members"] | undefined, getStatusText: () => string }) {
+    const { chat_id } = useParams();
+    const roomId = chat_id ? chat_id.toString() : "";
+    const mutateMessage = useMutation(trpc.messages.saveMessage.mutationOptions());
+    const socket = useMemo(socketClient, []);
+    const user = authClient.useSession().data?.user;
+    const mutate = useMutation(trpc.chat.removeGroupMember.mutationOptions({
+        onMutate: async (variables) => {
+            const queryKey = trpc.chat.getAllChats.queryKey();
+            const chatDetailsKey = trpc.chat.getChatDetails.queryKey({
+                room_id: roomId,
+            });
+            await queryClient.cancelQueries({ queryKey: queryKey });
+            await queryClient.cancelQueries({ queryKey: chatDetailsKey });
+            const previousChats = queryClient.getQueryData([...queryKey]) as ChatType[];
+            const previousChatDetails = queryClient.getQueryData([...chatDetailsKey]) as any;
+            queryClient.setQueryData([queryKey], (old: ChatType[] | undefined) => {
+                if (!old) return old;
+                const chatIndex = old.findIndex(chat => chat.name === groupName);
+                if (chatIndex === -1) return old;
+                const updatedChat = { ...old[chatIndex] };
+                updatedChat.members = updatedChat.members.filter(member => member.user.email !== variables.email);
+                const newChats = [...old];
+                newChats[chatIndex] = updatedChat;
+                return newChats;
+            });
+            queryClient.setQueryData([...chatDetailsKey], (old: any) => {
+                if (!old) return old;
+                return {
+                    ...old,
+                    members: old.members.filter((member: any) => member.user.email !== variables.email)
+                };
+            });
+            return {
+                previousChats,
+                previousChatDetails
+            };
+        },
+        onError: (error, _variables, context) => {
+            queryClient.setQueryData(["chat", "getAllChats"], context?.previousChats);
+            queryClient.setQueryData(trpc.chat.getChatDetails.queryKey({
+                room_id: roomId,
+            }), context?.previousChatDetails);
+            toast.error(error.message);
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: trpc.chat.getChatDetails.queryKey({ room_id: roomId })
+            });
+            queryClient.invalidateQueries({ queryKey: trpc.chat.getAllChats.queryKey() });
+        }
+    }));
+
     const session = authClient.useSession();
     const currentUserId = session.data?.user.id;
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const removeUser = (email: string, name: string) => {
+        mutate.mutateAsync({ email: email, group_name: groupName });
+        setIsOpen(false);
+        const user_id = user?.id;
+        if (user_id) {
+            const systemMessage = {
+                roomId: roomId,
+                content: `${name} was removed from the group`,
+                senderId: user_id,
+                type: "SYSTEM" as const
+            }
+            socket.emit("send", systemMessage)
+            mutateMessage.mutateAsync(systemMessage);
+        }
+    }
     return (
         <>
-            <ResponsiveModal>
+            <ResponsiveModal open={isOpen} onOpenChange={setIsOpen}>
                 <ResponsiveModalTrigger>
                     <p className="text-sm text-muted-foreground truncate">{getStatusText()}</p>
                 </ResponsiveModalTrigger>
@@ -94,6 +169,7 @@ function GroupMembersModal({ groupName, members, getStatusText }: { groupName: s
                                 const isCurrentUser = member.user.id === currentUserId;
                                 const isAdmin = member.role === "ADMIN";
                                 const isOnline = member.user.isOnline;
+                                const currentUserIsAdmin = members?.find(m => m.user.id === currentUserId)?.role === "ADMIN";
                                 return (
                                     <div key={member.user.id} className={`flex items-center gap-2 ${isCurrentUser ? 'font-semibold' : ''}`}>
                                         <div className="flex items-center gap-2 flex-1">
@@ -109,6 +185,11 @@ function GroupMembersModal({ groupName, members, getStatusText }: { groupName: s
                                             <p className="text-sm text-muted-foreground truncate">{member.user.name}</p>
                                             {isCurrentUser && <span className="text-xs text-muted-foreground">(You)</span>}
                                         </div>
+                                        {currentUserIsAdmin && !isAdmin && !isCurrentUser && (
+                                            <Button variant="outline" className="text-destructive" onClick={() => removeUser(member.user.email, member.user.name)}>
+                                                <TrashIcon />
+                                            </Button>
+                                        )}
                                         {isAdmin && <Badge className="bg-primary/80 dark:bg-primary/50 text-white/90 flex items-center justify-center">Group Admin</Badge>}
                                     </div>
                                 );
@@ -116,7 +197,7 @@ function GroupMembersModal({ groupName, members, getStatusText }: { groupName: s
                         </ResponsiveModalDescription>
                     </ResponsiveModalHeader>
                 </ResponsiveModalContent>
-            </ResponsiveModal >
+            </ResponsiveModal>
         </>
     )
 }

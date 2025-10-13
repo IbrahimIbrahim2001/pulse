@@ -5,11 +5,13 @@ import { getChatDetails } from "./getChatDetails";
 import { getUserFriends } from "./getUserFriends";
 import { newChat } from "./newChat";
 import { newGroup } from "./newGroup";
+import { removeGroupMember } from "./removeGroupMember";
 export const chatRouter = router({
     getAllChats: getAllChats(),
     getUserFriends: getUserFriends(),
     getChatDetails: getChatDetails(),
     newChat: newChat(),
     newGroup: newGroup(),
-    addGroupMember: addGroupMember()
+    addGroupMember: addGroupMember(),
+    removeGroupMember: removeGroupMember()
 });

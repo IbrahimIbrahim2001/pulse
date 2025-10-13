@@ -5,10 +5,11 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { authClient } from '@/lib/auth-client';
 import { socketClient } from '@/lib/socketClient';
-import { trpc } from '@/utils/trpc';
+import { queryClient, trpc } from '@/utils/trpc';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { Check, MinusCircle, PlusCircle } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -24,7 +25,45 @@ const formSchema = z.object({
 })
 
 export default function AddNewGroupMember({ groupName }: AddNewGroupMemberProps) {
-    const mutate = useMutation(trpc.chat.addGroupMember.mutationOptions());
+    const { chat_id } = useParams();
+    const roomId = chat_id ? chat_id.toString() : "";
+    const mutate = useMutation(trpc.chat.addGroupMember.mutationOptions({
+        onMutate: async (variables) => {
+            const chatDetailsKey = trpc.chat.getChatDetails.queryKey({
+                room_id: roomId,
+            });
+            await queryClient.cancelQueries({ queryKey: chatDetailsKey });
+            const previousChatDetails = queryClient.getQueryData([...chatDetailsKey]) as any;
+            queryClient.setQueryData([...chatDetailsKey], (old: any) => {
+                if (!old) return old;
+                return {
+                    ...old,
+                    members: [
+                        ...old.members,
+                        {
+                            id: 'temp-id',
+                            user: {
+                                id: variables.email,
+                                name: 'Unknown User',
+                                email: variables.email,
+                                image: null,
+                                lastSeenAt: null,
+                                isOnline: false,
+                            },
+                            role: 'MEMBER',
+                        }
+                    ]
+                };
+            });
+
+            return { previousChatDetails };
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [trpc.chat.getChatDetails.queryKey({ room_id: roomId }), trpc.chat.getAllChats.queryKey()]
+            });
+        }
+    }));
     const mutateMessage = useMutation(trpc.messages.saveMessage.mutationOptions());
     const socket = useMemo(socketClient, []);
     const user = authClient.useSession().data?.user;
