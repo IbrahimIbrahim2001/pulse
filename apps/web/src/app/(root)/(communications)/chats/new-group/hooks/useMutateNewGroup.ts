@@ -13,7 +13,9 @@ export const useMutateNewGroup = () => {
                 id: `optimistic-${Date.now()}`,
                 name: "New Group",
                 type: "GROUP",
-                members: []
+                members: [],
+                messages: [],
+                createdAt: ""
             };
             queryClient.setQueryData([queryKey], (old: ChatType[] | undefined) => {
                 return old ? [...old, optimisticChat] : [optimisticChat];
