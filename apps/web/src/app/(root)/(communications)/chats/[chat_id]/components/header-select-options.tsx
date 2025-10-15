@@ -9,16 +9,21 @@ import { authClient } from "@/lib/auth-client";
 import { trpc } from "@/utils/trpc";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { MoreVertical } from "lucide-react";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { useMutateDeleteMessages } from "../hooks/use-mutate-delete-messages";
 import { useMemo } from "react";
-import { socketClient } from "@/lib/socketClient";
+import { socketClient } from "@/lib/socketClient"; import { toast } from "sonner";
+;
 export const SelectOptions = () => {
     const { chat_id } = useParams();
     const roomId = chat_id ? chat_id.toString() : "";
 
     const mutateDeleteMessages = useMutateDeleteMessages(roomId);
+
+
+    const mutateLeaveChat = useMutation(trpc.chat.leaveChat.mutationOptions({}));
     const mutateSendMessage = useMutation(trpc.messages.saveMessage.mutationOptions())
+    const mutateDeleteGroup = useMutation(trpc.chat.deleteGroup.mutationOptions())
     const socket = useMemo(socketClient, []);
     const user = authClient.useSession().data?.user
     const userId = user?.id
@@ -32,7 +37,7 @@ export const SelectOptions = () => {
     const isGroup = chat?.type === "GROUP";
     const deleteMessages = () => {
         if (chat) {
-            mutateDeleteMessages.mutateAsync({ id: chat.id }) //add optimistic states for messages
+            mutateDeleteMessages.mutateAsync({ id: chat.id })
             if (userId && roomId) {
                 const systemMessage = {
                     roomId: roomId,
@@ -45,11 +50,26 @@ export const SelectOptions = () => {
             }
         }
     }
-    const deleteGroup = () => {
-
+    const deleteGroup = async () => {
+        const res = await mutateDeleteGroup.mutateAsync({ room_id: roomId })
+        if (res.success) {
+            toast.success(res.message);
+            redirect("../chats");
+        }
     }
     const leaveChat = () => {
-
+        if (userId && roomId) {
+            mutateLeaveChat.mutateAsync({ user_id: userId, room_id: roomId })
+            const systemMessage = {
+                roomId: roomId,
+                content: `${user.name}leaves the chat`,
+                senderId: userId,
+                type: "SYSTEM" as const
+            }
+            socket.emit("send", systemMessage)
+            mutateSendMessage.mutateAsync(systemMessage);
+            redirect("../chats");
+        }
     }
     return (
         <>

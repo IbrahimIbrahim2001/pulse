@@ -6,6 +6,8 @@ import { getUserFriends } from "./getUserFriends";
 import { newChat } from "./newChat";
 import { newGroup } from "./newGroup";
 import { removeGroupMember } from "./removeGroupMember";
+import { leaveChat } from "./leaveChat";
+import { deleteGroup } from "./deleteGroup";
 export const chatRouter = router({
     getAllChats: getAllChats(),
     getUserFriends: getUserFriends(),
@@ -13,5 +15,7 @@ export const chatRouter = router({
     newChat: newChat(),
     newGroup: newGroup(),
     addGroupMember: addGroupMember(),
-    removeGroupMember: removeGroupMember()
+    removeGroupMember: removeGroupMember(),
+    leaveChat: leaveChat(),
+    deleteGroup: deleteGroup(),
 });
