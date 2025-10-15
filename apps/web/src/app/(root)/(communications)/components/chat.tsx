@@ -10,9 +10,6 @@ import { useMutation } from "@tanstack/react-query";
 import { trpc } from "@/utils/trpc";
 import { authClient } from "@/lib/auth-client";
 import { useEffect } from "react";
-
-//protect this chat_id
-
 export default function Chat({ chat }: { chat: ChatType }) {
     const mutate = useMutation(trpc.messages.updateMessageStatus.mutationOptions());
     const currentUserId = authClient.useSession().data?.session.userId;
@@ -24,9 +21,7 @@ export default function Chat({ chat }: { chat: ChatType }) {
     const unreadReceivedMessages = chat.messages.filter(msg =>
         msg.senderId !== currentUserId && msg.status === "SENT"
     );
-
     const unreadMessagesCount = unreadReceivedMessages.length;
-
     const HandleMessageStatus = () => {
         if (unreadMessagesCount > 0) {
             mutate.mutateAsync({
@@ -35,11 +30,9 @@ export default function Chat({ chat }: { chat: ChatType }) {
             })
         }
     }
-
     useEffect(() => {
         HandleMessageStatus();
     }, [unreadMessagesCount]);
-
     return (
         <Link
             href={{
