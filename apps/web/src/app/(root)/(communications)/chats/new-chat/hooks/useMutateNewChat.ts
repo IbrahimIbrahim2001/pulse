@@ -24,7 +24,24 @@ export const useMutateNewChat = () => {
         },
         onError: (error, _variables, context) => {
             queryClient.setQueryData(["chat", "getAllChats"], context?.previousChats);
-            toast.error(error.message);
+            if (error?.data?.code === "NOT_FOUND") {
+                toast.error("User Not Found", {
+                    description: error.message
+                });
+            } else if (error?.data?.code === "CONFLICT") {
+                toast.warning("", {
+                    description: error.message
+                });
+            } else if (error?.data?.code === 'INTERNAL_SERVER_ERROR') {
+                toast.error("Error", {
+                    description: "Something went wrong. Please try again later.",
+                });
+            }
+            else {
+                toast.error("Error", {
+                    description: "An unexpected error occurred.",
+                });
+            }
         },
         onSuccess: () => {
             const queryKey = trpc.chat.getAllChats.queryKey();

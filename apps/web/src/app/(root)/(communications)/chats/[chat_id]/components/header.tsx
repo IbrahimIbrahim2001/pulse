@@ -3,7 +3,7 @@ import type { ChatType } from "@/app/(root)/types/chat";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { ArrowLeft, MoreVertical, Phone } from "lucide-react";
-import { redirect } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import ChatAvatar from "../../../components/chat-avatar";
 import { getRecipientName } from "../../utils/get-recipient-name";
 import { useMultipleUserStatus } from "../hooks/use-multiple-user-status";
@@ -11,6 +11,7 @@ import { useUserStatus } from "../hooks/use-user-status";
 import { formatLastSeen } from "../utils/format-last-seen";
 import AddNewGroupMember from "./add-new-group-member";
 import { GroupMembersModal } from "./group-members-modal";
+import { SelectOptions } from "./header-select-options";
 interface HeaderProps {
     members: ChatType["members"] | undefined,
     groupName?: string
@@ -57,9 +58,8 @@ export default function Header({ members, groupName }: HeaderProps) {
                 <Button disabled variant="ghost" size="icon" className="text-card-foreground">
                     <Phone className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" size="icon" className="text-card-foreground">
-                    <MoreVertical className="h-5 w-5" />
-                </Button>
+
+                <SelectOptions />
             </div>
         </div >
     )

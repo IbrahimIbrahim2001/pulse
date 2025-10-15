@@ -12,16 +12,17 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, UserX } from "lucide-react";
 
-//protect this
-
 export default function ConversationPage() {
     const { chat_id } = useParams();
     const roomId = chat_id ? chat_id.toString() : "";
-    const { data: chat, isLoading: chatLoading } = useQuery(
-        trpc.chat.getChatDetails.queryOptions({
+    const { data: chat, isLoading: chatLoading } = useQuery({
+        ...trpc.chat.getChatDetails.queryOptions({
             room_id: roomId,
         }),
-    );
+        refetchOnMount: true,
+        refetchOnReconnect: true,
+        refetchOnWindowFocus: true,
+    });
     const socket = useMemo(socketClient, []);
     const session = authClient.useSession();
     const sender_id = session.data?.user.id;

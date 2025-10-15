@@ -93,7 +93,7 @@ export default function MessageInput({ sender_id, roomId, socket }: MessageInput
 
     return (
         <div className="p-4 bg-card">
-            {selectedImage && <ImagePreview selectedImage={selectedImage} removeSelectedImage={removeSelectedImage} />}
+            {selectedImage && <ImagePreview selectedImage={selectedImage} removeSelectedImage={() => removeSelectedImage()} />}
             <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1">
                     <ImagesInput onImageSelect={handleImageSelect} />
