@@ -14,7 +14,6 @@ export default function ChatList() {
     const searchParams = useSearchParams();
     const filter = searchParams.get("filter");
     const search = searchParams.get("search");
-
     const { data: chats, isLoading, isError, error } = useQuery({
         ...trpc.chat.getAllChats.queryOptions(),
         refetchOnMount: true,
@@ -22,7 +21,6 @@ export default function ChatList() {
         refetchOnWindowFocus: true,
     });
     const filteredAndSortedChats = filterChats(chats, filter, search);
-
     if (isLoading) return <ListLoading />
     if (isError || error) return (<>Error</>)
     if (filteredAndSortedChats?.length === 0) return (
@@ -37,7 +35,6 @@ export default function ChatList() {
             </div>
         </div>
     )
-
     return (
         <>
             <div className="w-full md:h-[calc(100vh-64px)] border-e overflow-y-auto hide-scrollbar mb-16 md:mb-0">
@@ -55,8 +52,6 @@ export default function ChatList() {
         </>
     )
 }
-
-
 function FilterBadges() {
     const { handleFilterClick } = useFilterChats();
     return (
@@ -67,7 +62,6 @@ function FilterBadges() {
         </div>
     )
 }
-
 function SearchChats() {
     const { handleSearch } = useFilterChats();
     return (

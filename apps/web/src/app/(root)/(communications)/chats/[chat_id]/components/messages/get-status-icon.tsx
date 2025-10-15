@@ -1,4 +1,4 @@
-// components/message-status.tsx
+"use client";
 import type { Message } from "@/app/(root)/types/chat";
 import { Check, CheckCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -8,12 +8,10 @@ interface MessageStatusProps {
     sender_id: string | undefined;
     className?: string;
 }
-
 export const MessageStatus = ({ message, sender_id, className }: MessageStatusProps) => {
     if (message.senderId !== sender_id) {
         return null;
     }
-
     return (
         <span className={cn("ml-1", className)}>
             {getStatusIcon(message.status || "SENT")}
