@@ -39,7 +39,6 @@ export const removeGroupMember = () => {
                     }
                 }
             });
-            console.log(res);
         } catch (error) {
             if (error instanceof TRPCError) {
                 throw error;
