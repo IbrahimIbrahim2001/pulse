@@ -1,6 +1,7 @@
 import { protectedProcedure, publicProcedure, router } from "../lib/trpc";
-import { messagesRouter } from "./messages";
+import { messagesRouter } from "./procedures/messages/messages";
 import { chatRouter } from "./procedures/chat";
+import { imagesRouter } from "./procedures/images/imagesRouter";
 
 export const appRouter = router({
 	healthCheck: publicProcedure.query(() => {
@@ -13,7 +14,8 @@ export const appRouter = router({
 		};
 	}),
 	chat: chatRouter,
-	messages: messagesRouter
+	messages: messagesRouter,
+	images: imagesRouter
 
 });
 export type AppRouter = typeof appRouter;
