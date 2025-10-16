@@ -15,56 +15,6 @@ const app = new Hono();
 
 setupSocketHandlers(io)
 
-// io.on("connection", (socket) => {
-// 	console.log("User connected:", socket.id);
-
-// 	// Listen for messages from client
-// 	socket.on("send", async (messageData) => {
-// 		console.log("Message received:", messageData);
-
-// 		// Create a proper message object
-// 		const message = {
-// 			id: Date.now().toString(),
-// 			content: messageData.content,
-// 			senderId: messageData.senderId,
-// 			roomId: messageData.roomId,
-// 			createdAt: new Date().toISOString(),
-// 			updatedAt: new Date().toISOString(),
-// 			type: "Text"
-// 		};
-
-
-
-// 		// Send only to the specific room
-// 		io.to(messageData.roomId).emit("message", message);
-
-
-// 		await prisma.room.update({
-// 			where: { id: messageData.roomId },
-// 			data: { updatedAt: new Date() }
-// 		});
-
-// 		await prisma.user.update({
-// 			where: { id: messageData.senderId },
-// 			data: { lastSeenAt: new Date() }
-// 		});
-// 	});
-
-// 	socket.on("join-room", (roomId) => {
-// 		socket.join(roomId);
-// 		console.log(`Socket ${socket.id} joined room ${roomId}`);
-// 	});
-
-// 	socket.on("leave-room", (roomId) => {
-// 		socket.leave(roomId);
-// 		console.log(`Socket ${socket.id} left room ${roomId}`);
-// 	});
-
-// 	socket.on("disconnect", () => {
-// 		console.log("User disconnected:", socket.id);
-// 	});
-// });
-
 app.use(logger());
 app.use(
 	"/*",

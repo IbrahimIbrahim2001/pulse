@@ -14,7 +14,6 @@ export const uploadImage = () => {
                     folder: 'chat-images',
                     resource_type: 'auto',
                 });
-
                 return {
                     success: true,
                     url: result.secure_url,
