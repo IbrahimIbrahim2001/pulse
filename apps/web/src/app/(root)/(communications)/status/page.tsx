@@ -1,4 +1,5 @@
 import { AddStatusButton } from "./[reel_id]/component/add-status-button";
+import { MyStory } from "./component/my-story";
 import { StatusList } from "./component/status-list";
 export default function StatusPage() {
     return (
@@ -7,6 +8,7 @@ export default function StatusPage() {
             <div className="w-full">
                 <div className="flex space-x-2 overflow-x-auto hide-scrollbar py-2 -mx-5 px-5">
                     <AddStatusButton />
+                    <MyStory />
                     <StatusList />
                 </div>
             </div>

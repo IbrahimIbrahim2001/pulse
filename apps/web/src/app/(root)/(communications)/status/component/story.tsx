@@ -7,7 +7,7 @@ export function Status({ story }: { story: StoryType }) {
     return (
         <Link href={{ pathname: `status/${story.id}` }} >
             <div
-                className="aspect-[3/4]  w-32 flex-shrink-0 rounded-xl relative overflow-hidden group cursor-pointer "
+                className="aspect-[3/4]  w-32 flex-shrink-0 rounded-xl relative overflow-hidden group cursor-pointer"
             >
                 {/* Story Image */}
                 <Image

@@ -2,7 +2,7 @@ import { router } from "@/lib/trpc";
 import { newStory } from "./newStory";
 import { deleteStory } from "./deleteStroy";
 import { getStories } from "./getStories";
-import { getStory } from "./getStroy";
+import { getStory } from "./getStory";
 import { getMyStory } from "./getMyStory";
 
 export const storiesRouter = router({

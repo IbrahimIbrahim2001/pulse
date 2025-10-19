@@ -31,6 +31,9 @@ import { cn } from "@/lib/utils";
 
 // Explicit type for reel items
 export type ReelItem = {
+  user: any;
+  createdAt: any;
+  fileUrl: string | Blob | undefined;
   id: string | number;
   type: "video" | "image";
   src: string;

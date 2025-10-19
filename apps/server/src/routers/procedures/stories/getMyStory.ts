@@ -7,6 +7,9 @@ export const getMyStory = () => {
         return await prisma.story.findMany({
             where: {
                 userId
+            },
+            include: {
+                user: true
             }
         })
     })

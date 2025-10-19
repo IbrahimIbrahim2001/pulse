@@ -2,14 +2,11 @@
 
 import FullscreenLayout from "@/app/(root)/components/fullscreen-layout";
 import type { StoryType } from "@/app/(root)/types/chat";
-import { Reel, ReelProgress, ReelContent, ReelItem, ReelImage, ReelNavigation, ReelControls, ReelPreviousButton, ReelPlayButton, ReelNextButton } from "@/components/kibo-ui/reel";
-import { Button } from "@/components/ui/button";
 import { trpc } from "@/utils/trpc";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import ChatAvatar from "../../../components/chat-avatar";
+import { useParams } from "next/navigation";
 import { ReelComponent } from "./reel";
+import { Loader2 } from "lucide-react";
 
 export function ReelsList() {
     const { reel_id } = useParams();
@@ -20,7 +17,13 @@ export function ReelsList() {
     const reelData: StoryType[] = Array.isArray(reels)
         ? reels.filter((r): r is StoryType => !!r)
         : reels ? [reels as unknown as StoryType] : [];
-    if (isLoading) return <>loading...</>;
+    if (isLoading) {
+        return (
+            <div className="w-full h-[calc(100vh-64px)] grid place-items-center item-center">
+                <Loader2 className="size-12 text-primary/90 animate-spin" />
+            </div>
+        )
+    }
     return (
         <>
             <div className="block md:hidden" >
@@ -38,11 +41,13 @@ export function ReelsList() {
 const transformStoryToReel = (story: StoryType) => ({
     id: story.id,
     src: story.fileUrl,
+    fileUrl: story.fileUrl,
     title: story.title ?? undefined,
     createdAt: story.createdAt,
     user: story.user,
     type: 'image' as 'image',
     duration: 5000,
+    userData: { ...story.user }
 });
 
 
