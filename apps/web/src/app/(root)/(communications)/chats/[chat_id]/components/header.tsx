@@ -12,6 +12,7 @@ import { formatLastSeen } from "../utils/format-last-seen";
 import AddNewGroupMember from "./add-new-group-member";
 import { GroupMembersModal } from "./group-members-modal";
 import { SelectOptions } from "./header-select-options";
+import { getChatImage } from "../../utils/get-image";
 interface HeaderProps {
     members: ChatType["members"] | undefined,
     groupName?: string
@@ -20,6 +21,7 @@ export default function Header({ members, groupName }: HeaderProps) {
     const session = authClient.useSession();
     const currentUserId = session.data?.user.id;
     const recipientName = getRecipientName(members, groupName);
+    const user_image = getChatImage(members);
     const otherMember = members?.find(member => member.user.id !== currentUserId);
     const { isOnline: isRecipientOnline, lastSeenAt } = useUserStatus(otherMember?.user.id || '');
     const memberIds = members?.map(member => member.user.id) || [];
@@ -45,7 +47,7 @@ export default function Header({ members, groupName }: HeaderProps) {
         <div className="flex items-center justify-between p-4 bg-card border-b border-border">
             <ArrowLeft className="size-5 sm:block md:hidden mr-2" onClick={handleClick} />
             <div className="flex-1 flex items-center gap-3">
-                <ChatAvatar recipientName={recipientName} size="h-10 w-10" />
+                <ChatAvatar recipientName={recipientName} size="h-10 w-10" user_image={user_image} />
                 <div className="flex-1">
                     <h2 className="font-semibold text-card-foreground truncate">{recipientName}</h2>
                     {!groupName ? <p className="text-sm text-muted-foreground truncate">{getStatusText()}</p> : <GroupMembersModal groupName={groupName} members={members} getStatusText={getStatusText} />}

@@ -25,7 +25,8 @@ export default function BottomNavbar() {
     const pathname = usePathname()
     const isActive = (href: string) => {
         return (
-            pathname === href
+            pathname === href ||
+            (pathname.includes("status") && href.includes("status"))
         )
     }
 

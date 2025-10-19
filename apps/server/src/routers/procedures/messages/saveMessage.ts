@@ -2,7 +2,7 @@ import { protectedProcedure } from "@/lib/trpc";
 import prisma from "@/prisma";
 import { randomUUID } from "crypto";
 import { MessageType } from "prisma/generated/enums";
-import z, { string } from "zod";
+import z from "zod";
 export const saveMessage = () => {
     return protectedProcedure.input(
         z.object({

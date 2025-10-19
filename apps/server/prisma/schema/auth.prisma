@@ -17,7 +17,8 @@ model User {
   notifications    Notification[]
   roomMembers      RoomMember[]
   // typingIndicators TypingIndicator[]
-  
+  Story            Story[]         @relation("StoryOwner")
+  viewedStories Story[] @relation("StoryViewers")
 
   @@unique([email])
   @@map("user")

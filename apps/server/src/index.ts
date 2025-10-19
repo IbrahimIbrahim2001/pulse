@@ -7,8 +7,8 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { engine, io, websocket } from "./lib/socket";
-import prisma from "@/prisma";
 import { setupSocketHandlers } from "./lib/socket-handlers";
+import { setupCronJobs } from "./lib/cron/setupCron";
 
 const app = new Hono();
 
@@ -41,6 +41,9 @@ app.use(
 app.get("/", (c) => {
 	return c.text("OK");
 });
+
+// Start cron jobs
+setupCronJobs()
 
 export default {
 	port: 3000,

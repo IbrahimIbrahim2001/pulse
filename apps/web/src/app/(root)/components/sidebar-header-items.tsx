@@ -29,7 +29,8 @@ export default function SidebarHeaderItems() {
     const isActive = (href: string) => {
         return (
             pathname === href ||
-            (pathname.includes("chats") && href.includes("chats"))
+            (pathname.includes("chats") && href.includes("chats")) ||
+            (pathname.includes("status") && href.includes("status"))
         )
     }
 

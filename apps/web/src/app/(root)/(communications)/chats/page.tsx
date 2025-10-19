@@ -38,7 +38,7 @@ function Boxes() {
                         </Button>
                         <p className="font-bold">New Group</p>
                     </Link>
-                    <Link href={{ pathname: "/chats/new-stroy" }} className="space-y-5 flex flex-col items-center justify-center">
+                    <Link href={{ pathname: "/status/new-status" }} className="space-y-5 flex flex-col items-center justify-center">
                         <Button variant="secondary" size="xl">
                             <CircleFadingPlus className="size-6" />
                         </Button>

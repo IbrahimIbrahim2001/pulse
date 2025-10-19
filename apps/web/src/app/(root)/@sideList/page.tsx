@@ -6,7 +6,7 @@ export default function SideListDefault() {
         <>
             <CheckIsNotMobile>
                 <div className="hidden md:flex md:col-span-4 lg:col-span-3">
-                    <div className=" w-full">
+                    <div className="w-full">
                         <List />
                     </div>
                 </div>
