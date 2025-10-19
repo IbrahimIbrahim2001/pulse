@@ -12,6 +12,7 @@ import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import ChatAvatar from "../../../components/chat-avatar";
 import { useDeleteGroupMember } from "../hooks/use-delete-group-member";
+import { getChatImage } from "../../utils/get-image";
 
 export function GroupMembersModal({ groupName, members, getStatusText }: { groupName: string, members: ChatType["members"] | undefined, getStatusText: () => string }) {
     const { chat_id } = useParams();
@@ -21,6 +22,7 @@ export function GroupMembersModal({ groupName, members, getStatusText }: { group
     const mutateMessage = useMutation(trpc.messages.saveMessage.mutationOptions());
     const mutate = useDeleteGroupMember(roomId, groupName);
     const [isOpen, setIsOpen] = useState(false);
+    const user_image = getChatImage(members);
     const removeUser = (email: string, name: string) => {
         mutate.mutateAsync({ email: email, group_name: groupName });
         setIsOpen(false);
@@ -56,7 +58,7 @@ export function GroupMembersModal({ groupName, members, getStatusText }: { group
                                         <div key={member.user.id} className={`flex items-center gap-2 ${isCurrentUser ? 'font-semibold' : ''}`}>
                                             <div className="flex items-center gap-2 flex-1">
                                                 <div className="relative">
-                                                    <ChatAvatar recipientName={member.user.name} size="h-8 w-8" />
+                                                    <ChatAvatar recipientName={member.user.name} size="h-8 w-8" user_image={user_image} />
                                                     {isOnline && !isCurrentUser && (
                                                         <>
                                                             <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-green-500 border-2 border-background z-10" />

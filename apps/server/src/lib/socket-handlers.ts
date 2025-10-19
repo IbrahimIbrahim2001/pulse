@@ -65,7 +65,7 @@ export function setupSocketHandlers(io: Server) {
 
         // Message handling - ONLY BROADCASTING, NO DATABASE SAVING
         socket.on("send", async (messageData) => {
-            console.log("Message received for broadcasting:", messageData);
+            // console.log("Message received for broadcasting:", messageData);
             try {
                 io.to(messageData.roomId).emit("message", {
                     ...messageData,
@@ -105,7 +105,7 @@ export function setupSocketHandlers(io: Server) {
             status: "DELIVERED" | "SEEN";
             roomId: string;
         }) => {
-            console.log("Message status update received:", data);
+            // console.log("Message status update received:", data);
 
             try {
                 // Broadcast the status update to everyone in the room

@@ -40,7 +40,7 @@ export default function Modal() {
                                     <span>New group</span>
                                 </Button>
                             </Link>
-                            <Link href={{ pathname: "/chats/new-stroy" }}>
+                            <Link href={{ pathname: "/status/new-status" }}>
                                 <Button
                                     onClick={closeModal}
                                     variant="ghost"

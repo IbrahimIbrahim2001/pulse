@@ -31,6 +31,12 @@ const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
     useEffect(() => {
         markVisibleMessagesAsSeen();
     }, [chat?.messages, sender_id]);
+    const getUserImageForMessage = (messageSenderId: string) => {
+        if (!chat?.members) return "";
+
+        const member = chat.members.find(m => m.user.id === messageSenderId);
+        return member?.user.image || "";
+    };
     return (
         <div className="flex-1 overflow-y-auto p-4 space-y-4 hide-scrollbar">
             {chat?.messages.length === 0 ? (
@@ -38,15 +44,19 @@ const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
                     <p className="text-muted-foreground">No messages yet. Start a conversation!</p>
                 </div>
             ) : (
-                chat?.messages.map((message) => (
-                    <div key={message.id} className={`flex gap-x-2 ${message.senderId === sender_id ? "justify-end" : "justify-start"}`}>
-                        {message.type !== "SYSTEM" && sender_id !== message.senderId && chat?.members && chat.type === "GROUP" && <ChatAvatar recipientName={getSenderName(chat.members, message.senderId)} size="h-8 w-8" />}
-                        {message.type === "SYSTEM" && <SystemMessages message={message} />}
-                        {message.type === "TEXT" && <TextMessages message={message} sender_id={sender_id} chat={chat} />}
-                        {message.type === "IMAGE" && <ImageMessages message={message} sender_id={sender_id} />}
-                        {message.type === "FILE" && null}
-                    </div>
-                ))
+                chat?.messages.map((message) => {
+                    const user_image = getUserImageForMessage(message.senderId);
+                    return (
+                        <div key={message.id} className={`flex gap-x-2 ${message.senderId === sender_id ? "justify-end" : "justify-start"}`}>
+                            {message.type !== "SYSTEM" && sender_id !== message.senderId && chat?.members && chat.type === "GROUP" && <ChatAvatar recipientName={getSenderName(chat.members, message.senderId)} size="h-8 w-8" user_image={user_image ?? undefined} />}
+                            {message.type === "SYSTEM" && <SystemMessages message={message} />}
+                            {message.type === "TEXT" && <TextMessages message={message} sender_id={sender_id} chat={chat} />}
+                            {message.type === "IMAGE" && <ImageMessages message={message} sender_id={sender_id} />}
+                            {message.type === "FILE" && null}
+                        </div>
+                    )
+                }
+                )
             )}
             <div ref={messagesEndRef} />
         </div>

@@ -91,7 +91,7 @@ function NewDropDownMenu() {
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                    <Link href={{ pathname: "/chats/new-story" }} className="flex items-center gap-x-2 px-4">
+                    <Link href={{ pathname: "../status/new-status" }} className="flex items-center gap-x-2 px-4">
                         <div className="w-8 h-8 rounded-full bg-primary/20 border border-accent flex items-center justify-center">
                             <CircleFadingPlus />
                         </div>

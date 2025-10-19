@@ -10,17 +10,22 @@ import { useMutation } from "@tanstack/react-query";
 import { trpc } from "@/utils/trpc";
 import { authClient } from "@/lib/auth-client";
 import { useEffect } from "react";
+import { getChatImage } from "../chats/utils/get-image";
 export default function Chat({ chat }: { chat: ChatType }) {
     const mutate = useMutation(trpc.messages.updateMessageStatus.mutationOptions());
     const currentUserId = authClient.useSession().data?.session.userId;
     const groupName = chat.type === "GROUP" ? chat.name : undefined
     const recipientName = getRecipientName(chat.members, groupName);
-    const lastMsg = chat.messages[chat?.messages.length - 1]?.content;
+    const lastMsg = chat.messages[chat?.messages.length - 1]?.type === "TEXT"
+        ? chat.messages[chat?.messages.length - 1]?.content
+        : chat.messages.findLast(m => m.type === "TEXT")?.content ?? "";
+    chat.messages.reduce((acc, msg) => msg.type === "TEXT" ? msg.content : acc, "");
     const lastMsgDate = chat.messages[chat?.messages.length - 1]?.createdAt;
     const formattedTime = lastMsgDate ? formatLastMessageTime(lastMsgDate) : "";
     const unreadReceivedMessages = chat.messages.filter(msg =>
         msg.senderId !== currentUserId && msg.status === "SENT"
     );
+    const user_image = getChatImage(chat.members);
     const unreadMessagesCount = unreadReceivedMessages.length;
     const HandleMessageStatus = () => {
         if (unreadMessagesCount > 0) {
@@ -41,12 +46,12 @@ export default function Chat({ chat }: { chat: ChatType }) {
             className="block"
         >
             <div className="flex items-center w-full p-4 hover:bg-muted/50 transition-colors duration-200 border-b border-border/50 group">
-                <ChatAvatar recipientName={recipientName} size="h-12 w-12" />
+                <ChatAvatar recipientName={recipientName} size="h-12 w-12" user_image={user_image} />
                 <div className="flex flex-col justify-center ml-4 flex-1 min-w-0">
                     <div className="flex items-center justify-between">
                         <div>
                             <ChatMemberName recipientName={recipientName} />
-                            <p className={`text-sm text-muted-foreground truncate ${unreadMessagesCount > 0 ? "font-semibold text-foreground/80 dark:text-white/80" : ""}`}>{lastMsg}</p>
+                            <p className={`text-sm text-muted-foreground w-full  md:max-w-[100px] lg:max-w-[150px] truncate ${unreadMessagesCount > 0 ? "font-semibold text-foreground/80 dark:text-white/80" : ""}`}>{lastMsg}</p>
                         </div>
                         <div className="flex flex-col items-end space-y-1">
                             <span className="text-xs text-muted-foreground ml-2 flex-shrink-0">{formattedTime}</span>

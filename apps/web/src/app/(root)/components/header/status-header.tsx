@@ -11,11 +11,11 @@ export default function StatusHeader() {
     const user = authClient.useSession().data?.user
     return (
         <>
-            <div className="w-full md:h-[calc(100vh-64px)] border-e overflow-y-auto hide-scrollbar mb-16 md:mb-0">
+            <div className="w-full sticky top-0 left-0 bg-background z-50">
                 <div className="flex items-center justify-between md:p-4">
                     <h2 className="font-semibold text-lg">Status</h2>
                     <div className="flex items-center space-x-2">
-                        <Link href={{ pathname: "/chats/new-story" }} className="flex justify-between items-center gap-x-2">
+                        <Link href={{ pathname: "../status/new-status" }} className="flex justify-between items-center gap-x-2">
                             <Button variant="ghost" size="icon">
                                 <PlusCircleIcon className="size-4" />
                             </Button>

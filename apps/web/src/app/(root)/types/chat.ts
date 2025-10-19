@@ -24,7 +24,7 @@ type User = {
     id: string,
     name: string,
     email: string,
-    // image:
+    image: string | null,
     lastSeenAt?: string | null,
     isOnline?: boolean,
 
@@ -44,4 +44,14 @@ export interface ChatType {
     members: ChatMember[]
     messages: Message[]
     createdAt: string;
+}
+
+
+export interface StoryType {
+    id: string;
+    title: string | null;
+    fileUrl: string;
+    fileName: string;
+    createdAt: string;
+    user: User
 }

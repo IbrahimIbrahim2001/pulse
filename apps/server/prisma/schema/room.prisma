@@ -106,6 +106,28 @@ enum NotificationType {
   ROOM_INVITE
 }
 
+
+
+model Story {
+  id        String      @id @map("_id")
+  userId    String
+  title     String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  expiresAt DateTime?
+  fileUrl   String
+  fileName  String
+  fileSize  Int?
+
+  // Relations
+  user      User        @relation("StoryOwner", fields: [userId], references: [id], onDelete: Cascade)
+  viewers   User[] @relation("StoryViewers")
+   // ... fields
+  @@index([userId])
+  @@index([createdAt])
+  @@index([expiresAt])
+}
+
 // Typing indicators
 // model TypingIndicator {
 //   id        String    @id @map("_id")
