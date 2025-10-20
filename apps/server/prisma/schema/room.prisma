@@ -121,11 +121,28 @@ model Story {
 
   // Relations
   user      User        @relation("StoryOwner", fields: [userId], references: [id], onDelete: Cascade)
-  viewers   User[] @relation("StoryViewers")
+  views    StoryView[]
    // ... fields
   @@index([userId])
   @@index([createdAt])
   @@index([expiresAt])
+}
+
+model StoryView {
+  id        String   @id @default("_id")
+  storyId   String
+  userId    String
+  viewedAt  DateTime @default(now())
+  duration  Int?    
+
+  // Relations
+  story Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([storyId, userId])
+  @@index([storyId])
+  @@index([userId])
+  @@index([viewedAt])
 }
 
 // Typing indicators

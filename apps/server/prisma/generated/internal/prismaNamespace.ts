@@ -402,7 +402,8 @@ export const ModelName = {
   RoomMember: 'RoomMember',
   Message: 'Message',
   Notification: 'Notification',
-  Story: 'Story'
+  Story: 'Story',
+  StoryView: 'StoryView'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -418,7 +419,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "room" | "roomMember" | "message" | "notification" | "story"
+    modelProps: "user" | "session" | "account" | "verification" | "room" | "roomMember" | "message" | "notification" | "story" | "storyView"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1088,6 +1089,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    StoryView: {
+      payload: Prisma.$StoryViewPayload<ExtArgs>
+      fields: Prisma.StoryViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StoryViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StoryViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        findFirst: {
+          args: Prisma.StoryViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StoryViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        findMany: {
+          args: Prisma.StoryViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>[]
+        }
+        create: {
+          args: Prisma.StoryViewCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        createMany: {
+          args: Prisma.StoryViewCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StoryViewCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>[]
+        }
+        delete: {
+          args: Prisma.StoryViewDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        update: {
+          args: Prisma.StoryViewUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        deleteMany: {
+          args: Prisma.StoryViewDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StoryViewUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StoryViewUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>[]
+        }
+        upsert: {
+          args: Prisma.StoryViewUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StoryViewPayload>
+        }
+        aggregate: {
+          args: Prisma.StoryViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStoryView>
+        }
+        groupBy: {
+          args: Prisma.StoryViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StoryViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StoryViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StoryViewCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1254,6 +1329,17 @@ export const StoryScalarFieldEnum = {
 } as const
 
 export type StoryScalarFieldEnum = (typeof StoryScalarFieldEnum)[keyof typeof StoryScalarFieldEnum]
+
+
+export const StoryViewScalarFieldEnum = {
+  id: 'id',
+  storyId: 'storyId',
+  userId: 'userId',
+  viewedAt: 'viewedAt',
+  duration: 'duration'
+} as const
+
+export type StoryViewScalarFieldEnum = (typeof StoryViewScalarFieldEnum)[keyof typeof StoryViewScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1541,6 +1627,7 @@ export type GlobalOmitConfig = {
   message?: Prisma.MessageOmit
   notification?: Prisma.NotificationOmit
   story?: Prisma.StoryOmit
+  storyView?: Prisma.StoryViewOmit
 }
 
 /* Types for Logging */
