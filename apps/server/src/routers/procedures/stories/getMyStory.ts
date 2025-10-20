@@ -9,7 +9,12 @@ export const getMyStory = () => {
                 userId
             },
             include: {
-                user: true
+                user: true,
+                views: {
+                    select: {
+                        user: true
+                    }
+                }
             }
         })
     })

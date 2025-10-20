@@ -17,6 +17,7 @@ export function ReelsList() {
     const reelData: StoryType[] = Array.isArray(reels)
         ? reels.filter((r): r is StoryType => !!r)
         : reels ? [reels as unknown as StoryType] : [];
+
     if (isLoading) {
         return (
             <div className="w-full h-[calc(100vh-64px)] grid place-items-center item-center">

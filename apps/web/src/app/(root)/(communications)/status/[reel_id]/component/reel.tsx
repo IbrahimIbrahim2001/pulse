@@ -3,21 +3,30 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import ChatAvatar from "../../../components/chat-avatar";
 import { useParams, useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { trpc } from "@/utils/trpc";
 import { useEffect, useState } from "react";
 import { Reel, ReelContent, ReelControls, ReelImage, ReelItem, ReelNavigation, ReelNextButton, ReelPlayButton, ReelPreviousButton, ReelProgress } from "@/components/kibo-ui/reel";
+import { ViewsDrawer } from "./views-drawer";
+import { authClient } from "@/lib/auth-client";
 
 export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
+    const mutateViewStory = useMutation(trpc.stories.viewStory.mutationOptions());
     const router = useRouter();
     const { reel_id } = useParams();
     const reelId: string = reel_id ? reel_id.toString() : "";
 
-    const { data: myStories, isLoading } = useQuery(trpc.stories.myStory.queryOptions());
+    const { data: myStories } = useQuery(trpc.stories.myStory.queryOptions());
     const { data: friendsStories } = useQuery(trpc.stories.getStories.queryOptions());
+
 
     const [allStories, setAllStories] = useState<ReelItem[]>([]);
     const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+
+    const userId = authClient.useSession().data?.user.id;
+    const current_user_id = myStories && Array.isArray(myStories) && myStories?.at(0)?.userId;
+
+    const ownStory = userId === current_user_id
 
     useEffect(() => {
         if (myStories && friendsStories) {
@@ -30,6 +39,7 @@ export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
                     duration: 5,
                     alt: story.title || "",
                     title: story.title ?? undefined,
+                    views: myStories.flatMap((ms) => ms.views)
                 }));
 
             setAllStories(combined);
@@ -39,6 +49,13 @@ export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
             setCurrentStoryIndex(initialIndex >= 0 ? initialIndex : 0);
         }
     }, [myStories, friendsStories, reelId]);
+
+
+    useEffect(() => {
+        mutateViewStory.mutateAsync({
+            storyId: reelId
+        })
+    }, []);
 
     const determineMediaType = (fileUrl: string): "video" | "image" => {
         const videoExtensions = ['.mp4', '.mov', '.avi', '.mkv', '.webm'];
@@ -92,24 +109,18 @@ export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
 
             {/* Video Content */}
             <ReelContent className="h-[calc(100svh-64px)]">
-                {(reel, index) => (
-                    <ReelItem key={reel.id} className="h-full">
-                        {reel.type === "video" ? (
-                            <video
-                                src={reel.src}
-                                className="object-cover w-full h-full"
-                                autoPlay
-                                muted
-                                loop
-                            />
-                        ) : (
+                {(reel, _index) => (
+                    <>
+                        <ReelItem key={reel.id} className="h-full">
                             <ReelImage
                                 src={reel.src}
                                 alt={reel.alt ?? ""}
                                 className="object-cover w-full h-full"
                             />
-                        )}
-                    </ReelItem>
+                        </ReelItem>
+                        <p className="w-full flex items-center justify-center text-muted-foreground text-lg font-bold relative bottom-10 md:bottom-20">{reel.title}</p>
+                        {ownStory && <ViewsDrawer views={reel.views} />}
+                    </>
                 )}
             </ReelContent>
 
@@ -120,6 +131,7 @@ export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
                 <ReelPlayButton />
                 <ReelNextButton className="right-4 bottom-4" />
             </ReelControls>
+
         </Reel>
     );
 }

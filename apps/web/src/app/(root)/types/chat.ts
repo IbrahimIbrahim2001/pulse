@@ -47,11 +47,16 @@ export interface ChatType {
 }
 
 
+
+
 export interface StoryType {
     id: string;
     title: string | null;
     fileUrl: string;
     fileName: string;
     createdAt: string;
-    user: User
+    user: User;
+    views: {
+        user: User
+    }[]
 }

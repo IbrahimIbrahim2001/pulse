@@ -10,15 +10,16 @@ model User {
   accounts      Account[]
 
    // Real-time related fields
-  isOnline     Boolean   @default(false)
-  lastSeenAt   DateTime?
+  isOnline      Boolean   @default(false)
+  lastSeenAt    DateTime?
   // Relations
-  sentMessages     Message[]       @relation("MessageSender")
-  notifications    Notification[]
-  roomMembers      RoomMember[]
+  sentMessages  Message[]       @relation("MessageSender")
+  notifications Notification[]
+  roomMembers   RoomMember[]
   // typingIndicators TypingIndicator[]
-  Story            Story[]         @relation("StoryOwner")
-  viewedStories Story[] @relation("StoryViewers")
+  Story         Story[]         @relation("StoryOwner")
+  storyViews    StoryView[]
+  
 
   @@unique([email])
   @@map("user")
