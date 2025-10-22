@@ -10,7 +10,6 @@ model Room {
   // Relations
   messages    Message[]
   members     RoomMember[]
-  // typingUsers TypingIndicator[]
 
   @@map("rooms")
 }
@@ -24,7 +23,7 @@ enum RoomType {
 // Room membership
 model RoomMember {
   id     String @id @map("_id")
-  userId String
+  userId String @unique
   roomId String
   role   MemberRole @default(MEMBER)
   joinedAt DateTime @default(now())
@@ -32,6 +31,7 @@ model RoomMember {
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  reactions Reaction[]
 
   @@unique([userId, roomId])
   @@map("room_members")
@@ -64,6 +64,7 @@ model Message {
   room    Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
   replyTo Message? @relation("MessageReply", fields: [replyToId], references: [id])
   replies Message[] @relation("MessageReply")
+  reaction Reaction[]
 
   @@map("messages")
 }
@@ -80,32 +81,6 @@ enum MessageStatusType {
   DELIVERED
   SEEN
 }
-
-// Notifications
-model Notification {
-  id        String           @id @map("_id")
-  userId    String
-  title     String
-  message   String
-  type      NotificationType
-  isRead    Boolean          @default(false)
-  data      Json?            // Additional data as JSON
-  createdAt DateTime         @default(now())
-
-  // Relations
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@map("notifications")
-}
-
-enum NotificationType {
-  MESSAGE
-  MENTION
-  SYSTEM
-  FRIEND_REQUEST
-  ROOM_INVITE
-}
-
 
 
 model Story {
@@ -145,29 +120,46 @@ model StoryView {
   @@index([viewedAt])
 }
 
-// Typing indicators
-// model TypingIndicator {
-//   id        String    @id @map("_id")
-//   userId    String
-//   roomId    String
-//   createdAt DateTime @default(now())
 
-//   // Relations
-//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+model Reaction {
+  id        String   @id @default("_id")
+  roomMemberId    String
+  messageId String
+  reaction  String
 
-//   @@unique([userId, roomId])
-//   @@map("typing_indicators")
-// }
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 
-// Real-time events log (optional, for debugging/analytics)
-// model RealtimeEvent {
-//   id        String    @id @default(cuid())
-//   eventType String
-//   userId    String?
-//   roomId    String?
-//   data      Json?
-//   createdAt DateTime  @default(now())
+  //relations
+  roomMember RoomMember @relation(fields: [roomMemberId], references: [userId], onDelete: Cascade)
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
 
-//   @@map("realtime_events")
-// }
+  @@unique([roomMemberId, messageId])
+  @@map("reactions")
+}
+
+
+// Notifications
+model Notification {
+  id        String           @id @map("_id")
+  userId    String
+  title     String
+  message   String
+  type      NotificationType
+  isRead    Boolean          @default(false)
+  data      Json?            // Additional data as JSON
+  createdAt DateTime         @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+enum NotificationType {
+  MESSAGE
+  MENTION
+  SYSTEM
+  FRIEND_REQUEST
+  ROOM_INVITE
+}

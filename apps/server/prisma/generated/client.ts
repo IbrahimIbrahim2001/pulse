@@ -77,11 +77,6 @@ export type RoomMember = Prisma.RoomMemberModel
  */
 export type Message = Prisma.MessageModel
 /**
- * Model Notification
- * 
- */
-export type Notification = Prisma.NotificationModel
-/**
  * Model Story
  * 
  */
@@ -91,6 +86,16 @@ export type Story = Prisma.StoryModel
  * 
  */
 export type StoryView = Prisma.StoryViewModel
+/**
+ * Model Reaction
+ * 
+ */
+export type Reaction = Prisma.ReactionModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
 
 export type RoomType = $Enums.RoomType
 export const RoomType = $Enums.RoomType

@@ -18,6 +18,12 @@ export interface Message {
     fileName: string | null;
     fileSize: number | null;
     replyToId: string | null;
+    reaction: {
+        id: string;
+        reaction: string;
+        roomMemberId: string,
+        messageId: string
+    }[]
 }
 type RoomType = "DIRECT" | "GROUP" | "CHANNEL"
 type User = {
@@ -58,5 +64,5 @@ export interface StoryType {
     user: User;
     views: {
         user: User
-    }[]
+    }[],
 }

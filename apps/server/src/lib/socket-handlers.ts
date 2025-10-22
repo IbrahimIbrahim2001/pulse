@@ -195,15 +195,15 @@ export function setupSocketHandlers(io: Server) {
             });
         });
 
-        // Message reactions (optional feature)
-        // socket.on("message_reaction", (data: {
-        //     messageId: string;
-        //     roomId: string;
-        //     userId: string;
-        //     reaction: string;
-        // }) => {
-        //     socket.to(data.roomId).emit("message_reacted", data);
-        // });
+        // Message reactions
+        socket.on("message_reaction", (data: {
+            messageId: string;
+            roomId: string;
+            userId: string;
+            reaction: string;
+        }) => {
+            socket.to(data.roomId).emit("message_reacted", data);
+        });
 
         // Handle disconnect
         socket.on("disconnect", async () => {

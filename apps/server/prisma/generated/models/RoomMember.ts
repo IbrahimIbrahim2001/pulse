@@ -183,6 +183,7 @@ export type RoomMemberWhereInput = {
   joinedAt?: Prisma.DateTimeFilter<"RoomMember"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   room?: Prisma.XOR<Prisma.RoomScalarRelationFilter, Prisma.RoomWhereInput>
+  reactions?: Prisma.ReactionListRelationFilter
 }
 
 export type RoomMemberOrderByWithRelationInput = {
@@ -193,6 +194,7 @@ export type RoomMemberOrderByWithRelationInput = {
   joinedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   room?: Prisma.RoomOrderByWithRelationInput
+  reactions?: Prisma.ReactionOrderByRelationAggregateInput
 }
 
 export type RoomMemberWhereUniqueInput = Prisma.AtLeast<{
@@ -207,6 +209,7 @@ export type RoomMemberWhereUniqueInput = Prisma.AtLeast<{
   joinedAt?: Prisma.DateTimeFilter<"RoomMember"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   room?: Prisma.XOR<Prisma.RoomScalarRelationFilter, Prisma.RoomWhereInput>
+  reactions?: Prisma.ReactionListRelationFilter
 }, "id" | "userId_roomId">
 
 export type RoomMemberOrderByWithAggregationInput = {
@@ -237,6 +240,7 @@ export type RoomMemberCreateInput = {
   joinedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRoomMembersInput
   room: Prisma.RoomCreateNestedOneWithoutMembersInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutRoomMemberInput
 }
 
 export type RoomMemberUncheckedCreateInput = {
@@ -245,6 +249,7 @@ export type RoomMemberUncheckedCreateInput = {
   roomId: string
   role?: $Enums.MemberRole
   joinedAt?: Date | string
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutRoomMemberInput
 }
 
 export type RoomMemberUpdateInput = {
@@ -253,6 +258,7 @@ export type RoomMemberUpdateInput = {
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutRoomMembersNestedInput
   room?: Prisma.RoomUpdateOneRequiredWithoutMembersNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutRoomMemberNestedInput
 }
 
 export type RoomMemberUncheckedUpdateInput = {
@@ -261,6 +267,7 @@ export type RoomMemberUncheckedUpdateInput = {
   roomId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutRoomMemberNestedInput
 }
 
 export type RoomMemberCreateManyInput = {
@@ -322,6 +329,11 @@ export type RoomMemberMinOrderByAggregateInput = {
   roomId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   joinedAt?: Prisma.SortOrder
+}
+
+export type RoomMemberScalarRelationFilter = {
+  is?: Prisma.RoomMemberWhereInput
+  isNot?: Prisma.RoomMemberWhereInput
 }
 
 export type RoomMemberCreateNestedManyWithoutUserInput = {
@@ -412,11 +424,26 @@ export type EnumMemberRoleFieldUpdateOperationsInput = {
   set?: $Enums.MemberRole
 }
 
+export type RoomMemberCreateNestedOneWithoutReactionsInput = {
+  create?: Prisma.XOR<Prisma.RoomMemberCreateWithoutReactionsInput, Prisma.RoomMemberUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.RoomMemberCreateOrConnectWithoutReactionsInput
+  connect?: Prisma.RoomMemberWhereUniqueInput
+}
+
+export type RoomMemberUpdateOneRequiredWithoutReactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.RoomMemberCreateWithoutReactionsInput, Prisma.RoomMemberUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.RoomMemberCreateOrConnectWithoutReactionsInput
+  upsert?: Prisma.RoomMemberUpsertWithoutReactionsInput
+  connect?: Prisma.RoomMemberWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RoomMemberUpdateToOneWithWhereWithoutReactionsInput, Prisma.RoomMemberUpdateWithoutReactionsInput>, Prisma.RoomMemberUncheckedUpdateWithoutReactionsInput>
+}
+
 export type RoomMemberCreateWithoutUserInput = {
   id: string
   role?: $Enums.MemberRole
   joinedAt?: Date | string
   room: Prisma.RoomCreateNestedOneWithoutMembersInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutRoomMemberInput
 }
 
 export type RoomMemberUncheckedCreateWithoutUserInput = {
@@ -424,6 +451,7 @@ export type RoomMemberUncheckedCreateWithoutUserInput = {
   roomId: string
   role?: $Enums.MemberRole
   joinedAt?: Date | string
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutRoomMemberInput
 }
 
 export type RoomMemberCreateOrConnectWithoutUserInput = {
@@ -468,6 +496,7 @@ export type RoomMemberCreateWithoutRoomInput = {
   role?: $Enums.MemberRole
   joinedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRoomMembersInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutRoomMemberInput
 }
 
 export type RoomMemberUncheckedCreateWithoutRoomInput = {
@@ -475,6 +504,7 @@ export type RoomMemberUncheckedCreateWithoutRoomInput = {
   userId: string
   role?: $Enums.MemberRole
   joinedAt?: Date | string
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutRoomMemberInput
 }
 
 export type RoomMemberCreateOrConnectWithoutRoomInput = {
@@ -503,6 +533,54 @@ export type RoomMemberUpdateManyWithWhereWithoutRoomInput = {
   data: Prisma.XOR<Prisma.RoomMemberUpdateManyMutationInput, Prisma.RoomMemberUncheckedUpdateManyWithoutRoomInput>
 }
 
+export type RoomMemberCreateWithoutReactionsInput = {
+  id: string
+  role?: $Enums.MemberRole
+  joinedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutRoomMembersInput
+  room: Prisma.RoomCreateNestedOneWithoutMembersInput
+}
+
+export type RoomMemberUncheckedCreateWithoutReactionsInput = {
+  id: string
+  userId: string
+  roomId: string
+  role?: $Enums.MemberRole
+  joinedAt?: Date | string
+}
+
+export type RoomMemberCreateOrConnectWithoutReactionsInput = {
+  where: Prisma.RoomMemberWhereUniqueInput
+  create: Prisma.XOR<Prisma.RoomMemberCreateWithoutReactionsInput, Prisma.RoomMemberUncheckedCreateWithoutReactionsInput>
+}
+
+export type RoomMemberUpsertWithoutReactionsInput = {
+  update: Prisma.XOR<Prisma.RoomMemberUpdateWithoutReactionsInput, Prisma.RoomMemberUncheckedUpdateWithoutReactionsInput>
+  create: Prisma.XOR<Prisma.RoomMemberCreateWithoutReactionsInput, Prisma.RoomMemberUncheckedCreateWithoutReactionsInput>
+  where?: Prisma.RoomMemberWhereInput
+}
+
+export type RoomMemberUpdateToOneWithWhereWithoutReactionsInput = {
+  where?: Prisma.RoomMemberWhereInput
+  data: Prisma.XOR<Prisma.RoomMemberUpdateWithoutReactionsInput, Prisma.RoomMemberUncheckedUpdateWithoutReactionsInput>
+}
+
+export type RoomMemberUpdateWithoutReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutRoomMembersNestedInput
+  room?: Prisma.RoomUpdateOneRequiredWithoutMembersNestedInput
+}
+
+export type RoomMemberUncheckedUpdateWithoutReactionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  roomId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type RoomMemberCreateManyUserInput = {
   id: string
   roomId: string
@@ -515,6 +593,7 @@ export type RoomMemberUpdateWithoutUserInput = {
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   room?: Prisma.RoomUpdateOneRequiredWithoutMembersNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutRoomMemberNestedInput
 }
 
 export type RoomMemberUncheckedUpdateWithoutUserInput = {
@@ -522,6 +601,7 @@ export type RoomMemberUncheckedUpdateWithoutUserInput = {
   roomId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutRoomMemberNestedInput
 }
 
 export type RoomMemberUncheckedUpdateManyWithoutUserInput = {
@@ -543,6 +623,7 @@ export type RoomMemberUpdateWithoutRoomInput = {
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutRoomMembersNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutRoomMemberNestedInput
 }
 
 export type RoomMemberUncheckedUpdateWithoutRoomInput = {
@@ -550,6 +631,7 @@ export type RoomMemberUncheckedUpdateWithoutRoomInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMemberRoleFieldUpdateOperationsInput | $Enums.MemberRole
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutRoomMemberNestedInput
 }
 
 export type RoomMemberUncheckedUpdateManyWithoutRoomInput = {
@@ -560,6 +642,35 @@ export type RoomMemberUncheckedUpdateManyWithoutRoomInput = {
 }
 
 
+/**
+ * Count Type RoomMemberCountOutputType
+ */
+
+export type RoomMemberCountOutputType = {
+  reactions: number
+}
+
+export type RoomMemberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reactions?: boolean | RoomMemberCountOutputTypeCountReactionsArgs
+}
+
+/**
+ * RoomMemberCountOutputType without action
+ */
+export type RoomMemberCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RoomMemberCountOutputType
+   */
+  select?: Prisma.RoomMemberCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * RoomMemberCountOutputType without action
+ */
+export type RoomMemberCountOutputTypeCountReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReactionWhereInput
+}
+
 
 export type RoomMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -569,6 +680,8 @@ export type RoomMemberSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   joinedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+  reactions?: boolean | Prisma.RoomMember$reactionsArgs<ExtArgs>
+  _count?: boolean | Prisma.RoomMemberCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["roomMember"]>
 
 export type RoomMemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -603,6 +716,8 @@ export type RoomMemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type RoomMemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   room?: boolean | Prisma.RoomDefaultArgs<ExtArgs>
+  reactions?: boolean | Prisma.RoomMember$reactionsArgs<ExtArgs>
+  _count?: boolean | Prisma.RoomMemberCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RoomMemberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -618,6 +733,7 @@ export type $RoomMemberPayload<ExtArgs extends runtime.Types.Extensions.Internal
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     room: Prisma.$RoomPayload<ExtArgs>
+    reactions: Prisma.$ReactionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1021,6 +1137,7 @@ export interface Prisma__RoomMemberClient<T, Null = never, ExtArgs extends runti
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   room<T extends Prisma.RoomDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoomDefaultArgs<ExtArgs>>): Prisma.Prisma__RoomClient<runtime.Types.Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reactions<T extends Prisma.RoomMember$reactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RoomMember$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1448,6 +1565,30 @@ export type RoomMemberDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many RoomMembers to delete.
    */
   limit?: number
+}
+
+/**
+ * RoomMember.reactions
+ */
+export type RoomMember$reactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Reaction
+   */
+  select?: Prisma.ReactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Reaction
+   */
+  omit?: Prisma.ReactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReactionInclude<ExtArgs> | null
+  where?: Prisma.ReactionWhereInput
+  orderBy?: Prisma.ReactionOrderByWithRelationInput | Prisma.ReactionOrderByWithRelationInput[]
+  cursor?: Prisma.ReactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReactionScalarFieldEnum | Prisma.ReactionScalarFieldEnum[]
 }
 
 /**
