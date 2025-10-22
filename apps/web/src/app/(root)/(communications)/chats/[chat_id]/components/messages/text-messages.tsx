@@ -7,7 +7,7 @@ import type { MessagesProps } from "../messages"
 export const TextMessages = ({ message, sender_id, chat }: { message: Message, sender_id: MessagesProps["sender_id"], chat: MessagesProps["chat"] }) => {
     return (
         <div
-            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${message.senderId === sender_id
+            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg break-words  ${message.senderId === sender_id
                 ? "bg-primary/90 dark:bg-primary/75 text-primary-foreground"
                 : "bg-card text-card-foreground border border-border"
                 }`}

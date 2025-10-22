@@ -10,7 +10,7 @@ export const ImageMessages = ({ message, sender_id }: { message: Message, sender
     const [imageLoaded, setImageLoaded] = useState(false);
     const isOwnMessage = message.senderId === sender_id;
     return (
-        <div className={`max-w-xs lg:max-w-md ${isOwnMessage ? "ml-auto" : "mr-auto"}`}>
+        <div className={`max-w-xs lg:max-w-md `}>
             <div className="relative rounded-2xl overflow-hidden">
                 {!imageLoaded && (
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-100/90 to-gray-200/80 dark:from-gray-700/90 dark:to-gray-600/80 backdrop-blur-sm rounded-2xl flex items-center justify-center">

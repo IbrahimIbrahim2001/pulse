@@ -1,6 +1,5 @@
 import { protectedProcedure } from "@/lib/trpc";
 import prisma from "@/prisma";
-import type { MessageStatusType } from "prisma/generated/enums";
 import z from "zod";
 
 export const updateMessageStatus = () => {
@@ -25,14 +24,14 @@ export const updateMessageStatus = () => {
             select: { id: true, senderId: true }
         });
 
-        const accessibleMessageIds = accessibleMessages.map(msg => msg.id);
+        const accessibleMessageIds = accessibleMessages.map((msg: { id: any; }) => msg.id);
 
         if (accessibleMessageIds.length === 0) {
             return { updatedCount: 0, updatedMessageIds: [] };
         }
 
         // Determine which statuses to update from
-        const statusConditions: MessageStatusType[] = status === "DELIVERED"
+        const statusConditions = status === "DELIVERED"
             ? ["SENT"]
             : ["SENT", "DELIVERED"];
 

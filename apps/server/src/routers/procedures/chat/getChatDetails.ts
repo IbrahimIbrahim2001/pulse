@@ -7,7 +7,7 @@ export const getChatDetails = () => {
         z.object({
             room_id: z.string()
         })
-    ).query(async (opts) => { //specific recipient details
+    ).query(async (opts) => {
         const roomId = opts.input?.room_id;
         const chat = await prisma.room.findUnique({
             where: {
@@ -25,12 +25,15 @@ export const getChatDetails = () => {
                                 lastSeenAt: true,
                                 isOnline: true,
                             }
-                        }
+                        },
                     }
                 },
                 messages: {
                     orderBy: {
                         createdAt: 'asc'
+                    },
+                    include: {
+                        reaction: true
                     }
                 },
             }
