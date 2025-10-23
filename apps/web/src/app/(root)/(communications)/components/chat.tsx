@@ -25,7 +25,7 @@ export default function Chat({ chat }: { chat: ChatType }) {
     const unreadReceivedMessages = chat.messages.filter(msg =>
         msg.senderId !== currentUserId && msg.status === "SENT"
     );
-    const user_image = getChatImage(chat.members);
+    const user_image = getChatImage(chat.members, groupName);
     const unreadMessagesCount = unreadReceivedMessages.length;
     const HandleMessageStatus = () => {
         if (unreadMessagesCount > 0) {

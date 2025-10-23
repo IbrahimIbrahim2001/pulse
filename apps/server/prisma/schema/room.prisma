@@ -23,7 +23,7 @@ enum RoomType {
 // Room membership
 model RoomMember {
   id     String @id @map("_id")
-  userId String @unique
+  userId String 
   roomId String
   role   MemberRole @default(MEMBER)
   joinedAt DateTime @default(now())
@@ -131,7 +131,7 @@ model Reaction {
   updatedAt DateTime    @updatedAt
 
   //relations
-  roomMember RoomMember @relation(fields: [roomMemberId], references: [userId], onDelete: Cascade)
+  roomMember RoomMember @relation(fields: [roomMemberId], references: [id], onDelete: Cascade)
   message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
 
   @@unique([roomMemberId, messageId])

@@ -18,7 +18,7 @@ export interface Message {
     fileName: string | null;
     fileSize: number | null;
     replyToId: string | null;
-    reaction: {
+    reaction?: {
         id: string;
         reaction: string;
         roomMemberId: string,

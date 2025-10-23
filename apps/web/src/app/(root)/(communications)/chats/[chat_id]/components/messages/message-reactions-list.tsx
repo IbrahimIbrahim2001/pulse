@@ -25,7 +25,6 @@ export const MessageReactionsList = ({ reactions, isMyMessage }: MessageReaction
     const { data: room } = useQuery(
         trpc.chat.getChatDetails.queryOptions({ room_id: chat_id || "" })
     );
-    // const socket = useMemo(socketClient, []); //tomorrow
     const roomMemberToUserMap = useMemo(() => {
         const map = new Map()
         room?.members?.forEach(member => {

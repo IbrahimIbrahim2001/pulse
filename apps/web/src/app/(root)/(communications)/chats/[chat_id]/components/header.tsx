@@ -21,7 +21,7 @@ export default function Header({ members, groupName }: HeaderProps) {
     const session = authClient.useSession();
     const currentUserId = session.data?.user.id;
     const recipientName = getRecipientName(members, groupName);
-    const user_image = getChatImage(members);
+    const user_image = getChatImage(members, groupName);
     const otherMember = members?.find(member => member.user.id !== currentUserId);
     const { isOnline: isRecipientOnline, lastSeenAt } = useUserStatus(otherMember?.user.id || '');
     const memberIds = members?.map(member => member.user.id) || [];

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import type { ChatType, Message } from "@/app/(root)/types/chat";
 import type { Socket } from "socket.io-client";
 import { trpc } from "@/utils/trpc";
@@ -9,7 +9,6 @@ export const useSendMessage = (chat: ChatType | undefined | null, roomId: string
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const chatDetailsKey = trpc.chat.getChatDetails.queryKey({ room_id: roomId });
     useEffect(() => {
-        // Set up event listeners
         socket.on("connect", () => {
             console.log("Connected to server");
         });
@@ -17,8 +16,6 @@ export const useSendMessage = (chat: ChatType | undefined | null, roomId: string
         socket.on("disconnect", () => {
             console.log("Disconnected from server");
         });
-
-        // Listen for messages from server
         socket.on("message", (msg: Message) => {
             queryClient.setQueryData(chatDetailsKey, (old: any) => {
                 if (!old) return old;
@@ -28,8 +25,6 @@ export const useSendMessage = (chat: ChatType | undefined | null, roomId: string
                 };
             });
         });
-
-        // ADD THIS: Listen for status updates
         socket.on("message_status_updated", (data: { messageIds: string[]; status: string }) => {
             queryClient.setQueryData(chatDetailsKey, (old: any) => {
                 if (!old) return old;
@@ -43,13 +38,11 @@ export const useSendMessage = (chat: ChatType | undefined | null, roomId: string
                 };
             });
         });
-
-        // Clean up on unmount
         return () => {
             socket.off("connect");
             socket.off("disconnect");
             socket.off("message");
-            socket.off("message_status_updated"); // ADD THIS
+            socket.off("message_status_updated");
         };
     }, [socket]);
     useEffect(() => {
