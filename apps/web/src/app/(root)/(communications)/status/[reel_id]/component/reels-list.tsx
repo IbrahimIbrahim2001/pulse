@@ -48,6 +48,7 @@ const transformStoryToReel = (story: StoryType) => ({
     user: story.user,
     type: 'image' as 'image',
     duration: 5000,
+    views: story.views ?? 0,
     userData: { ...story.user }
 });
 

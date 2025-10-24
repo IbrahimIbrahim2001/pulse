@@ -11,8 +11,7 @@ export function Status({ story }: { story: StoryType }) {
             >
                 {/* Story Image */}
                 <Image
-                    width={100}
-                    height={100}
+                    fill
                     alt={story.title ?? `story_id: ${story.id}`}
                     src={story.fileUrl}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
