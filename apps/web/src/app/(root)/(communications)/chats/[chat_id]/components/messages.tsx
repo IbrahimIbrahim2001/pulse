@@ -43,10 +43,6 @@ const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
         const member = chat.members.find(m => m.user.id === messageSenderId);
         return member?.user.image || "";
     };
-
-
-    const reactions = ['👍', '❤️', '😂', '😮', '😢', '🙏'];
-
     return (
         <div className="flex-1 overflow-y-auto p-4 space-y-4 hide-scrollbar">
             {chat?.messages.length === 0 ? (
