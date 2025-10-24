@@ -1,9 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button"; // Adjust import path as needed
 import { trpc } from "@/utils/trpc";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import EmojiPicker, { Theme, type EmojiClickData } from 'emoji-picker-react';
 import { Smile } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 interface MessageReactionsProps {
@@ -12,7 +13,15 @@ interface MessageReactionsProps {
 }
 
 export const MessageReactions = ({ messageId, isMyMessage }: MessageReactionsProps) => {
-    const mutateReaction = useMutation(trpc.messages.messageReaction.mutationOptions());
+    const { chat_id: room_id } = useParams<{ chat_id: string }>();
+    const queryClient = useQueryClient();
+    const mutateReaction = useMutation(trpc.messages.messageReaction.mutationOptions({
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: trpc.chat.getChatDetails.queryKey({ room_id })
+            });
+        }
+    }));
     const [showFullPicker, setShowFullPicker] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -29,14 +38,8 @@ export const MessageReactions = ({ messageId, isMyMessage }: MessageReactionsPro
 
     const handleEmojiClick = async (emojiData: EmojiClickData) => {
         await mutateReaction.mutateAsync({ messageId, reaction: emojiData.emoji })
-        // handleReaction(emojiData.emoji, messageId);
         setShowFullPicker(false);
     };
-
-    // const handleReaction = (emoji: string, messageId: string) => {
-    //     // Add your socket logic here:
-    //     // socket.emit('message-reaction', { messageId, emoji, userId: sender_id });
-    // };
 
     const openFullPicker = () => {
         setShowFullPicker(true);;

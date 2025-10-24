@@ -2,9 +2,8 @@ import ChatAvatar from "@/app/(root)/(communications)/components/chat-avatar"
 import { Button } from "@/components/ui/button"
 import { ResponsiveModal, ResponsiveModalContent, ResponsiveModalDescription, ResponsiveModalHeader, ResponsiveModalTitle, ResponsiveModalTrigger } from "@/components/ui/responsive-modal"
 import { authClient } from "@/lib/auth-client"
-import { socketClient } from "@/lib/socketClient"
 import { trpc } from "@/utils/trpc"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChevronUp, TrashIcon } from "lucide-react"
 import { useParams } from "next/navigation"
 import { useMemo } from "react"
@@ -25,6 +24,15 @@ export const MessageReactionsList = ({ reactions, isMyMessage }: MessageReaction
     const { data: room } = useQuery(
         trpc.chat.getChatDetails.queryOptions({ room_id: chat_id || "" })
     );
+    const queryClient = useQueryClient();
+    const mutateRemoveReaction = useMutation(trpc.messages.removeReaction.mutationOptions({
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: trpc.chat.getChatDetails.queryKey({ room_id: chat_id })
+            });
+        }
+    }));
+
     const roomMemberToUserMap = useMemo(() => {
         const map = new Map()
         room?.members?.forEach(member => {
@@ -75,6 +83,13 @@ export const MessageReactionsList = ({ reactions, isMyMessage }: MessageReaction
     if (!reactions?.length || reactionEntries.length === 0) {
         return null;
     }
+
+    const removeReaction = (reactionId: string) => {
+        mutateRemoveReaction.mutateAsync({ reactionId });
+
+    }
+
+
     return (
         <ResponsiveModal>
             <ResponsiveModalTrigger asChild>
@@ -140,7 +155,7 @@ export const MessageReactionsList = ({ reactions, isMyMessage }: MessageReaction
                                                             )}
                                                         </div>
                                                         {myReaction &&
-                                                            <Button variant="outline" className="text-destructive" onClick={() => console.log("first")}>
+                                                            <Button variant="outline" className="text-destructive" onClick={() => removeReaction(reaction.id)}>
                                                                 <TrashIcon />
                                                             </Button>
                                                         }
