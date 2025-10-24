@@ -1,9 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, TrashIcon } from "lucide-react";
 import ChatAvatar from "../../../components/chat-avatar";
 import { useParams, useRouter } from "next/navigation";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { trpc } from "@/utils/trpc";
 import { useEffect, useState } from "react";
 import { Reel, ReelContent, ReelControls, ReelImage, ReelItem, ReelNavigation, ReelNextButton, ReelPlayButton, ReelPreviousButton, ReelProgress } from "@/components/kibo-ui/reel";
@@ -11,7 +11,14 @@ import { ViewsDrawer } from "./views-drawer";
 import { authClient } from "@/lib/auth-client";
 
 export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
+    const queryClient = useQueryClient();
     const mutateViewStory = useMutation(trpc.stories.viewStory.mutationOptions());
+    const mutateDeleteStory = useMutation(trpc.stories.deleteStory.mutationOptions({
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: trpc.stories.getStory.queryKey() });
+        }
+    }
+    ));
     const router = useRouter();
     const { reel_id } = useParams();
     const reelId: string = reel_id ? reel_id.toString() : "";
@@ -71,6 +78,12 @@ export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
 
     const currentStory = allStories[currentStoryIndex];
 
+    const removeStory = (storyId: string | number) => {
+        const id = storyId.toString()
+        mutateDeleteStory.mutateAsync({ id });
+        router.back()
+    }
+
     return (
         <Reel
             data={allStories}
@@ -86,7 +99,7 @@ export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
                     >
                         <ArrowLeft className="size-5 text-white" />
                     </Button>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 justify-between">
                         <ChatAvatar
                             recipientName={currentStory?.user?.name}
                             size="h-8 w-8"
@@ -100,6 +113,9 @@ export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
                         </div>
                     </div>
                 </div>
+                {userId === currentStory.user.id && <Button variant="outline" className="text-destructive" onClick={() => removeStory(currentStory.id)}>
+                    <TrashIcon className="size-4" />
+                </Button>}
             </div>
 
             {/* Progress Bar */}
@@ -123,7 +139,6 @@ export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
                     </>
                 )}
             </ReelContent>
-
             {/* Navigation Controls */}
             <ReelNavigation />
             <ReelControls>
@@ -131,7 +146,6 @@ export function ReelComponent({ reelData }: { reelData: ReelItem[] }) {
                 <ReelPlayButton />
                 <ReelNextButton className="right-4 bottom-4" />
             </ReelControls>
-
         </Reel>
     );
 }

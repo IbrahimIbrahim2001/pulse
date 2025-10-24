@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/utils/trpc";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PlusIcon, XIcon, UploadIcon, Loader2Icon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -28,8 +28,13 @@ const formSchema = z.object({
 })
 
 export function AddStoryForm() {
+    const queryClient = useQueryClient();
     const mutateNewStory = useMutation(trpc.stories.newStory.mutationOptions());
-    const uploadImageMutation = useMutation(trpc.images.uploadImage.mutationOptions());
+    const uploadImageMutation = useMutation(trpc.images.uploadImage.mutationOptions({
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: trpc.stories.getStory.queryKey() });
+        }
+    }));
     const form = useForm<z.infer<typeof formSchema>>();
     const [addTitle, setAddTitle] = useState(false);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);

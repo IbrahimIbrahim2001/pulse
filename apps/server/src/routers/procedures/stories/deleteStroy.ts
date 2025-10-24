@@ -1,4 +1,5 @@
 import { protectedProcedure } from "@/lib/trpc"
+import prisma from "@/prisma";
 import z from "zod"
 
 export const deleteStory = () => {
@@ -6,8 +7,12 @@ export const deleteStory = () => {
         z.object({
             id: z.string()
         })
-    ).mutation((opts) => {
-        const { id: user_id } = opts.ctx.session.user
+    ).mutation(async (opts) => {
         const { id } = opts.input;
+        await prisma.story.deleteMany({
+            where: {
+                id
+            }
+        })
     })
 }
