@@ -3,6 +3,7 @@ import ChatList from "@/app/(root)/(communications)/components/chat-list";
 import { usePathname } from "next/navigation";
 import AddButton from "../../components/add-button";
 import { StatusList } from "./status-list";
+import { EmptyCalls } from "./empty-calls";
 
 
 export default function List() {
@@ -24,7 +25,7 @@ function ChatComponent() {
 }
 
 function CallsComponent() {
-    return null;
+    return <EmptyCalls />;
 }
 
 
