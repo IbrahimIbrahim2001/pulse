@@ -52,6 +52,21 @@ export interface ChatType {
     createdAt: string;
 }
 
+export interface ArchivedChatType {
+    id: string
+    userId: string
+    user: User
+    room: {
+        id: string
+        name: string
+        createdAt: string
+        updatedAt: string
+        type: RoomType
+        members: ChatMember[]
+        messages: Message[]
+    }
+}
+
 
 
 

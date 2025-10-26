@@ -11,6 +11,8 @@ export default function SettingPage() {
         redirect("../login")
     }
     return (
-        <Button onClick={handleSignout} variant="destructive">Signout</Button>
+        <div className='col-span-12'>
+            <Button onClick={handleSignout} variant="destructive">Signout</Button>
+        </div>
     )
 }

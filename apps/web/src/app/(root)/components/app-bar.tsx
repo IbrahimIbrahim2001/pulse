@@ -20,9 +20,26 @@ export default function AppBar() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>New group</DropdownMenuItem>
-            <DropdownMenuItem>Starred</DropdownMenuItem>
-            <DropdownMenuItem>Archived</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={{ pathname: "../chats/new-group" }}>
+                New group
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={{ pathname: "../starred-messages" }}>
+                Starred
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={{ pathname: "../archived-chats" }}>
+                Archived
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={{ pathname: "../profile" }}>
+                Profile
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>
               <Link href={{ pathname: "../settings" }}>
                 Settings

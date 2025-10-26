@@ -92,6 +92,16 @@ export type StoryView = Prisma.StoryViewModel
  */
 export type Reaction = Prisma.ReactionModel
 /**
+ * Model ArchivedChats
+ * 
+ */
+export type ArchivedChats = Prisma.ArchivedChatsModel
+/**
+ * Model StarredMessage
+ * 
+ */
+export type StarredMessage = Prisma.StarredMessageModel
+/**
  * Model Notification
  * 
  */

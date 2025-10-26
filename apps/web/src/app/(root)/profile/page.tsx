@@ -1,5 +1,5 @@
 export default function ProfilePage() {
     return (
-        <div>profile page</div>
+        <div className="col-span-12">profile page</div>
     )
 }

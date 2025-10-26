@@ -183,6 +183,7 @@ export type RoomWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Room"> | Date | string
   messages?: Prisma.MessageListRelationFilter
   members?: Prisma.RoomMemberListRelationFilter
+  archiveChatUser?: Prisma.ArchivedChatsListRelationFilter
 }
 
 export type RoomOrderByWithRelationInput = {
@@ -193,6 +194,7 @@ export type RoomOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   messages?: Prisma.MessageOrderByRelationAggregateInput
   members?: Prisma.RoomMemberOrderByRelationAggregateInput
+  archiveChatUser?: Prisma.ArchivedChatsOrderByRelationAggregateInput
 }
 
 export type RoomWhereUniqueInput = Prisma.AtLeast<{
@@ -206,6 +208,7 @@ export type RoomWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Room"> | Date | string
   messages?: Prisma.MessageListRelationFilter
   members?: Prisma.RoomMemberListRelationFilter
+  archiveChatUser?: Prisma.ArchivedChatsListRelationFilter
 }, "id">
 
 export type RoomOrderByWithAggregationInput = {
@@ -238,6 +241,7 @@ export type RoomCreateInput = {
   updatedAt?: Date | string
   messages?: Prisma.MessageCreateNestedManyWithoutRoomInput
   members?: Prisma.RoomMemberCreateNestedManyWithoutRoomInput
+  archiveChatUser?: Prisma.ArchivedChatsCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateInput = {
@@ -248,6 +252,7 @@ export type RoomUncheckedCreateInput = {
   updatedAt?: Date | string
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutRoomInput
   members?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutRoomInput
+  archiveChatUser?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUpdateInput = {
@@ -258,6 +263,7 @@ export type RoomUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessageUpdateManyWithoutRoomNestedInput
   members?: Prisma.RoomMemberUpdateManyWithoutRoomNestedInput
+  archiveChatUser?: Prisma.ArchivedChatsUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateInput = {
@@ -268,6 +274,7 @@ export type RoomUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessageUncheckedUpdateManyWithoutRoomNestedInput
   members?: Prisma.RoomMemberUncheckedUpdateManyWithoutRoomNestedInput
+  archiveChatUser?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateManyInput = {
@@ -355,6 +362,20 @@ export type RoomUpdateOneRequiredWithoutMessagesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RoomUpdateToOneWithWhereWithoutMessagesInput, Prisma.RoomUpdateWithoutMessagesInput>, Prisma.RoomUncheckedUpdateWithoutMessagesInput>
 }
 
+export type RoomCreateNestedOneWithoutArchiveChatUserInput = {
+  create?: Prisma.XOR<Prisma.RoomCreateWithoutArchiveChatUserInput, Prisma.RoomUncheckedCreateWithoutArchiveChatUserInput>
+  connectOrCreate?: Prisma.RoomCreateOrConnectWithoutArchiveChatUserInput
+  connect?: Prisma.RoomWhereUniqueInput
+}
+
+export type RoomUpdateOneRequiredWithoutArchiveChatUserNestedInput = {
+  create?: Prisma.XOR<Prisma.RoomCreateWithoutArchiveChatUserInput, Prisma.RoomUncheckedCreateWithoutArchiveChatUserInput>
+  connectOrCreate?: Prisma.RoomCreateOrConnectWithoutArchiveChatUserInput
+  upsert?: Prisma.RoomUpsertWithoutArchiveChatUserInput
+  connect?: Prisma.RoomWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RoomUpdateToOneWithWhereWithoutArchiveChatUserInput, Prisma.RoomUpdateWithoutArchiveChatUserInput>, Prisma.RoomUncheckedUpdateWithoutArchiveChatUserInput>
+}
+
 export type RoomCreateWithoutMembersInput = {
   id: string
   name: string
@@ -362,6 +383,7 @@ export type RoomCreateWithoutMembersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   messages?: Prisma.MessageCreateNestedManyWithoutRoomInput
+  archiveChatUser?: Prisma.ArchivedChatsCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutMembersInput = {
@@ -371,6 +393,7 @@ export type RoomUncheckedCreateWithoutMembersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutRoomInput
+  archiveChatUser?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutMembersInput = {
@@ -396,6 +419,7 @@ export type RoomUpdateWithoutMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessageUpdateManyWithoutRoomNestedInput
+  archiveChatUser?: Prisma.ArchivedChatsUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutMembersInput = {
@@ -405,6 +429,7 @@ export type RoomUncheckedUpdateWithoutMembersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessageUncheckedUpdateManyWithoutRoomNestedInput
+  archiveChatUser?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutMessagesInput = {
@@ -414,6 +439,7 @@ export type RoomCreateWithoutMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.RoomMemberCreateNestedManyWithoutRoomInput
+  archiveChatUser?: Prisma.ArchivedChatsCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutMessagesInput = {
@@ -423,6 +449,7 @@ export type RoomUncheckedCreateWithoutMessagesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   members?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutRoomInput
+  archiveChatUser?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutMessagesInput = {
@@ -448,6 +475,7 @@ export type RoomUpdateWithoutMessagesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   members?: Prisma.RoomMemberUpdateManyWithoutRoomNestedInput
+  archiveChatUser?: Prisma.ArchivedChatsUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutMessagesInput = {
@@ -456,6 +484,63 @@ export type RoomUncheckedUpdateWithoutMessagesInput = {
   type?: Prisma.EnumRoomTypeFieldUpdateOperationsInput | $Enums.RoomType
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  members?: Prisma.RoomMemberUncheckedUpdateManyWithoutRoomNestedInput
+  archiveChatUser?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutRoomNestedInput
+}
+
+export type RoomCreateWithoutArchiveChatUserInput = {
+  id: string
+  name: string
+  type?: $Enums.RoomType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  messages?: Prisma.MessageCreateNestedManyWithoutRoomInput
+  members?: Prisma.RoomMemberCreateNestedManyWithoutRoomInput
+}
+
+export type RoomUncheckedCreateWithoutArchiveChatUserInput = {
+  id: string
+  name: string
+  type?: $Enums.RoomType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutRoomInput
+  members?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutRoomInput
+}
+
+export type RoomCreateOrConnectWithoutArchiveChatUserInput = {
+  where: Prisma.RoomWhereUniqueInput
+  create: Prisma.XOR<Prisma.RoomCreateWithoutArchiveChatUserInput, Prisma.RoomUncheckedCreateWithoutArchiveChatUserInput>
+}
+
+export type RoomUpsertWithoutArchiveChatUserInput = {
+  update: Prisma.XOR<Prisma.RoomUpdateWithoutArchiveChatUserInput, Prisma.RoomUncheckedUpdateWithoutArchiveChatUserInput>
+  create: Prisma.XOR<Prisma.RoomCreateWithoutArchiveChatUserInput, Prisma.RoomUncheckedCreateWithoutArchiveChatUserInput>
+  where?: Prisma.RoomWhereInput
+}
+
+export type RoomUpdateToOneWithWhereWithoutArchiveChatUserInput = {
+  where?: Prisma.RoomWhereInput
+  data: Prisma.XOR<Prisma.RoomUpdateWithoutArchiveChatUserInput, Prisma.RoomUncheckedUpdateWithoutArchiveChatUserInput>
+}
+
+export type RoomUpdateWithoutArchiveChatUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumRoomTypeFieldUpdateOperationsInput | $Enums.RoomType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.MessageUpdateManyWithoutRoomNestedInput
+  members?: Prisma.RoomMemberUpdateManyWithoutRoomNestedInput
+}
+
+export type RoomUncheckedUpdateWithoutArchiveChatUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumRoomTypeFieldUpdateOperationsInput | $Enums.RoomType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutRoomNestedInput
   members?: Prisma.RoomMemberUncheckedUpdateManyWithoutRoomNestedInput
 }
 
@@ -467,11 +552,13 @@ export type RoomUncheckedUpdateWithoutMessagesInput = {
 export type RoomCountOutputType = {
   messages: number
   members: number
+  archiveChatUser: number
 }
 
 export type RoomCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   messages?: boolean | RoomCountOutputTypeCountMessagesArgs
   members?: boolean | RoomCountOutputTypeCountMembersArgs
+  archiveChatUser?: boolean | RoomCountOutputTypeCountArchiveChatUserArgs
 }
 
 /**
@@ -498,6 +585,13 @@ export type RoomCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.RoomMemberWhereInput
 }
 
+/**
+ * RoomCountOutputType without action
+ */
+export type RoomCountOutputTypeCountArchiveChatUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ArchivedChatsWhereInput
+}
+
 
 export type RoomSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -507,6 +601,7 @@ export type RoomSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   messages?: boolean | Prisma.Room$messagesArgs<ExtArgs>
   members?: boolean | Prisma.Room$membersArgs<ExtArgs>
+  archiveChatUser?: boolean | Prisma.Room$archiveChatUserArgs<ExtArgs>
   _count?: boolean | Prisma.RoomCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["room"]>
 
@@ -538,6 +633,7 @@ export type RoomOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type RoomInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   messages?: boolean | Prisma.Room$messagesArgs<ExtArgs>
   members?: boolean | Prisma.Room$membersArgs<ExtArgs>
+  archiveChatUser?: boolean | Prisma.Room$archiveChatUserArgs<ExtArgs>
   _count?: boolean | Prisma.RoomCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RoomIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -548,6 +644,7 @@ export type $RoomPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     messages: Prisma.$MessagePayload<ExtArgs>[]
     members: Prisma.$RoomMemberPayload<ExtArgs>[]
+    archiveChatUser: Prisma.$ArchivedChatsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -951,6 +1048,7 @@ export interface Prisma__RoomClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   messages<T extends Prisma.Room$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.Room$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  archiveChatUser<T extends Prisma.Room$archiveChatUserArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$archiveChatUserArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ArchivedChatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1418,6 +1516,30 @@ export type Room$membersArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.RoomMemberScalarFieldEnum | Prisma.RoomMemberScalarFieldEnum[]
+}
+
+/**
+ * Room.archiveChatUser
+ */
+export type Room$archiveChatUserArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ArchivedChats
+   */
+  select?: Prisma.ArchivedChatsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ArchivedChats
+   */
+  omit?: Prisma.ArchivedChatsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ArchivedChatsInclude<ExtArgs> | null
+  where?: Prisma.ArchivedChatsWhereInput
+  orderBy?: Prisma.ArchivedChatsOrderByWithRelationInput | Prisma.ArchivedChatsOrderByWithRelationInput[]
+  cursor?: Prisma.ArchivedChatsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ArchivedChatsScalarFieldEnum | Prisma.ArchivedChatsScalarFieldEnum[]
 }
 
 /**

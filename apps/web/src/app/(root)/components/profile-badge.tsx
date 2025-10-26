@@ -18,6 +18,7 @@ import { useState, useRef, type ChangeEvent } from "react"
 import Image from "next/image"
 import { useMutation } from "@tanstack/react-query"
 import { trpc } from "@/utils/trpc"
+import Link from "next/link"
 
 export default function ProfileBadge() {
     const mutateImage = useMutation(trpc.images.uploadImage.mutationOptions());
@@ -172,6 +173,15 @@ export default function ProfileBadge() {
                                 </div>
                             )}
                             <Input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
+                            <div className=" w-full flex items-center justify-end">
+                                <Link href={{ pathname: "/profile" }}>
+                                    <Button variant="link" onClick={() => setOpen(false)}>
+                                        <p className="text-sm text-primary/70 animate-pulse">
+                                            update username or password
+                                        </p>
+                                    </Button>
+                                </Link>
+                            </div>
                         </div>
                     </DialogContent>
                 </Dialog>
