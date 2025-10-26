@@ -220,6 +220,8 @@ export type UserWhereInput = {
   roomMembers?: Prisma.RoomMemberListRelationFilter
   Story?: Prisma.StoryListRelationFilter
   storyViews?: Prisma.StoryViewListRelationFilter
+  archivedChat?: Prisma.ArchivedChatsListRelationFilter
+  starredMessages?: Prisma.StarredMessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -239,6 +241,8 @@ export type UserOrderByWithRelationInput = {
   roomMembers?: Prisma.RoomMemberOrderByRelationAggregateInput
   Story?: Prisma.StoryOrderByRelationAggregateInput
   storyViews?: Prisma.StoryViewOrderByRelationAggregateInput
+  archivedChat?: Prisma.ArchivedChatsOrderByRelationAggregateInput
+  starredMessages?: Prisma.StarredMessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -261,6 +265,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   roomMembers?: Prisma.RoomMemberListRelationFilter
   Story?: Prisma.StoryListRelationFilter
   storyViews?: Prisma.StoryViewListRelationFilter
+  archivedChat?: Prisma.ArchivedChatsListRelationFilter
+  starredMessages?: Prisma.StarredMessageListRelationFilter
 }, "id" | "name" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -310,6 +316,8 @@ export type UserCreateInput = {
   roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -329,6 +337,8 @@ export type UserUncheckedCreateInput = {
   roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -348,6 +358,8 @@ export type UserUpdateInput = {
   roomMembers?: Prisma.RoomMemberUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -367,6 +379,8 @@ export type UserUncheckedUpdateInput = {
   roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -550,6 +564,34 @@ export type UserUpdateOneRequiredWithoutStoryViewsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStoryViewsInput, Prisma.UserUpdateWithoutStoryViewsInput>, Prisma.UserUncheckedUpdateWithoutStoryViewsInput>
 }
 
+export type UserCreateNestedOneWithoutArchivedChatInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutArchivedChatInput, Prisma.UserUncheckedCreateWithoutArchivedChatInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutArchivedChatInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutArchivedChatNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutArchivedChatInput, Prisma.UserUncheckedCreateWithoutArchivedChatInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutArchivedChatInput
+  upsert?: Prisma.UserUpsertWithoutArchivedChatInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutArchivedChatInput, Prisma.UserUpdateWithoutArchivedChatInput>, Prisma.UserUncheckedUpdateWithoutArchivedChatInput>
+}
+
+export type UserCreateNestedOneWithoutStarredMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStarredMessagesInput, Prisma.UserUncheckedCreateWithoutStarredMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStarredMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStarredMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStarredMessagesInput, Prisma.UserUncheckedCreateWithoutStarredMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStarredMessagesInput
+  upsert?: Prisma.UserUpsertWithoutStarredMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStarredMessagesInput, Prisma.UserUpdateWithoutStarredMessagesInput>, Prisma.UserUncheckedUpdateWithoutStarredMessagesInput>
+}
+
 export type UserCreateNestedOneWithoutNotificationsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
@@ -580,6 +622,8 @@ export type UserCreateWithoutSessionsInput = {
   roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -598,6 +642,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -632,6 +678,8 @@ export type UserUpdateWithoutSessionsInput = {
   roomMembers?: Prisma.RoomMemberUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -650,6 +698,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -668,6 +718,8 @@ export type UserCreateWithoutAccountsInput = {
   roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -686,6 +738,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -720,6 +774,8 @@ export type UserUpdateWithoutAccountsInput = {
   roomMembers?: Prisma.RoomMemberUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -738,6 +794,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRoomMembersInput = {
@@ -756,6 +814,8 @@ export type UserCreateWithoutRoomMembersInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRoomMembersInput = {
@@ -774,6 +834,8 @@ export type UserUncheckedCreateWithoutRoomMembersInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRoomMembersInput = {
@@ -808,6 +870,8 @@ export type UserUpdateWithoutRoomMembersInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRoomMembersInput = {
@@ -826,6 +890,8 @@ export type UserUncheckedUpdateWithoutRoomMembersInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentMessagesInput = {
@@ -844,6 +910,8 @@ export type UserCreateWithoutSentMessagesInput = {
   roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -862,6 +930,8 @@ export type UserUncheckedCreateWithoutSentMessagesInput = {
   roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -896,6 +966,8 @@ export type UserUpdateWithoutSentMessagesInput = {
   roomMembers?: Prisma.RoomMemberUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -914,6 +986,8 @@ export type UserUncheckedUpdateWithoutSentMessagesInput = {
   roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStoryInput = {
@@ -932,6 +1006,8 @@ export type UserCreateWithoutStoryInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStoryInput = {
@@ -950,6 +1026,8 @@ export type UserUncheckedCreateWithoutStoryInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStoryInput = {
@@ -984,6 +1062,8 @@ export type UserUpdateWithoutStoryInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   roomMembers?: Prisma.RoomMemberUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoryInput = {
@@ -1002,6 +1082,8 @@ export type UserUncheckedUpdateWithoutStoryInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStoryViewsInput = {
@@ -1020,6 +1102,8 @@ export type UserCreateWithoutStoryViewsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStoryViewsInput = {
@@ -1038,6 +1122,8 @@ export type UserUncheckedCreateWithoutStoryViewsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStoryViewsInput = {
@@ -1072,6 +1158,8 @@ export type UserUpdateWithoutStoryViewsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   roomMembers?: Prisma.RoomMemberUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStoryViewsInput = {
@@ -1090,6 +1178,200 @@ export type UserUncheckedUpdateWithoutStoryViewsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutArchivedChatInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  isOnline?: boolean
+  lastSeenAt?: Date | string | null
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutUserInput
+  Story?: Prisma.StoryCreateNestedManyWithoutUserInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutArchivedChatInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  isOnline?: boolean
+  lastSeenAt?: Date | string | null
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutUserInput
+  Story?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutArchivedChatInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutArchivedChatInput, Prisma.UserUncheckedCreateWithoutArchivedChatInput>
+}
+
+export type UserUpsertWithoutArchivedChatInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutArchivedChatInput, Prisma.UserUncheckedUpdateWithoutArchivedChatInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutArchivedChatInput, Prisma.UserUncheckedCreateWithoutArchivedChatInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutArchivedChatInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutArchivedChatInput, Prisma.UserUncheckedUpdateWithoutArchivedChatInput>
+}
+
+export type UserUpdateWithoutArchivedChatInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  roomMembers?: Prisma.RoomMemberUpdateManyWithoutUserNestedInput
+  Story?: Prisma.StoryUpdateManyWithoutUserNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutArchivedChatInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutUserNestedInput
+  Story?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutStarredMessagesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  isOnline?: boolean
+  lastSeenAt?: Date | string | null
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutUserInput
+  Story?: Prisma.StoryCreateNestedManyWithoutUserInput
+  storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutStarredMessagesInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  isOnline?: boolean
+  lastSeenAt?: Date | string | null
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutUserInput
+  Story?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
+  storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutStarredMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStarredMessagesInput, Prisma.UserUncheckedCreateWithoutStarredMessagesInput>
+}
+
+export type UserUpsertWithoutStarredMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStarredMessagesInput, Prisma.UserUncheckedUpdateWithoutStarredMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStarredMessagesInput, Prisma.UserUncheckedCreateWithoutStarredMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStarredMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStarredMessagesInput, Prisma.UserUncheckedUpdateWithoutStarredMessagesInput>
+}
+
+export type UserUpdateWithoutStarredMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  roomMembers?: Prisma.RoomMemberUpdateManyWithoutUserNestedInput
+  Story?: Prisma.StoryUpdateManyWithoutUserNestedInput
+  storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStarredMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastSeenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutUserNestedInput
+  Story?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
+  storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1108,6 +1390,8 @@ export type UserCreateWithoutNotificationsInput = {
   roomMembers?: Prisma.RoomMemberCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1126,6 +1410,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   roomMembers?: Prisma.RoomMemberUncheckedCreateNestedManyWithoutUserInput
   Story?: Prisma.StoryUncheckedCreateNestedManyWithoutUserInput
   storyViews?: Prisma.StoryViewUncheckedCreateNestedManyWithoutUserInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedCreateNestedManyWithoutUserInput
+  starredMessages?: Prisma.StarredMessageUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1160,6 +1446,8 @@ export type UserUpdateWithoutNotificationsInput = {
   roomMembers?: Prisma.RoomMemberUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1178,6 +1466,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   roomMembers?: Prisma.RoomMemberUncheckedUpdateManyWithoutUserNestedInput
   Story?: Prisma.StoryUncheckedUpdateManyWithoutUserNestedInput
   storyViews?: Prisma.StoryViewUncheckedUpdateManyWithoutUserNestedInput
+  archivedChat?: Prisma.ArchivedChatsUncheckedUpdateManyWithoutUserNestedInput
+  starredMessages?: Prisma.StarredMessageUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1193,6 +1483,8 @@ export type UserCountOutputType = {
   roomMembers: number
   Story: number
   storyViews: number
+  archivedChat: number
+  starredMessages: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1203,6 +1495,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   roomMembers?: boolean | UserCountOutputTypeCountRoomMembersArgs
   Story?: boolean | UserCountOutputTypeCountStoryArgs
   storyViews?: boolean | UserCountOutputTypeCountStoryViewsArgs
+  archivedChat?: boolean | UserCountOutputTypeCountArchivedChatArgs
+  starredMessages?: boolean | UserCountOutputTypeCountStarredMessagesArgs
 }
 
 /**
@@ -1264,6 +1558,20 @@ export type UserCountOutputTypeCountStoryViewsArgs<ExtArgs extends runtime.Types
   where?: Prisma.StoryViewWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountArchivedChatArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ArchivedChatsWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStarredMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StarredMessageWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1282,6 +1590,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   roomMembers?: boolean | Prisma.User$roomMembersArgs<ExtArgs>
   Story?: boolean | Prisma.User$StoryArgs<ExtArgs>
   storyViews?: boolean | Prisma.User$storyViewsArgs<ExtArgs>
+  archivedChat?: boolean | Prisma.User$archivedChatArgs<ExtArgs>
+  starredMessages?: boolean | Prisma.User$starredMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1330,6 +1640,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   roomMembers?: boolean | Prisma.User$roomMembersArgs<ExtArgs>
   Story?: boolean | Prisma.User$StoryArgs<ExtArgs>
   storyViews?: boolean | Prisma.User$storyViewsArgs<ExtArgs>
+  archivedChat?: boolean | Prisma.User$archivedChatArgs<ExtArgs>
+  starredMessages?: boolean | Prisma.User$starredMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1345,6 +1657,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     roomMembers: Prisma.$RoomMemberPayload<ExtArgs>[]
     Story: Prisma.$StoryPayload<ExtArgs>[]
     storyViews: Prisma.$StoryViewPayload<ExtArgs>[]
+    archivedChat: Prisma.$ArchivedChatsPayload<ExtArgs>[]
+    starredMessages: Prisma.$StarredMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1757,6 +2071,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   roomMembers<T extends Prisma.User$roomMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$roomMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   Story<T extends Prisma.User$StoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$StoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   storyViews<T extends Prisma.User$storyViewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$storyViewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StoryViewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  archivedChat<T extends Prisma.User$archivedChatArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$archivedChatArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ArchivedChatsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  starredMessages<T extends Prisma.User$starredMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$starredMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StarredMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2348,6 +2664,54 @@ export type User$storyViewsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.StoryViewScalarFieldEnum | Prisma.StoryViewScalarFieldEnum[]
+}
+
+/**
+ * User.archivedChat
+ */
+export type User$archivedChatArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ArchivedChats
+   */
+  select?: Prisma.ArchivedChatsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ArchivedChats
+   */
+  omit?: Prisma.ArchivedChatsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ArchivedChatsInclude<ExtArgs> | null
+  where?: Prisma.ArchivedChatsWhereInput
+  orderBy?: Prisma.ArchivedChatsOrderByWithRelationInput | Prisma.ArchivedChatsOrderByWithRelationInput[]
+  cursor?: Prisma.ArchivedChatsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ArchivedChatsScalarFieldEnum | Prisma.ArchivedChatsScalarFieldEnum[]
+}
+
+/**
+ * User.starredMessages
+ */
+export type User$starredMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StarredMessage
+   */
+  select?: Prisma.StarredMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the StarredMessage
+   */
+  omit?: Prisma.StarredMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StarredMessageInclude<ExtArgs> | null
+  where?: Prisma.StarredMessageWhereInput
+  orderBy?: Prisma.StarredMessageOrderByWithRelationInput | Prisma.StarredMessageOrderByWithRelationInput[]
+  cursor?: Prisma.StarredMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StarredMessageScalarFieldEnum | Prisma.StarredMessageScalarFieldEnum[]
 }
 
 /**

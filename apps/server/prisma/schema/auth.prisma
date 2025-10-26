@@ -19,6 +19,8 @@ model User {
   // typingIndicators TypingIndicator[]
   Story         Story[]         @relation("StoryOwner")
   storyViews    StoryView[]
+  archivedChat ArchivedChats[]
+  starredMessages StarredMessage[] 
   
 
   @@unique([email])

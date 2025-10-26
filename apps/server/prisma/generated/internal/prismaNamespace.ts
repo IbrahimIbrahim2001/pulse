@@ -404,6 +404,8 @@ export const ModelName = {
   Story: 'Story',
   StoryView: 'StoryView',
   Reaction: 'Reaction',
+  ArchivedChats: 'ArchivedChats',
+  StarredMessage: 'StarredMessage',
   Notification: 'Notification'
 } as const
 
@@ -420,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "room" | "roomMember" | "message" | "story" | "storyView" | "reaction" | "notification"
+    modelProps: "user" | "session" | "account" | "verification" | "room" | "roomMember" | "message" | "story" | "storyView" | "reaction" | "archivedChats" | "starredMessage" | "notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1164,6 +1166,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ArchivedChats: {
+      payload: Prisma.$ArchivedChatsPayload<ExtArgs>
+      fields: Prisma.ArchivedChatsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ArchivedChatsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ArchivedChatsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload>
+        }
+        findFirst: {
+          args: Prisma.ArchivedChatsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ArchivedChatsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload>
+        }
+        findMany: {
+          args: Prisma.ArchivedChatsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload>[]
+        }
+        create: {
+          args: Prisma.ArchivedChatsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload>
+        }
+        createMany: {
+          args: Prisma.ArchivedChatsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ArchivedChatsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload>[]
+        }
+        delete: {
+          args: Prisma.ArchivedChatsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload>
+        }
+        update: {
+          args: Prisma.ArchivedChatsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload>
+        }
+        deleteMany: {
+          args: Prisma.ArchivedChatsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ArchivedChatsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ArchivedChatsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload>[]
+        }
+        upsert: {
+          args: Prisma.ArchivedChatsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivedChatsPayload>
+        }
+        aggregate: {
+          args: Prisma.ArchivedChatsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateArchivedChats>
+        }
+        groupBy: {
+          args: Prisma.ArchivedChatsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArchivedChatsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ArchivedChatsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArchivedChatsCountAggregateOutputType> | number
+        }
+      }
+    }
+    StarredMessage: {
+      payload: Prisma.$StarredMessagePayload<ExtArgs>
+      fields: Prisma.StarredMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StarredMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StarredMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.StarredMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StarredMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload>
+        }
+        findMany: {
+          args: Prisma.StarredMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload>[]
+        }
+        create: {
+          args: Prisma.StarredMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload>
+        }
+        createMany: {
+          args: Prisma.StarredMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StarredMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.StarredMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload>
+        }
+        update: {
+          args: Prisma.StarredMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.StarredMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StarredMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StarredMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.StarredMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StarredMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.StarredMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStarredMessage>
+        }
+        groupBy: {
+          args: Prisma.StarredMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StarredMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StarredMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StarredMessageCountAggregateOutputType> | number
+        }
+      }
+    }
     Notification: {
       payload: Prisma.$NotificationPayload<ExtArgs>
       fields: Prisma.NotificationFieldRefs
@@ -1413,6 +1563,28 @@ export const ReactionScalarFieldEnum = {
 } as const
 
 export type ReactionScalarFieldEnum = (typeof ReactionScalarFieldEnum)[keyof typeof ReactionScalarFieldEnum]
+
+
+export const ArchivedChatsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  roomId: 'roomId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ArchivedChatsScalarFieldEnum = (typeof ArchivedChatsScalarFieldEnum)[keyof typeof ArchivedChatsScalarFieldEnum]
+
+
+export const StarredMessageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  messageId: 'messageId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StarredMessageScalarFieldEnum = (typeof StarredMessageScalarFieldEnum)[keyof typeof StarredMessageScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {
@@ -1715,6 +1887,8 @@ export type GlobalOmitConfig = {
   story?: Prisma.StoryOmit
   storyView?: Prisma.StoryViewOmit
   reaction?: Prisma.ReactionOmit
+  archivedChats?: Prisma.ArchivedChatsOmit
+  starredMessage?: Prisma.StarredMessageOmit
   notification?: Prisma.NotificationOmit
 }
 

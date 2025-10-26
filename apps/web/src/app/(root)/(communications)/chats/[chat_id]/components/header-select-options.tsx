@@ -5,72 +5,19 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { authClient } from "@/lib/auth-client";
-import { trpc } from "@/utils/trpc";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { MoreVertical } from "lucide-react";
-import { redirect, useParams } from "next/navigation";
-import { useMutateDeleteMessages } from "../hooks/use-mutate-delete-messages";
-import { useMemo } from "react";
-import { socketClient } from "@/lib/socketClient"; import { toast } from "sonner";
-;
+import { useHandleSelectOptions } from "../hooks/use-handle-select-options";
 export const SelectOptions = () => {
-    const { chat_id } = useParams();
-    const roomId = chat_id ? chat_id.toString() : "";
-
-    const mutateDeleteMessages = useMutateDeleteMessages(roomId);
-
-
-    const mutateLeaveChat = useMutation(trpc.chat.leaveChat.mutationOptions({}));
-    const mutateSendMessage = useMutation(trpc.messages.saveMessage.mutationOptions())
-    const mutateDeleteGroup = useMutation(trpc.chat.deleteGroup.mutationOptions())
-    const socket = useMemo(socketClient, []);
-    const user = authClient.useSession().data?.user
-    const userId = user?.id
-    const { data: chat } = useQuery(
-        trpc.chat.getChatDetails.queryOptions({
-            room_id: roomId,
-        }),
-    );
-
-    const isAdmin = chat?.members.some(m => m.role === "ADMIN" && m.userId === userId) ? true : false;
-    const isGroup = chat?.type === "GROUP";
-    const deleteMessages = () => {
-        if (chat) {
-            mutateDeleteMessages.mutateAsync({ id: chat.id })
-            if (userId && roomId) {
-                const systemMessage = {
-                    roomId: roomId,
-                    content: `${user.name} deleted all messages`,
-                    senderId: userId,
-                    type: "SYSTEM" as const
-                }
-                socket.emit("send", systemMessage)
-                mutateSendMessage.mutateAsync(systemMessage);
-            }
-        }
-    }
-    const deleteGroup = async () => {
-        const res = await mutateDeleteGroup.mutateAsync({ room_id: roomId })
-        if (res.success) {
-            toast.success(res.message);
-            redirect("../chats");
-        }
-    }
-    const leaveChat = () => {
-        if (userId && roomId) {
-            mutateLeaveChat.mutateAsync({ user_id: userId, room_id: roomId })
-            const systemMessage = {
-                roomId: roomId,
-                content: `${user.name}leaves the chat`,
-                senderId: userId,
-                type: "SYSTEM" as const
-            }
-            socket.emit("send", systemMessage)
-            mutateSendMessage.mutateAsync(systemMessage);
-            redirect("../chats");
-        }
-    }
+    const {
+        chat,
+        isAdmin,
+        isGroup,
+        deleteMessages,
+        deleteGroup,
+        leaveChat,
+        toggleArchiveChat,
+        isChatArchived
+    } = useHandleSelectOptions();
     return (
         <>
             <DropdownMenu>
@@ -97,6 +44,11 @@ export const SelectOptions = () => {
                                         Delete group
                                     </p>
                                 </DropdownMenuItem>
+                                <DropdownMenuItem onClick={toggleArchiveChat}>
+                                    <p className="w-full flex items-center justify-start">
+                                        {isChatArchived ? "Unarchive chat" : "Archive chat"}
+                                    </p>
+                                </DropdownMenuItem>
                             </>
                         ) : (
                             // Group user Logic
@@ -120,6 +72,11 @@ export const SelectOptions = () => {
                                 <DropdownMenuItem onClick={leaveChat}>
                                     <p className="w-full flex items-center justify-start">
                                         Delete Chat
+                                    </p>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={toggleArchiveChat}>
+                                    <p className="w-full flex items-center justify-start">
+                                        {isChatArchived ? "Unarchive chat" : "Archive chat"}
                                     </p>
                                 </DropdownMenuItem>
                             </>

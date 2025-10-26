@@ -1,7 +1,6 @@
 import AnimatedLogo from "@/components/animated-logo"
 import { Button } from "@/components/ui/button"
 import { Phone } from "lucide-react"
-import Link from "next/link"
 
 export default function CallsPage() {
     return (
