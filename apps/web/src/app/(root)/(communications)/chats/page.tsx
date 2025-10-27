@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { CircleFadingPlus, UserPlus, Users } from "lucide-react";
 import Link from "next/link";
 import AddButton from "../../components/add-button";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: 'chat list',
+    description: 'pulse chat list',
+}
+
 export default function ChatsListPage() {
     return (
         <>

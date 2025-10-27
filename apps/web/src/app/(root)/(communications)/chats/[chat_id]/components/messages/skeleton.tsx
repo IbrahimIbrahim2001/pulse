@@ -2,12 +2,15 @@
 import { Skeleton } from '@/components/ui/skeleton'
 
 export function MessageSkeleton() {
+    const randomWidthFunc = () => {
+        const widths = ['w-48', 'w-56', 'w-40', 'w-64', 'w-52']
+        return widths[Math.floor(Math.random() * widths.length)]
+    }
     return (
         <div className="space-y-3 p-4">
             {Array.from({ length: 10 }, (_, index) => {
                 const isRight = index % 2 === 0
-                const widths = ['w-48', 'w-56', 'w-40', 'w-64', 'w-52']
-                const randomWidth = widths[Math.floor(Math.random() * widths.length)]
+                const randomWidth = randomWidthFunc()
                 return (
                     <div
                         key={index}

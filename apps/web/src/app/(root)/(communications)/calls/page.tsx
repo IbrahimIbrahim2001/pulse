@@ -1,6 +1,13 @@
 import AnimatedLogo from "@/components/animated-logo"
 import { Button } from "@/components/ui/button"
-import { Phone } from "lucide-react"
+import { Hourglass, Phone } from "lucide-react"
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Calls history',
+    description: 'Sorry, calls are coming soon...',
+}
+
 
 export default function CallsPage() {
     return (
@@ -11,7 +18,10 @@ export default function CallsPage() {
                     <Phone />
                 </Button>
                 <p className="font-bold">Sorry calls not available right now</p>
-                <span className="text-xs text-muted-foreground animate-pulse">Coming soon...</span>
+                <div className="text-xs text-muted-foreground flex items-center">
+                    <p className="animate-pulse">Coming soon...</p>
+                    <Hourglass className="ml-1 animate-spin animation-duration-4000 size-3" />
+                </div>
             </div>
         </div>
     )

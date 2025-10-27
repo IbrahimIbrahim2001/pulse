@@ -5,6 +5,12 @@ import { authClient } from '@/lib/auth-client'
 import { redirect } from 'next/navigation';
 import React from 'react'
 import { PageHeader } from '../components/page-header';
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'User settings',
+    description: 'user setting theme, delete account, etc...',
+}
 
 export default function SettingPage() {
     const handleSignout = () => {

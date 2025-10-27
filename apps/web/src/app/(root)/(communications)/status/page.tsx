@@ -6,6 +6,15 @@ import { StatusList } from "./component/status-list";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CircleFadingPlus } from "lucide-react";
+
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Friends status',
+    description: 'Friends daily status ',
+}
+
+
 export default function StatusPage() {
     return (
         <>
