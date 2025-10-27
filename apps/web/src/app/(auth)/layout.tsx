@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "pulse",
-    description: "pulse",
+    title: "pulse authentication",
+    description: "authentication login, signup, forget password",
 };
 
 export default function AuthLayout({

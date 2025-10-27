@@ -21,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "pulse",
-    description: "pulse",
+    title: "pulse messenger",
+    description: "pulse messaging app",
 };
 
 

@@ -3,8 +3,14 @@ import { ArchivedChatsList } from "../@sideList/components/archived-chat-list";
 import CheckIsNotMobile from "../components/check-is-not-mobile";
 import { Button } from "@/components/ui/button";
 import { ArchiveIcon } from "lucide-react";
-import FullscreenLayout from "../components/fullscreen-layout";
 import { PageHeader } from "../components/page-header";
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Archived Chats',
+    description: 'user archived chats',
+}
+
 export default function ArchiverChatsPage() {
     return (
         <>
