@@ -58,13 +58,16 @@ const FooterItems = [
 
 export default function AppSidebar() {
     const pathname = usePathname();
-
     const isActive = (href: string) => {
-        return (
-            pathname === href ||
-            (pathname.includes("chats") && href.includes("chats/")) ||
-            (pathname.includes("status") && href.includes("status"))
-        )
+        if (pathname === href) return true;
+        switch (href) {
+            case "/chats":
+                return pathname.startsWith("/chats/") && !pathname.includes("archived-chats");
+            case "/status":
+                return pathname.startsWith("/status/");
+            default:
+                return false;
+        }
     }
     return (
         <CheckIsNotMobile>

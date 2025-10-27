@@ -2,17 +2,18 @@
 import type { ChatType } from "@/app/(root)/types/chat";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
-import { ArrowLeft, MoreVertical, Phone } from "lucide-react";
-import { redirect, useParams } from "next/navigation";
+import { ArrowLeft, Phone } from "lucide-react";
+import { redirect } from "next/navigation";
 import ChatAvatar from "../../../components/chat-avatar";
+import { getChatImage } from "../../utils/get-image";
 import { getRecipientName } from "../../utils/get-recipient-name";
 import { useMultipleUserStatus } from "../hooks/use-multiple-user-status";
 import { useUserStatus } from "../hooks/use-user-status";
 import { formatLastSeen } from "../utils/format-last-seen";
 import AddNewGroupMember from "./add-new-group-member";
+import { UserDetails } from "./direct-user_details";
 import { GroupMembersModal } from "./group-members-modal";
 import { SelectOptions } from "./header-select-options";
-import { getChatImage } from "../../utils/get-image";
 interface HeaderProps {
     members: ChatType["members"] | undefined,
     groupName?: string
@@ -50,7 +51,7 @@ export default function Header({ members, groupName }: HeaderProps) {
                 <ChatAvatar recipientName={recipientName} size="h-10 w-10" user_image={user_image} />
                 <div className="flex-1">
                     <h2 className="font-semibold text-card-foreground truncate">{recipientName}</h2>
-                    {!groupName ? <p className="text-sm text-muted-foreground truncate">{getStatusText()}</p> : <GroupMembersModal groupName={groupName} members={members} getStatusText={getStatusText} />}
+                    {!groupName ? <UserDetails members={members} getStatusText={getStatusText} /> : <GroupMembersModal groupName={groupName} members={members} getStatusText={getStatusText} />}
                 </div>
             </div>
             <div className="flex items-center gap-2">
@@ -60,9 +61,11 @@ export default function Header({ members, groupName }: HeaderProps) {
                 <Button disabled variant="ghost" size="icon" className="text-card-foreground">
                     <Phone className="h-5 w-5" />
                 </Button>
-
                 <SelectOptions />
             </div>
         </div >
     )
 }
+
+
+

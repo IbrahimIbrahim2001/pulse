@@ -11,6 +11,7 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, UserX } from "lucide-react";
+import { MessageSkeleton } from "./components/messages/skeleton";
 
 export default function ConversationPage() {
     const { chat_id } = useParams();
@@ -32,7 +33,7 @@ export default function ConversationPage() {
         return (
             <div className="w-full flex flex-col h-svh md:h-[calc(100vh-64px)] bg-background">
                 <Header members={[]} />  {/* this will set the recipientName to="Unknown User" */}
-                {/* <MessageSkeleton /> */}
+                <MessageSkeleton />
             </div>
         );
     }

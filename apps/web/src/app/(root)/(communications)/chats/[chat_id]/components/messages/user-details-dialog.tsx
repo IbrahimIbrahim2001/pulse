@@ -8,11 +8,14 @@ import { useState } from "react";
 import { getSenderName } from "../../utils/get-sender-name";
 import { useMutateNewChat } from "../../../new-chat/hooks/useMutateNewChat";
 import { redirect } from "next/navigation";
+import { getChatImage } from "../../../utils/get-image";
 
 export const UserDetailsDialog = ({ chat, message }: { chat: ChatType, message: Message }) => {
     const mutation = useMutateNewChat();
     const [open, setOpen] = useState(false);
     const userName = getSenderName(chat.members, message.senderId)
+    const groupName = chat.type === "GROUP" ? chat.name : "";
+    const user_image = getChatImage(chat.members, groupName)
     const userEmail = chat.members.find(m => m.user.name === userName)?.user.email;
 
     const handleNewChat = async () => {
@@ -38,7 +41,7 @@ export const UserDetailsDialog = ({ chat, message }: { chat: ChatType, message: 
                         <ResponsiveModalHeader>
                             <ResponsiveModalTitle>
                                 <div className="w-full flex flex-col space-y-2 items-center justify-center">
-                                    <ChatAvatar recipientName={userName} size="h-15 w-15" />
+                                    <ChatAvatar recipientName={userName} size="h-15 w-15" user_image={user_image} />
                                     <p>{userEmail}</p>
                                     <p className="text-sm text-muted-foreground/90">~ {userName}</p>
                                 </div>

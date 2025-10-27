@@ -3,6 +3,8 @@ import { ArchivedChatsList } from "../@sideList/components/archived-chat-list";
 import CheckIsNotMobile from "../components/check-is-not-mobile";
 import { Button } from "@/components/ui/button";
 import { ArchiveIcon } from "lucide-react";
+import FullscreenLayout from "../components/fullscreen-layout";
+import { PageHeader } from "../components/page-header";
 export default function ArchiverChatsPage() {
     return (
         <>
@@ -18,6 +20,7 @@ export default function ArchiverChatsPage() {
                 </div>
             </CheckIsNotMobile>
             <div className="block md:hidden w-full col-span-12">
+                <PageHeader pageTitle="Archived Chats" />
                 <ArchivedChatsList />
             </div>
         </>
