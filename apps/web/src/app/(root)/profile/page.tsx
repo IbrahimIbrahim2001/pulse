@@ -1,5 +1,6 @@
 import { PageHeader } from "../components/page-header";
 import type { Metadata } from 'next'
+import EditProfile from "./components/edit-profile";
 
 export const metadata: Metadata = {
     title: 'User profile',
@@ -10,9 +11,7 @@ export default function ProfilePage() {
     return (
         <div className="col-span-12">
             <PageHeader pageTitle="Profile" />
-            <p>
-                profile page
-            </p>
+            <EditProfile />
         </div>
     )
 }

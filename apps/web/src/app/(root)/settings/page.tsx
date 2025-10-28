@@ -1,11 +1,6 @@
-"use client";
-
-import { Button } from '@/components/ui/button'
-import { authClient } from '@/lib/auth-client'
-import { redirect } from 'next/navigation';
-import React from 'react'
+import type { Metadata } from 'next';
 import { PageHeader } from '../components/page-header';
-import type { Metadata } from 'next'
+import SettingConfig from './components/settings-config';
 
 export const metadata: Metadata = {
     title: 'User settings',
@@ -13,14 +8,10 @@ export const metadata: Metadata = {
 }
 
 export default function SettingPage() {
-    const handleSignout = () => {
-        authClient.signOut();
-        redirect("../login")
-    }
     return (
-        <div className='col-span-12'>
+        <div className='col-span-12 mt-12 md:mt-0'>
             <PageHeader pageTitle="Settings" />
-            <Button onClick={handleSignout} variant="destructive">Signout</Button>
+            <SettingConfig />
         </div>
     )
 }

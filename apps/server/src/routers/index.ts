@@ -3,6 +3,7 @@ import { messagesRouter } from "./procedures/messages/messages";
 import { chatRouter } from "./procedures/chat";
 import { imagesRouter } from "./procedures/images/imagesRouter";
 import { storiesRouter } from "./procedures/stories/stories";
+import { UserRouter } from "./procedures/user/userRouters";
 
 export const appRouter = router({
 	healthCheck: publicProcedure.query(() => {
@@ -17,7 +18,8 @@ export const appRouter = router({
 	chat: chatRouter,
 	messages: messagesRouter,
 	images: imagesRouter,
-	stories: storiesRouter
+	stories: storiesRouter,
+	user: UserRouter
 
 });
 export type AppRouter = typeof appRouter;
