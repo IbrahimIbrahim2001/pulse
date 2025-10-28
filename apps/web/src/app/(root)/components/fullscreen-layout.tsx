@@ -18,7 +18,7 @@ export default function FullscreenLayout({ children }: { children: React.ReactNo
         setIsMounted(true);
     }, []);
 
-    if (!isMounted && (isFullscreen || isMobile)) {
+    if (!isMounted && isMobile) {
         return <div className="min-h-screen">{children}</div>;
     }
     if (!isMobile || !isFullscreen) {
