@@ -22,7 +22,6 @@ export function GroupMembersModal({ groupName, members, getStatusText }: { group
     const mutateMessage = useMutation(trpc.messages.saveMessage.mutationOptions());
     const mutate = useDeleteGroupMember(roomId, groupName);
     const [isOpen, setIsOpen] = useState(false);
-    const user_image = getChatImage(members);
     const removeUser = (email: string, name: string) => {
         mutate.mutateAsync({ email: email, group_name: groupName });
         setIsOpen(false);
@@ -54,6 +53,7 @@ export function GroupMembersModal({ groupName, members, getStatusText }: { group
                                     const isAdmin = member.role === "ADMIN";
                                     const isOnline = member.user.isOnline;
                                     const currentUserIsAdmin = members?.find(m => m.user.id === currentUser?.id)?.role === "ADMIN";
+                                    const user_image = member.user.image || ""
                                     return (
                                         <div key={member.user.id} className={`flex items-center gap-2 ${isCurrentUser ? 'font-semibold' : ''}`}>
                                             <div className="flex items-center gap-2 flex-1">

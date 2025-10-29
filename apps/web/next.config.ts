@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
 				hostname: 'res.cloudinary.com',
 				pathname: `/${process.env.CLOUDINARY_CLOUD_NAME}/**`,
 			},
+			{
+				protocol: 'https',
+				hostname: 'lh3.googleusercontent.com',
+				pathname: '/**',
+			},
 		],
 	}
 };
