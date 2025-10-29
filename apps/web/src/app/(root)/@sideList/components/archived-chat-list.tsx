@@ -11,7 +11,7 @@ export function ArchivedChatsList() {
     if (isLoading) return <ListLoading />
     if (isError || error) return (<>Error</>)
     if (ArchivedChats?.length === 0) return (
-        <div className="w-full md:h-[calc(100vh-64px)] border-e overflow-y-auto hide-scrollbar mb-16 md:mb-0">
+        <div className="w-full md:h-[calc(100vh-64px)] border-e overflow-y-auto hide-scrollbar mb-16 md:mb-0 mt-18">
             <div className="hidden md:block md:p-4 sticky top-0 left-0 bg-background z-50">
                 <ListHeader />
             </div>
@@ -23,7 +23,7 @@ export function ArchivedChatsList() {
 
     return (
         <>
-            <div className="w-full md:h-[calc(100vh-64px)] border-e overflow-y-auto hide-scrollbar mb-16 md:mb-0">
+            <div className="w-full md:h-[calc(100vh-64px)] border-e overflow-y-auto hide-scrollbar mb-16 md:mb-0 mt-18">
                 <div className="hidden md:block md:p-4 md:pb-0 sticky top-0 left-0 bg-background z-50">
                     <ListHeader />
                 </div>

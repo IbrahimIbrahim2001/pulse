@@ -67,9 +67,6 @@ export interface ArchivedChatType {
     }
 }
 
-
-
-
 export interface StoryType {
     id: string;
     title: string | null;
@@ -80,4 +77,15 @@ export interface StoryType {
     views: {
         user: User
     }[],
+}
+
+
+export interface StarredMessageType {
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+    userId: string;
+    messageId: string;
+    message: Message;
+    user: User
 }
