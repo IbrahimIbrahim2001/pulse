@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "../../prisma";
 import { sendResetPassword, sendVerificationEmail, type User } from "./mailer";
+import { lastLoginMethod } from "better-auth/plugins"
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -42,4 +43,7 @@ export const auth = betterAuth({
       httpOnly: true,
     },
   },
+  plugins: [
+    lastLoginMethod()
+  ]
 });

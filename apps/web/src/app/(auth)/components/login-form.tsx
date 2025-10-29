@@ -25,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import AuthButton from "./auth-button";
+import { Badge } from "@/components/ui/badge";
 
 const formSchema = z.object({
   email: z.email(),
@@ -35,6 +36,7 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const lastMethod = authClient.getLastUsedLoginMethod();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -86,6 +88,11 @@ export function LoginForm({
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
+                  <div className="w-full flex justify-end">
+                    {lastMethod === "google" && (
+                      <Badge variant="secondary">Last used</Badge>
+                    )}
+                  </div>
                   <Button type="button" variant="outline" className="w-full" onClick={loginWithGoogle}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                       <path
@@ -103,6 +110,11 @@ export function LoginForm({
                 </div>
                 <div className="grid gap-6">
                   <div className="grid gap-3">
+                    <div className="w-full flex justify-end">
+                      {lastMethod === "email" && (
+                        <Badge variant="secondary">Last used</Badge>
+                      )}
+                    </div>
                     <FormField
                       control={form.control}
                       name="email"
