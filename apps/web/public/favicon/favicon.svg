@@ -1,6 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="92" height="92"><svg width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="8" y="8" width="76" height="76" rx="12" fill="#F5EEFF" stroke="#B79AFF" stroke-width="3"></rect>
-  <text x="46" y="56" text-anchor="middle" font-family="monospace" font-size="40" fill="#8F5BFF">$<tspan dx="0" dy="0">_</tspan></text>
-</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
-@media (prefers-color-scheme: dark) { :root { filter: none; } }
-</style></svg>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><style>
+    #light-icon {
+      display: inline;
+    }
+    #dark-icon {
+      display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #light-icon {
+        display: none;
+      }
+      #dark-icon {
+        display: inline;
+      }
+    }
+  </style><g id="light-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1504)"><rect width="1000" height="1000" fill="#f1efd9"></rect><g transform="matrix(10,0,0,10,0,0)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100"><svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="45" fill="none" stroke="oklch(0.7227 0.1920 149.5793)" stroke-width="2" opacity="0.2"></circle>
+  <circle cx="50" cy="50" r="35" fill="none" stroke="oklch(0.7227 0.1920 149.5793)" stroke-width="3" opacity="0.4"></circle>
+  <circle cx="50" cy="50" r="25" fill="oklch(0.7227 0.1920 149.5793)"></circle>
+  <path d="M30 50 Q40 35 50 50 T70 50" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"></path>
+  <path d="M25 50 L35 50 L40 35 L45 65 L50 50 L55 35 L60 65 L65 50 L75 50" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8"></path>
+</svg></svg></g></g><defs><clipPath id="SvgjsClipPath1504"><rect width="1000" height="1000" x="0" y="0" rx="350" ry="350"></rect></clipPath></defs></svg></g><g id="dark-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1505)"><rect width="1000" height="1000" fill="#ffffff"></rect><g transform="matrix(10,0,0,10,0,0)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100"><svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="45" fill="none" stroke="oklch(0.7227 0.1920 149.5793)" stroke-width="2" opacity="0.2"></circle>
+  <circle cx="50" cy="50" r="35" fill="none" stroke="oklch(0.7227 0.1920 149.5793)" stroke-width="3" opacity="0.4"></circle>
+  <circle cx="50" cy="50" r="25" fill="oklch(0.7227 0.1920 149.5793)"></circle>
+  <path d="M30 50 Q40 35 50 50 T70 50" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"></path>
+  <path d="M25 50 L35 50 L40 35 L45 65 L50 50 L55 35 L60 65 L65 50 L75 50" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.8"></path>
+</svg></svg></g></g><defs><clipPath id="SvgjsClipPath1505"><rect width="1000" height="1000" x="0" y="0" rx="350" ry="350"></rect></clipPath></defs></svg></g></svg>
