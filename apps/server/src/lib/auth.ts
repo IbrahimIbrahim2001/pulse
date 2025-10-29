@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "../../prisma";
-import { sendVerificationEmail } from "./mailer";
+import { sendResetPassword, sendVerificationEmail, type User } from "./mailer";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -11,6 +11,9 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+    sendResetPassword: async ({ user, url, token }: { user: User, url: string, token: string }, request: any) => {
+      await sendResetPassword({ user, url, token });
+    },
   },
   user: {
     deleteUser: {
@@ -22,6 +25,14 @@ export const auth = betterAuth({
     autoSignInAfterVerification: false,
     sendVerificationEmail: async ({ user, url, token }) => {
       await sendVerificationEmail({ user, url })
+    },
+
+  },
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      redirectURI: "http://localhost:3000/api/auth/callback/google",
     },
   },
   advanced: {
