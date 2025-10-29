@@ -4,11 +4,17 @@ import { saveMessage } from "./saveMessage";
 import { updateMessageStatus } from "./updateMessageStatus";
 import { messageReaction } from "./messageReaction";
 import { removeReaction } from "./removeReaction";
+import { removeStarredMessage } from "./removeStarredMessage";
+import { getStarredMessage } from "./getStarredMessages";
+import { starMessage } from "./starMessage";
 
 export const messagesRouter = router({
     saveMessage: saveMessage(),
     updateMessageStatus: updateMessageStatus(),
     deleteAllMessages: deleteAllMessages(),
     messageReaction: messageReaction(),
-    removeReaction: removeReaction()
+    removeReaction: removeReaction(),
+    getStarredMessage: getStarredMessage(),
+    removeStarredMessage: removeStarredMessage(),
+    starMessage: starMessage(),
 })

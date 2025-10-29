@@ -5,6 +5,7 @@ import AddButton from "../../components/add-button";
 import { StatusList } from "./status-list";
 import { EmptyCalls } from "./empty-calls";
 import { ArchivedChatsList } from "./archived-chat-list";
+import { StarredMessageList } from "./starred-message-list";
 
 
 export default function List() {
@@ -46,5 +47,7 @@ function ArchivedChatsComponent() {
 }
 
 function StarredMessagesComponent() {
-    return null
+    return <div className="hidden md:flex">
+        <StarredMessageList />
+    </div>
 }

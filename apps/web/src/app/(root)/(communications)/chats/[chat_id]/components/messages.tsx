@@ -11,6 +11,8 @@ import { MessageReactions } from "./messages/message-reactions";
 import { MessageReactionsList } from "./messages/message-reactions-list";
 import { SystemMessages } from "./messages/system-messages";
 import { TextMessages } from "./messages/text-messages";
+import { Star } from "lucide-react";
+import StarMessage from "./messages/star-message";
 
 export interface MessagesProps {
     sender_id: string | undefined,
@@ -59,10 +61,14 @@ const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
                                 {/* Message Reactions Component for own messages*/}
                                 {message.type !== "SYSTEM" && isMyMessage && (
                                     // Emoji picker component
-                                    <MessageReactions
-                                        messageId={message.id}
-                                        isMyMessage={isMyMessage}
-                                    />
+                                    <>
+                                        <MessageReactions
+                                            messageId={message.id}
+                                            isMyMessage={isMyMessage}
+                                        />
+                                        <StarMessage messageId={message.id}
+                                            isMyMessage={isMyMessage} />
+                                    </>
                                 )}
                                 {message.type !== "SYSTEM" && !isMyMessage && chat?.members && chat.type === "GROUP" && (
                                     <ChatAvatar
@@ -78,10 +84,14 @@ const Messages = ({ sender_id, roomId, socket, chat }: MessagesProps) => {
                                 {/* Message Reactions Component for others messages*/}
                                 {message.type !== "SYSTEM" && !isMyMessage && (
                                     // Emoji picker component
-                                    <MessageReactions
-                                        messageId={message.id}
-                                        isMyMessage={isMyMessage}
-                                    />
+                                    <>
+                                        <MessageReactions
+                                            messageId={message.id}
+                                            isMyMessage={isMyMessage}
+                                        />
+                                        <StarMessage messageId={message.id}
+                                            isMyMessage={isMyMessage} />
+                                    </>
                                 )}
                             </div>
                             {/* Existing Reactions Display message.reactions and message.reactions.length*/}
