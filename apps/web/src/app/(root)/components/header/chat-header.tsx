@@ -12,6 +12,7 @@ import { ArrowLeft, CircleFadingPlus, ListFilter, MessageSquareDot, SquarePen, U
 import Link from "next/link";
 import { redirect, usePathname, useSearchParams } from "next/navigation";
 import { useFilterChats } from "../../(communications)/chats/hooks/use-filter-chats";
+import { motion } from "motion/react";
 
 export default function ChatsHeader() {
     const searchParams = useSearchParams();
@@ -24,8 +25,26 @@ export default function ChatsHeader() {
     return (
         <>
             <div className="flex items-center justify-between">
-                {filter && <ArrowLeft className="size-5  mr-2" onClick={handleClick} />}
-                <h2 className="flex-1 font-semibold text-lg">{headerTitle}</h2>
+                {filter &&
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                    >
+                        <ArrowLeft className="size-5  mr-2" onClick={handleClick} />
+                    </motion.div>
+                }
+                <motion.h2
+                    className="flex-1 font-semibold text-lg"
+                    initial={{ opacity: 0, x: -20, scale: 0.95 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                    exit={{ opacity: 0, y: -20 }}
+                    key={headerTitle}
+                >
+                    {headerTitle}
+                </motion.h2>
                 <div className="flex items-center space-x-2">
                     <NewDropDownMenu />
                     <FilterDropDownMenu />
