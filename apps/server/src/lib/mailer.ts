@@ -46,17 +46,21 @@ export async function sendVerificationEmail({
               </p>
               
               <div style="text-align: center; margin: 25px 0;">
-                <a href="${FRONTEND_URL}" 
-                   style="background-color: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+                <a href="${url}" 
+                  style="background-color: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
                   Verify Email Address
                 </a>
               </div>
+
+              <p style="margin: 15px 0 0 0; color: #777; font-size: 14px;">
+                After Clicking the button: go back to Pulse.
+              </p>
               
               <p style="margin: 15px 0 0 0; color: #777; font-size: 14px;">
                 If the button doesn't work, you can copy and paste this link into your browser:
               </p>
               <p style="margin: 5px 0 0 0; color: #007bff; font-size: 14px; word-break: break-all;">
-                ${FRONTEND_URL}
+                ${url}
               </p>
             </div>
             
@@ -115,8 +119,8 @@ export async function sendResetPassword({
               </p>
               
               <div style="text-align: center; margin: 25px 0;">
-                <a href="${FRONTEND_URL}/reset-password/?token=${token}" 
-                   style="background-color: #dc3545; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+                 <a href="${FRONTEND_URL}/reset-password/?token=${token}" 
+                  style="background-color: #dc3545; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
                   Reset Password
                 </a>
               </div>
@@ -125,7 +129,7 @@ export async function sendResetPassword({
                 If the button doesn't work, you can copy and paste this link into your browser:
               </p>
               <p style="margin: 5px 0 0 0; color: #007bff; font-size: 14px; word-break: break-all;">
-                ${FRONTEND_URL}
+                ${FRONTEND_URL}/reset-password/?token=${token}
               </p>
             </div>
 
