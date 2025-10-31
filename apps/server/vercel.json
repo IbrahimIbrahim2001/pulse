@@ -1,0 +1,30 @@
+{
+  "version": 3,
+  "builds": [
+    {
+      "src": "apps/server/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/apps/server/index.ts"
+    },
+    {
+      "src": "/trpc/(.*)",
+      "dest": "/apps/server/index.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/apps/server/index.ts"
+    }
+  ],
+  "functions": {
+    "apps/server/index.ts": {
+      "maxDuration": 30
+    }
+  },
+  "installCommand": "bun install",
+  "buildCommand": "bun run build"
+}
