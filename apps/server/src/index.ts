@@ -45,8 +45,8 @@ app.get("/", (c) => {
 // Start cron jobs
 setupCronJobs()
 
+// export default app;
 export default {
-	port: 3000,
 	idleTimeout: 30,
 	fetch(req: Request, server: any) {
 		const url = new URL(req.url);
