@@ -45,15 +45,32 @@ app.get("/", (c) => {
 setupCronJobs()
 
 
-export default {
+// export default {
+// 	port: 3000,
+// 	idleTimeout: 30,
+// 	fetch(req: Request, server: any) {
+// 		const url = new URL(req.url);
+// 		if (url.pathname === "/socket.io/") {
+// 			return engine.handleRequest(req, server);
+// 		} else {
+// 			return app.fetch(req, server);
+// 		}
+// 	},
+// 	websocket
+// }
+
+
+export const server = {
 	idleTimeout: 30,
 	fetch(req: Request, server: any) {
 		const url = new URL(req.url);
 		if (url.pathname === "/socket.io/") {
 			return engine.handleRequest(req, server);
-		} else {
+		}
+		else {
 			return app.fetch(req, server);
 		}
 	},
 	websocket
-}
+};
+export default app;

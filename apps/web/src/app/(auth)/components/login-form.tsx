@@ -90,7 +90,7 @@ export function LoginForm({
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex justify-end">
                     {lastMethod === "google" && (
-                      <Badge variant="secondary">Last used</Badge>
+                      <Badge variant="secondary" asChild>Last used</Badge>
                     )}
                   </div>
                   <Button type="button" variant="outline" className="w-full" onClick={loginWithGoogle}>
@@ -112,7 +112,7 @@ export function LoginForm({
                   <div className="grid gap-3">
                     <div className="w-full flex justify-end">
                       {lastMethod === "email" && (
-                        <Badge variant="secondary">Last used</Badge>
+                        <Badge variant="secondary" asChild>Last used</Badge>
                       )}
                     </div>
                     <FormField

@@ -8,19 +8,21 @@
 		"strict": true,
 		"skipLibCheck": true,
 		"baseUrl": "./",
+		"forceConsistentCasingInFileNames":true,
 		"paths": {
 			"@/*": ["./src/*"],
 			"prisma": ["node_modules/prisma"],
-			 "@/prisma": ["./prisma/index.ts"]
+			"@/prisma": ["./prisma/index.ts"]
 		},
 		"outDir": "./dist",
 		"types": ["bun"],
 		"composite": true,
 		"jsx": "react-jsx",
 		"jsxImportSource": "hono/jsx",
-
 	},
 	"tsc-alias": {
-	"resolveFullPaths": true
-	}
+		"resolveFullPaths": true
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"exclude": ["node_modules", ".next", "out", "dist"]
 }
