@@ -1,9 +1,9 @@
 import { protectedProcedure, publicProcedure, router } from "../lib/trpc";
 import { messagesRouter } from "./procedures/messages/messages";
-import { chatRouter } from "./procedures/chat";
 import { imagesRouter } from "./procedures/images/imagesRouter";
 import { storiesRouter } from "./procedures/stories/stories";
 import { UserRouter } from "./procedures/user/userRouters";
+import { chatRouter } from "./procedures/chat/index";
 
 export const appRouter = router({
 	healthCheck: publicProcedure.query(() => {

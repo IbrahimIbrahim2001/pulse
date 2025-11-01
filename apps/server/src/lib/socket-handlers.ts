@@ -1,5 +1,6 @@
-// lib/socket-handlers.ts
-import prisma from "@/prisma";
+
+
+import prisma from "../../prisma";
 import { Server } from "socket.io";
 
 // Store user ID to socket ID mapping (for multiple connections per user)

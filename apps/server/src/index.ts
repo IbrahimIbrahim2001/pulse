@@ -1,17 +1,16 @@
 import "dotenv/config";
-import { trpcServer } from "@hono/trpc-server";
-import { createContext } from "./lib/context";
-import { appRouter } from "./routers/index";
-import { auth } from "./lib/auth";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
+import { trpcServer } from "@hono/trpc-server";
+import { createContext } from "./lib/context";
+import { appRouter } from "./routers/index";
 import { engine, io, websocket } from "./lib/socket";
 import { setupSocketHandlers } from "./lib/socket-handlers";
 import { setupCronJobs } from "./lib/cron/setupCron";
+import { auth } from "./lib/auth";
 
 const app = new Hono();
-
 
 setupSocketHandlers(io)
 
@@ -45,7 +44,7 @@ app.get("/", (c) => {
 // Start cron jobs
 setupCronJobs()
 
-// export default app;
+
 export default {
 	idleTimeout: 30,
 	fetch(req: Request, server: any) {
