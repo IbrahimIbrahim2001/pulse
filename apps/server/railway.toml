@@ -2,7 +2,7 @@
 runtime = "bun"
 
 [build]
-command = "bun install"
+command = "pnpm install"
 
 [deploy]
-startCommand = "bun run start"
+startCommand = "pnpm start"
