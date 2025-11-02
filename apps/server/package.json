@@ -7,7 +7,7 @@
     "bun": ">=1.0.0"
   	},
 	"scripts": {
-		"build": "bun run  && tsc && tsc-alias",
+		"build": "tsc && tsc-alias",
 		"check-types": "tsc -b",
 		"compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
 		"dev": "bun run --hot src/index.ts",
