@@ -1,2 +1,8 @@
 [runtime]
 runtime = "bun"
+
+[build]
+command = "bun install"
+
+[deploy]
+startCommand = "bun run start"
