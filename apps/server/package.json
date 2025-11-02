@@ -2,6 +2,7 @@
 	"name": "server",
 	"main": "src/index.ts",
 	"type": "module",
+	"runtime": "bun",
 	"engines": {
     "bun": ">=1.0.0"
   	},
