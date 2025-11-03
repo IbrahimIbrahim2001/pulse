@@ -38,6 +38,10 @@ app.use(
 );
 
 app.get("/", (c) => {
+	return c.text("hello world");
+});
+
+app.get("/health", (c) => {
 	return c.text("OK");
 });
 
@@ -59,7 +63,6 @@ setupCronJobs()
 // 	websocket
 // }
 
-
 export const server = {
 	idleTimeout: 30,
 	fetch(req: Request, server: any) {
@@ -73,4 +76,5 @@ export const server = {
 	},
 	websocket
 };
+// Bun.serve(server);
 export default app;

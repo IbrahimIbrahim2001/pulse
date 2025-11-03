@@ -1,8 +1,0 @@
-[runtime]
-runtime = "bun"
-
-[build]
-command = "pnpm install"
-
-[deploy]
-startCommand = "pnpm start"
