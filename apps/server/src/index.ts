@@ -64,6 +64,8 @@ setupCronJobs()
 // }
 
 export const server = {
+	port: 3000,
+	addTrailingSlash: false,
 	idleTimeout: 30,
 	fetch(req: Request, server: any) {
 		const url = new URL(req.url);
