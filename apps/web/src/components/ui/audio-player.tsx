@@ -1,11 +1,11 @@
 "use client"
 
 import {
-  ComponentProps,
+  type ComponentProps,
   createContext,
-  HTMLProps,
-  ReactNode,
-  RefObject,
+  type HTMLProps,
+  type ReactNode,
+  type RefObject,
   useCallback,
   useContext,
   useEffect,
@@ -369,8 +369,8 @@ export const AudioPlayerDuration = ({
       className={cn("text-muted-foreground text-sm tabular-nums", className)}
     >
       {player.duration !== null &&
-      player.duration !== undefined &&
-      !Number.isNaN(player.duration)
+        player.duration !== undefined &&
+        !Number.isNaN(player.duration)
         ? formatTime(player.duration)
         : "--:--"}
     </span>

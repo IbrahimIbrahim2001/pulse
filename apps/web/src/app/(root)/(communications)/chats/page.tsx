@@ -7,6 +7,9 @@ import Link from "next/link";
 import AddButton from "../../components/add-button";
 import type { Metadata } from "next";
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
     title: 'chat list',
     description: 'pulse chat list',

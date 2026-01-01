@@ -23,6 +23,10 @@ const reelItems: ReelItem[] = [
     duration: 10, // 10 seconds
     title: "First Video",
     description: "This is the first video in the reel",
+    views: undefined,
+    user: undefined,
+    createdAt: undefined,
+    fileUrl: undefined
   },
   {
     id: "image-1",
@@ -32,6 +36,10 @@ const reelItems: ReelItem[] = [
     alt: "Beautiful landscape",
     title: "Nature Photo",
     description: "A stunning landscape photograph",
+    views: undefined,
+    user: undefined,
+    createdAt: undefined,
+    fileUrl: undefined
   },
   {
     id: "video-2",
@@ -40,6 +48,10 @@ const reelItems: ReelItem[] = [
     duration: 15, // 15 seconds
     title: "Second Video",
     description: "Another exciting video",
+    views: undefined,
+    user: undefined,
+    createdAt: undefined,
+    fileUrl: undefined
   },
   {
     id: "image-2",
@@ -49,6 +61,10 @@ const reelItems: ReelItem[] = [
     alt: "City skyline",
     title: "Urban Photography",
     description: "Modern city architecture",
+    views: undefined,
+    user: undefined,
+    createdAt: undefined,
+    fileUrl: undefined
   },
 ];
 
@@ -129,11 +145,10 @@ export function ReelControlledExample() {
         <div className="flex gap-2">
           {reelItems.map((item, index) => (
             <button
-              className={`rounded px-3 py-1 ${
-                index === currentIndex
+              className={`rounded px-3 py-1 ${index === currentIndex
                   ? "bg-blue-500 text-white"
                   : "bg-gray-200 hover:bg-gray-300"
-              }`}
+                }`}
               key={item.id}
               onClick={() => handleJumpToItem(index)}
               type="button"
@@ -294,11 +309,10 @@ export function ReelControlledExample() {
             <div className="grid grid-cols-2 gap-2">
               {reelItems.map((item, index) => (
                 <button
-                  className={`rounded p-2 text-xs ${
-                    index === currentIndex
+                  className={`rounded p-2 text-xs ${index === currentIndex
                       ? "bg-blue-500 text-white"
                       : "bg-gray-100 hover:bg-gray-200"
-                  }`}
+                    }`}
                   key={item.id}
                   onClick={() => setCurrentIndex(index)}
                   type="button"

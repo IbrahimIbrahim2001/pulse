@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2020",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -18,30 +18,28 @@
     "verbatimModuleSyntax": true,
     "jsx": "preserve",
     "incremental": true,
+    "forceConsistentCasingInFileNames": true,
     "plugins": [
       {
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
+      "@/*": ["./src/*"],
+      "@/lib/trpc": ["../server/src/lib/trpc.ts"],
+			"@/prisma": ["../server/prisma/index.ts"],
+      // Add the following path mapping to fix the error when importing from '@/lib/trpc' on the web
+      "@server/*": [
+        "../server/src/*"
       ]
     }
   },
-  "include": [
-    "./**/*.ts",
-    "./**/*.tsx",
-    "./.next/types/**/*.ts",
-    "./next-env.d.ts",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "./node_modules"
-  ],
   "references": [
     {
       "path": "../server"
     }
-  ]
+  ],
+  	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"exclude": ["node_modules", ".next", "out", "dist"]
 }

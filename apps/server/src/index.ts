@@ -49,34 +49,34 @@ app.get("/health", (c) => {
 setupCronJobs()
 
 
-// export default {
-// 	port: 3000,
-// 	idleTimeout: 30,
-// 	fetch(req: Request, server: any) {
-// 		const url = new URL(req.url);
-// 		if (url.pathname === "/socket.io/") {
-// 			return engine.handleRequest(req, server);
-// 		} else {
-// 			return app.fetch(req, server);
-// 		}
-// 	},
-// 	websocket
-// }
-
-export const server = {
+export default {
 	port: 3000,
-	addTrailingSlash: false,
 	idleTimeout: 30,
 	fetch(req: Request, server: any) {
 		const url = new URL(req.url);
 		if (url.pathname === "/socket.io/") {
 			return engine.handleRequest(req, server);
-		}
-		else {
+		} else {
 			return app.fetch(req, server);
 		}
 	},
 	websocket
-};
+}
+
+// export const server = {
+// 	port: 3000,
+// 	addTrailingSlash: false,
+// 	idleTimeout: 30,
+// 	fetch(req: Request, server: any) {
+// 		const url = new URL(req.url);
+// 		if (url.pathname === "/socket.io/") {
+// 			return engine.handleRequest(req, server);
+// 		}
+// 		else {
+// 			return app.fetch(req, server);
+// 		}
+// 	},
+// 	websocket
+// };
 // Bun.serve(server);
-export default app;
+// export default app;

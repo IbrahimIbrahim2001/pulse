@@ -1,6 +1,7 @@
 import { protectedProcedure } from "@/lib/trpc";
 import prisma from "@/prisma";
-import type { MessageStatusType } from "prisma/generated/enums";
+// import type { MessageStatusType } from "prisma/generated/enums";
+type MessageStatusType = "SENT" | "DELIVERED" | "SEEN"
 import z from "zod";
 
 export const updateMessageStatus = () => {

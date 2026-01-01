@@ -1,7 +1,7 @@
 import { protectedProcedure } from "@/lib/trpc";
 import prisma from "@/prisma";
 import { randomUUID } from "crypto";
-import { MessageType } from "prisma/generated/enums";
+type MessageType = "TEXT" | "IMAGE" | "FILE" | "SYSTEM"
 import z from "zod";
 export const saveMessage = () => {
     return protectedProcedure.input(
@@ -9,7 +9,7 @@ export const saveMessage = () => {
             roomId: z.string(),
             content: z.string(),
             senderId: z.string(),
-            type: z.enum(MessageType),
+            type: z.enum(["TEXT", "IMAGE", "FILE", "SYSTEM"]),
             fileUrl: z.string().optional(),
             fileName: z.string().optional(),
             fileSize: z.number().optional()

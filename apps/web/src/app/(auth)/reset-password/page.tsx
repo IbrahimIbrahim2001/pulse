@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Link from 'next/link'
 import StaticLogo from '@/components/logo'
 import { ResetPasswordFrom } from '../components/reset-password-form'
@@ -15,7 +15,9 @@ export default function ResetPasswordPage() {
                         Pulse.
                     </p>
                 </Link>
-                <ResetPasswordFrom />
+                <Suspense>
+                    <ResetPasswordFrom />
+                </Suspense>
             </div>
         </div>
     )

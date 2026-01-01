@@ -12,7 +12,8 @@
 		"paths": {
 			"@/*": ["./src/*"],
 			"prisma": ["node_modules/prisma"],
-			"@/prisma": ["./prisma/index.ts"]
+			"@/prisma": ["./prisma/index.ts"],
+			"@/lib/trpc": ["./src/lib/trpc.ts"],
 		},
 		"outDir": "./dist",
 		"types": ["bun"],
