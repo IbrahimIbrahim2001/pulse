@@ -5,6 +5,8 @@ import { sendResetPassword, sendVerificationEmail, type User } from "./mailer";
 import { lastLoginMethod } from "better-auth/plugins"
 
 export const auth = betterAuth({
+  baseURL: process.env.BETTER_AUTH_URL,
+  basePath: "/api/auth",
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
@@ -31,8 +33,8 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID! as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       redirectURI: `${process.env.corsOrigin!}/api/auth/callback/google`,
     },
   },
@@ -43,7 +45,9 @@ export const auth = betterAuth({
       httpOnly: true,
       domain: ".onrender.com",
       maxAge: 60 * 60 * 24 * 7,
+      path: "/",
     },
+    trustProxy: true,
   },
   plugins: [
     lastLoginMethod()
