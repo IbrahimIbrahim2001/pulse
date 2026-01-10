@@ -20,7 +20,8 @@ app.use(
 	cors({
 		origin: process.env.CORS_ORIGIN || "",
 		allowMethods: ["GET", "POST", "OPTIONS"],
-		allowHeaders: ["Content-Type", "Authorization"],
+		allowHeaders: ["Content-Type", "Authorization", "Cookies"],
+		exposeHeaders: ["Set-Cookie"],
 		credentials: true,
 	}),
 );
