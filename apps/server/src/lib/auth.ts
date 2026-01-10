@@ -41,6 +41,8 @@ export const auth = betterAuth({
       sameSite: "none",
       secure: true,
       httpOnly: true,
+      domain: ".onrender.com",
+      maxAge: 60 * 60 * 24 * 7,
     },
   },
   plugins: [
