@@ -70,7 +70,7 @@ export function LoginForm({
   const loginWithGoogle = async () => {
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:3001/",
+      callbackURL: process.env.NEXT_PUBLIC_SERVER_URL!,
     });
   }
 

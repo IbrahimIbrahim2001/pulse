@@ -26,6 +26,14 @@ app.use(
 	}),
 );
 
+app.use("/api/auth/*", async (c, next) => {
+	await next();
+
+	console.log("📦 Response headers after auth:");
+	console.log("Set-Cookie:", c.res.headers.get("Set-Cookie"));
+	console.log("Origin:", c.req.header("Origin"));
+});
+
 app.on(["POST", "GET"], "/api/auth/**", (c) => auth.handler(c.req.raw));
 
 app.use(

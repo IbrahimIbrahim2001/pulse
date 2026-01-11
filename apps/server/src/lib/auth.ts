@@ -35,7 +35,7 @@ export const auth = betterAuth({
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      redirectURI: `${process.env.corsOrigin!}/api/auth/callback/google`,
+      redirectURI: `${process.env.CORS_ORIGIN!}/api/auth/callback/google`,
     },
   },
   advanced: {
