@@ -40,12 +40,13 @@ export const auth = betterAuth({
   },
   advanced: {
     defaultCookieAttributes: {
-      // sameSite: "None",
-      sameSite: "lax",
+      sameSite: "none",
+      // sameSite: "lax",
       secure: true,
       httpOnly: true,
+      domain: ".onrender.com",
       maxAge: 60 * 60 * 24 * 7,
-      // path: "/",
+      path: "/",
     },
     trustProxy: true,
   },
